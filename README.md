@@ -30,3 +30,5 @@ Node.js 24 y Python 3. Desde `web/` ejecutar `npm ci`, `npm run check` y `npm ru
 Estado v0.1.0: estructura funcional, pantalla vacía sin datos ficticios, API de salud y votación deshabilitada. No incluye administración, evaluaciones persistidas ni votos reales.
 
 La iteración visual de fichas permite seleccionar candidaturas ficticias y consultar sus propuestas por tema. Los datos se cargan en el frontend mediante `CandidateDirectory` para revisar la interfaz en local.
+
+Desde `web/`, ejecuta `npx playwright install chromium` y `npm run test:visual` para revisar las fichas en Chromium móvil y escritorio. GitHub Actions adjunta las capturas y el informe al trabajo Visual QA.
