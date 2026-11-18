@@ -1,0 +1,37 @@
+name: CI Dashboard OTV
+on:
+  pull_request:
+    branches: [develop, master]
+  push:
+    branches: [develop, master, 'feature/**', 'fix/**', 'release/**']
+permissions:
+  contents: read
+jobs:
+  quality:
+    name: TypeScript, domain, SQL and build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --no-audit --no-fund
+      - run: npm run check
+      - run: npm audit --audit-level=high
+      - name: Check release documentation
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          test -f ../documentacion/REQUISITOS.md
+          test -f ../documentacion/FLUJO_GIT_Y_RELEASES.md
+          if [[ "$BRANCH" == release/v* ]]; then
+            version="${BRANCH#release/}"
+            [[ "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+            test -f "../documentacion/releases/${version}.md"
+          fi
