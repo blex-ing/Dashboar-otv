@@ -50,3 +50,17 @@ test('perfil, propuestas y marcador temporal',async({page},info)=>{
  await expect(page.getByRole('heading',{name:'Cómo se interpreta'})).toBeVisible();
  await expect(page.getByText('Momento seleccionado 7:00 / 15:00')).toBeVisible();
 });
+
+test('catálogo estructuralmente inválido muestra fallback demo sin error de React',async({page})=>{
+ const errors:string[]=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ await page.route('**/api/public/catalog',r=>r.fulfill({
+  status:200,
+  contentType:'application/json',
+  body:JSON.stringify({mode:'demo',territories:[{id:'otavalo',name:'Otavalo',candidates:null}]})
+ }));
+ await page.goto('/?lugar=otavalo&vista=inicio');
+ await expect(page.getByText('No se pudo cargar el catálogo remoto.',{exact:false})).toBeVisible();
+ await expect(page.locator('main h1')).toContainText('Otavalo');
+ expect(errors).toEqual([]);
+});
