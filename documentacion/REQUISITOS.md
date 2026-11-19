@@ -10,14 +10,15 @@ Dashboard público de candidatos con notas por tareas y votos de apoyo. La natur
 | RF02 | Candidatos y tareas asociados a convocatoria | Modelo SQL |
 | RF03 | Nota de 0 a 10 y peso positivo por tarea | Dominio y restricciones SQL |
 | RF04 | Media ponderada; incompleto se muestra pendiente | Función compartida probada |
-| RF05 | Mostrar nota técnica y apoyo separados | Decisión documentada; UI pendiente |
+| RF05 | Mostrar evaluación pública y apoyo con sus propios recuentos | Decisión documentada; UI pendiente |
 | RF06 | Un voto total por convocatoria, IP y navegador | Restricciones SQL; API cerrada |
 | RF07 | Votar solo mientras la convocatoria esté abierta | Pendiente |
 | RF08 | Administración autenticada y auditoría de cambios | Pendiente |
 | RF09 | Ranking, filtros y desglose de tareas | Pendiente |
+| RF11 | Consultar fichas de candidato y propuestas por tema | Vista con datos ficticios en la iteración visual |
 | RF10 | Estados vacíos, error y carga accesibles | Pantalla vacía inicial |
 
-Regla inicial pendiente de validación de producto: cada persona apoya a un candidato por convocatoria, sin cambio de voto. No es un voto diario ni un voto por candidato. No hay fórmula que mezcle popularidad y evaluación.
+Regla inicial de producto: un voto de apoyo a un candidato por convocatoria y una valoración por candidato y tarea. La clasificación prevista combina un 70 % de evaluación pública con un 30 % de porcentaje de apoyo. Los pesos quedan configurados por convocatoria.
 
 ## Requisitos no funcionales
 
