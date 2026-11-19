@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "source": "v0.3.6 (3720c446b6cbd8f98f5c402475530ea9525b0b32)",
+  "method": "typescript6-ast-v1",
+  "budgets": {
+    "maxCyclomatic": 18,
+    "maxCognitive": 21,
+    "functionsAboveCyclomatic10": 4,
+    "functionsAboveCognitive15": 1
+  }
+}

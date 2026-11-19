@@ -4,6 +4,7 @@ import path from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { demoCatalog, ObservatoryService } from '../../shared/catalog.ts';
 import { parseCatalog } from '../../shared/catalog-validation.ts';
+import { ComplexityAnalyzer, compareComplexityBaseline, complexitySummary } from './complexity-analyzer.mjs';
 
 const root = path.resolve('..');
 const srcRoots = ['shared', 'worker', 'web/src'];
@@ -22,24 +23,15 @@ async function filesIn(relative) {
   return result;
 }
 
-// Deterministic decision-token indicator, not a compiler or cognitive complexity metric.
-function lexicalDecisionIndicators(code) {
-  const stripped=code
-    .replace(/\/\*[\s\S]*?\*\//g,' ')
-    .replace(/\/\/[^\n]*/g,' ')
-    .replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\x60(?:\\.|[^\x60\\])*\x60/g,' ');
-  return (stripped.match(/\b(?:if|for|while|catch|case)\b|&&|\|\||\?\?/g)??[]).length;
-}
-const measurements=[];
+const analyzer=new ComplexityAnalyzer();
+const analyzedFiles=[];
 for(const file of (await Promise.all(srcRoots.map(filesIn))).flat().sort()) {
   const code=await readFile(path.join(root,file),'utf8');
-  measurements.push({
-    file:file.split(path.sep).join('/'),
-    lines:code.split('\n').length,
-    decisionTokenCount:lexicalDecisionIndicators(code)
-  });
+  analyzedFiles.push(analyzer.analyze(file.split(path.sep).join('/'),code));
 }
-measurements.sort((a,b)=>b.decisionTokenCount-a.decisionTokenCount||a.file.localeCompare(b.file));
+const complexity=complexitySummary(analyzedFiles);
+const baseline=JSON.parse(await readFile(path.join(root,'web/quality-baseline.json'),'utf8'));
+const complexityComparison=compareComplexityBaseline(complexity,baseline.budgets);
 
 async function sizeOfDist() {
  const assets=await filesIn('web/dist').catch(()=>[]);
@@ -76,14 +68,19 @@ const report={
  generatedAt:new Date().toISOString(),
  environment:{node:process.version,platform:process.platform,arch:process.arch},
  methodology:{
-  complexity:'Lexical per-file decision-token indicator: if/for/while/catch/case/&&/||/?? after stripping comments and common strings. Not AST, not true cyclomatic or cognitive complexity; use trends only.',
+  complexity:'TypeScript 6 AST. Cyclomatic: base 1 plus if/loops/catch/non-default case/conditional/logical operator. Cognitive: structural breaks plus current nesting, else and break/continue; one increment per uninterrupted logical-operator sequence. This is a documented project metric, not Sonar cognitive complexity.',
   gzip:'gzipSync default on generated web/dist JS/CSS; not actual HTTP transfer size.',
   benchmark:'300 iterations, 30 warmups, single process, in-memory synthetic catalog; median and p95 wall-clock ms; no end-user latency measurement.'
  },
- filesAnalyzed:measurements.length,
- largestDecisionIndicators:measurements.slice(0,15),
+ filesAnalyzed:analyzedFiles.length,
+ complexity,
+ complexityRegression:{
+  baseline:{source:baseline.source,method:baseline.method,budgets:baseline.budgets},
+  ...complexityComparison
+ },
  bundle:dist,
  bundleGzipTotalBytes:dist.reduce((sum,x)=>sum+x.gzipBytes,0),
  benchmark
 };
 console.log(JSON.stringify(report,null,2));
+if(process.argv.includes('--check-baseline')&&!complexityComparison.passed) process.exitCode=1;

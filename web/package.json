@@ -1,7 +1,7 @@
 {
   "name": "dashboard-otv-web",
   "private": true,
-  "version": "0.3.6",
+  "version": "0.3.7",
   "type": "module",
   "engines": {
     "node": ">=24 <25"
@@ -13,7 +13,8 @@
     "build": "npm run typecheck && node scripts/bundle.mjs build",
     "check": "npm run build && npm test",
     "test:visual": "playwright test",
-    "quality:metrics": "node scripts/quality-metrics.mjs"
+    "quality:metrics": "node scripts/quality-metrics.mjs",
+    "quality:metrics:check": "node scripts/quality-metrics.mjs --check-baseline"
   },
   "dependencies": {
     "react": "19.3.1",
@@ -23,6 +24,7 @@
     "@playwright/test": "1.65.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "@typescript/typescript6": "6.0.2",
     "esbuild": "0.28.2",
     "typescript": "7.0.2"
   }
