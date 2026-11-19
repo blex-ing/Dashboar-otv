@@ -27,8 +27,11 @@ Node.js 24 y Python 3. Desde `web/` ejecutar `npm ci`, `npm run check` y `npm ru
 - [Cloudflare](documentacion/DESPLIEGUE_CLOUDFLARE.md)
 - [Plan de implementación](documentacion/ROADMAP.md)
 
-Estado actual: fichas de demostración con selector de candidatos y propuestas agrupadas por tema, API de salud y votación deshabilitada. No incluye administración, evaluaciones persistidas ni votos reales.
+Estado actual: observatorio ciudadano de demostración para Otavalo e Ibarra, con dashboard neón, podio simulado, perfiles, comparador de propuestas, afirmaciones y documentos sintéticos. Sin votación pública, administración ni verificación automática por IA.
 
-La iteración visual de fichas permite seleccionar candidaturas ficticias y consultar sus propuestas por tema. Los datos se cargan en el frontend mediante `CandidateDirectory` para revisar la interfaz en local.
+- [Análisis de referencia y recorridos](documentacion/ANALISIS_REFERENCIA.md)
+- [Requisitos y límites por función](documentacion/REQUISITOS.md)
 
-Desde `web/`, ejecuta `npx playwright install chromium` y `npm run test:visual` para revisar las fichas en Chromium móvil y escritorio. GitHub Actions adjunta las capturas y el informe al trabajo Visual QA.
+El catálogo se lee desde `/api/public/catalog`; en desarrollo estático se señala el fallback a la misma demostración local. La simulación de apoyo solo vive en memoria y no modifica las cifras de ejemplo.
+
+Desde `web/`: `npx playwright install chromium` y `npm run test:visual`. CI valida escritorio, móvil y 320 px, filtros, enlaces directos, historial, comparación, simulación sin POST y fallo del catálogo. Las capturas quedan en los artifacts de Visual QA.
