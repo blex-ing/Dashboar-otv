@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { demoCatalog, ObservatoryService, verdicts } from '../../../shared/catalog';
 import type { CatalogData, CivicCandidate, Claim, Territory, Verdict } from '../../../shared/catalog';
 import { CandidateProfileView } from '../candidates/CandidateProfiles';
+import { fetchCatalog } from '../../../shared/catalog-validation';
 
 type Page = 'inicio' | 'candidatos' | 'comparar' | 'verificar' | 'metodo' | 'fuentes';
 const pages: [Page,string,string][] = [['inicio','Dashboard','◈'],['candidatos','Candidaturas','◎'],['comparar','Comparar propuestas','⇄'],['verificar','Verificaciones','✓'],['metodo','Método','≡'],['fuentes','Fuentes','↗']];
@@ -11,7 +12,7 @@ export function time(seconds: number) { return `${Math.floor(seconds/60)}:${Stri
 function readRoute() { const q=new URLSearchParams(location.search);return {page:(pages.some(([p])=>p===q.get('vista'))?q.get('vista'):'inicio') as Page,territory:q.get('lugar')??'otavalo',candidate:q.get('c')??'',claim:q.get('afirmacion')??''}; }
 export class CatalogClient {
  async load(signal: AbortSignal): Promise<{data:CatalogData; offline:boolean}> {
-  try { const response=await fetch('/api/public/catalog',{signal});if(!response.ok)throw new Error('CATALOG_UNAVAILABLE');const data=await response.json();if(data.mode!=='demo'||!Array.isArray(data.territories)||!data.territories.length)throw new Error('INVALID_CATALOG');return {data,offline:false}; }
+  try { const data=await fetchCatalog(signal);return {data,offline:false}; }
   catch(error) { if(signal.aborted)throw error;return {data:demoCatalog,offline:true}; }
  }
 }
@@ -45,7 +46,7 @@ export function App(){
  {route.page==='fuentes'&&<><PageHeading eyebrow="TRAZABILIDAD" title="La evidencia, a un clic." text="Esta edición utiliza documentos sintéticos para mostrar el recorrido completo. No son datos oficiales de Otavalo ni de Ibarra."/><div className="sources-grid">{t.sources.map(s=><article className="panel source-card" key={s.id} id={s.id}><span className="tiny">DOCUMENTO SINTÉTICO · {s.date}</span><h2>{s.title}</h2><p className="subtle">{s.publisher}</p><p>{s.excerpt}</p><button className="text-button" onClick={()=>{const c=t.claims.find(x=>x.sourceIds.includes(s.id));if(c)navigate('verificar',c.candidateId,c.id);}}>Ver una afirmación vinculada ↗</button></article>)}</div><div className="panel"><h2>Cuando incorporemos fuentes reales</h2><p>Cada documento deberá tener organismo, título, fecha, URL y el fragmento que respalda la comprobación. No basta con enlazar a la portada de una institución.</p></div></>}
  </>}
  <p className="feedback" role="status" aria-live="polite">{message}</p>
- <footer><a href={`?lugar=${t.id}&vista=metodo`} onClick={e=>{e.preventDefault();navigate('metodo');}}>Método y límites</a><span>OTV · Información para tu comunidad · v0.3.0</span><span>Demostración · Sin votos reales</span></footer>
+ <footer><a href={`?lugar=${t.id}&vista=metodo`} onClick={e=>{e.preventDefault();navigate('metodo');}}>Método y límites</a><span>OTV · Información para tu comunidad · v0.3.1</span><span>Demostración · Sin votos reales</span></footer>
  </main></div></>;
 }
 function PageHeading({eyebrow,title,text}:{eyebrow:string;title:string;text:string}) {return <div className="page-heading"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p>{text}</p></div>;}
