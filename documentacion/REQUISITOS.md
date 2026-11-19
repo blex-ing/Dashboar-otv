@@ -70,3 +70,14 @@ La edición real añadirá entidades persistentes y administración. En v0.3.0 u
 - Revisión editorial con documentos originales y trazabilidad de cambios; discrepancias explícitas.
 - Abrir participación solo tras pruebas de origen, Turnstile inválido, duplicados, carreras concurrentes, cierre de plazo y separación entre entornos.
 - No prometer una persona/un voto mediante IP y navegador: existen redes compartidas, borrado de cookies y otros límites.
+
+## Adición v0.3.4 — separación de ediciones
+
+- RF01a: cada localidad dispone de una o más ediciones con identificador estable; `?lugar=...&edicion=...` permite seleccionar una edición. Sin `edicion`, los enlaces v0.3.3 conservan la edición por defecto.
+- RF01b: un ID de edición desconocido produce un estado recuperable; no se cambia de edición silenciosamente.
+- RF03a: rankings, apoyos y porcentajes se calculan únicamente en la edición seleccionada; no hay total agregado por localidad.
+- RF08a: afirmaciones, fuentes y entrevistas de una edición deben referirse a candidaturas y fuentes de esa misma edición.
+- RF16a: la selección simulada se aísla por la pareja `localidad:edición` y se elimina al recargar.
+- Prueba mínima: dos ediciones sintéticas en Otavalo con recuentos diferentes y una edición inexistente en Ibarra; comprobar navegación, URL, recarga, historial y ausencia de escrituras.
+
+**Límite:** son contratos y fixtures de laboratorio; ni el origen de los datos ni los veredictos son todavía publicaciones electorales reales.
