@@ -6,6 +6,7 @@ import { CatalogClient } from './catalog-client';
 import { Avatar, Badge, PageHeading, Empty, time } from './common';
 import { Comparison } from './Comparison';
 import { Method } from './Method';
+import { InterviewPanel } from './InterviewPanel';
 import { readRoute, pages } from './routing';
 import type { Page } from './routing';
 import { Verification } from './Verification';
