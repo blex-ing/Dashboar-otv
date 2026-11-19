@@ -77,7 +77,7 @@ function territory(value: unknown): value is Territory {
       (i.youtubeId === null || (text(i.youtubeId, 50) && /^[\w-]+$/.test(i.youtubeId))) &&
       boundedArray(i.chapters, 500) &&
       i.chapters.every(ch => record(ch) && nonNegative(ch.seconds) &&
-        Number.isInteger(ch.seconds) && ch.seconds <= i.duration && text(ch.title, 500))) ||
+        Number.isInteger(ch.seconds) && ch.seconds <= (i.duration as number) && text(ch.title, 500))) ||
       !unique(value.interviews.map(i => (i as RecordValue).candidateId))) return false;
 
   const durations = new Map(value.interviews.map(i => {
