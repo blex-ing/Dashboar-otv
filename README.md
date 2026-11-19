@@ -27,7 +27,7 @@ Node.js 24 y Python 3. Desde `web/` ejecutar `npm ci`, `npm run check` y `npm ru
 - [Cloudflare](documentacion/DESPLIEGUE_CLOUDFLARE.md)
 - [Plan de implementación](documentacion/ROADMAP.md)
 
-Estado v0.1.0: estructura funcional, pantalla vacía sin datos ficticios, API de salud y votación deshabilitada. No incluye administración, evaluaciones persistidas ni votos reales.
+Estado actual: fichas de demostración con selector de candidatos y propuestas agrupadas por tema, API de salud y votación deshabilitada. No incluye administración, evaluaciones persistidas ni votos reales.
 
 La iteración visual de fichas permite seleccionar candidaturas ficticias y consultar sus propuestas por tema. Los datos se cargan en el frontend mediante `CandidateDirectory` para revisar la interfaz en local.
 

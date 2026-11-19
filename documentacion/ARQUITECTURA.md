@@ -14,4 +14,4 @@ Capas previstas por módulo: candidates, campaigns, evaluations y voting. Crear 
 
 Las fichas React reutilizan el tipo compartido de candidato. La clase `CandidateDirectory` proporciona la lectura de los perfiles ficticios durante la iteración visual.
 
-Validación disponible: tipos frontend/worker, cálculo, API cerrada, restricciones SQL y build. QA visual automatizada y prueba de Worker/D1 real quedan para la implementación de interacciones; no se declara cobertura que todavía no existe.
+Validación disponible: tipos frontend/worker, cálculo, API cerrada, restricciones SQL y build. Playwright verifica fichas, cambio de candidato, teclado y ausencia de desbordamiento en Chromium de escritorio y móvil. La prueba de persistencia Worker/D1 real queda pendiente.

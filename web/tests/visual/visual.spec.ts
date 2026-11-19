@@ -12,10 +12,11 @@ test('muestra la ficha y las propuestas por tema', async ({ page }, testInfo) =>
   await page.screenshot({ path: testInfo.outputPath('candidate-profile.png'), fullPage: true });
 });
 
-test('permite cambiar de ficha mediante el selector y el teclado', async ({ page }) => {
+test('permite cambiar de ficha mediante el selector y el teclado', async ({ page }, testInfo) => {
   await page.goto('/');
   await page.getByRole('radio', { name: 'Luis Mendoza' }).check();
   await expect(page.getByRole('heading', { name: 'Guías prácticas' })).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath('candidate-luis.png'), fullPage: true });
 
   await page.getByRole('radio', { name: 'Luis Mendoza' }).focus();
   await page.keyboard.press('ArrowUp');
