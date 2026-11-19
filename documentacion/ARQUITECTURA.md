@@ -21,3 +21,11 @@ Validación disponible: tipos frontend/worker, cálculo, API cerrada, restriccio
 `shared/catalog.ts` define contratos de localidad, candidatura, propuesta, entrevista, afirmación y fuente. `CandidateDirectory` se reutiliza desde `ObservatoryService`; este calcula métricas, clasificación y filtros. El Worker publica el catálogo demo en `/api/public/catalog`; el cliente carga la API y señala cuando usa la copia demo local. No hay escritura ni almacenamiento de preferencias. Los parámetros `lugar`, `vista`, `c` y `afirmacion` permiten recarga y navegación atrás/adelante sin depender de reglas SPA de rutas. El componente de perfil de v0.2.0 se reutiliza; se retira el selector anterior duplicado. La simulación no altera el catálogo ni sus cifras.
 
 La selección temporal navega capítulos y evidencias de un guion sintético. No hay un iframe falso ni un reproductor desconectado: se explica que falta el vídeo. La incorporación de vídeos reales y sincronización queda descrita en RF11.
+
+## Aislamiento de ediciones (v0.3.4)
+
+El catálogo demo agrupa `Locality → TerritoryEdition`. Cada edición tiene `id` estable y su propio conjunto de candidaturas, apoyos ficticios, propuestas, entrevistas, afirmaciones y fuentes. `ObservatoryService.territory(localityId,editionId)` devuelve una vista de **una sola edición**; la ausencia de ID utiliza la primera edición de la localidad para preservar enlaces anteriores. IDs desconocidos no se sustituyen silenciosamente por otra edición: muestran recuperación en la interfaz.
+
+La URL compartible usa `lugar` y `edicion`. Cambiar de localidad selecciona su edición inicial, y cambiar de edición reinicia la navegación a su dashboard. La selección simulada solo reside en memoria React y usa la clave compuesta localidad:edición, sin requests de escritura. El validador runtime impide IDs duplicados y referencias a candidaturas o fuentes ajenas a cada edición.
+
+Esta versión **no incorpora nuevas elecciones reales**; el único contenido sigue siendo sintético. D1, modelos persistentes y administración electoral se mantienen fuera de alcance.
