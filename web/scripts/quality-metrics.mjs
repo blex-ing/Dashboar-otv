@@ -45,8 +45,7 @@ const measurements=[];
 for(const file of (await Promise.all(srcRoots.map(filesIn))).flat().sort()) {
   const abs=path.join(root,file);
   const code=await readFile(abs,'utf8');
-  const kind=path.extname(file)==='.tsx'?ts.ScriptKind.TSX:ts.ScriptKind.TS;
-  const tree=ts.createSourceFile(file,code,ts.ScriptTarget.Latest,true,kind);
+  const tree=ts.createSourceFile(file,code,ts.ScriptTarget.Latest,true);
   function visit(n) {
     if(ts.isFunctionDeclaration(n)||ts.isMethodDeclaration(n)||
       ts.isConstructorDeclaration(n)||ts.isArrowFunction(n)||ts.isFunctionExpression(n)) {
