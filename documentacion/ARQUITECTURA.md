@@ -8,8 +8,10 @@ El esquema representa convocatorias, candidatos, tareas, evaluaciones y votos. C
 
 La calificación es sum(nota × peso) / sum(peso), redondeada a dos decimales. Falta de tareas o de una evaluación devuelve pendiente. Antes de publicar evaluaciones se validarán IDs, duplicados y pesos de toda la configuración. Las tareas se congelarán al abrir la convocatoria.
 
-La versión inicial permite una nota oficial por candidato/tarea; si se requieren varios jueces, una futura migración añadirá evaluadores y una regla explícita de agregación. El apoyo no altera la nota técnica.
+El esquema inicial permite una sola nota por candidato y tarea. La evaluación pública prevista requerirá una migración para guardar múltiples valoraciones y calcular sus medias. La clasificación combinará evaluación pública y porcentaje de apoyo con pesos por convocatoria.
 
 Capas previstas por módulo: candidates, campaigns, evaluations y voting. Crear componentes compartidos cuando haya uso real repetido, sin abstracciones vacías. Imágenes futuras deberán tener alternativas y tamaños responsivos. Listas y modales deberán permitir scroll interno y acciones visibles en móvil.
 
-Validación disponible: tipos frontend/worker, cálculo, API cerrada, restricciones SQL y build. QA visual automatizada y prueba de Worker/D1 real quedan para la implementación de interacciones; no se declara cobertura que todavía no existe.
+Las fichas React reutilizan el tipo compartido de candidato. La clase `CandidateDirectory` proporciona la lectura de los perfiles ficticios durante la iteración visual.
+
+Validación disponible: tipos frontend/worker, cálculo, API cerrada, restricciones SQL y build. Playwright verifica fichas, cambio de candidato, teclado y ausencia de desbordamiento en Chromium de escritorio y móvil. La prueba de persistencia Worker/D1 real queda pendiente.
