@@ -1,35 +1,72 @@
-# Requisitos vivos
+# Requisitos vivos — Observatorio ciudadano OTV
 
-## Alcance
+## Objetivo
 
-Dashboard público de candidatos con notas por tareas y votos de apoyo. La naturaleza de los candidatos no está definida todavía. No se presupone una elección oficial ni un proceso de contratación.
+Portal neutral para conocer candidaturas, contrastar propuestas y consultar evidencias, inicialmente ambientado en Otavalo y configurable para otras localidades. La audiencia es general; no se personaliza contenido político por perfil, origen ni preferencias. Edición v0.3.0: laboratorio público con datos sintéticos, sin encuesta ni resultados oficiales.
 
-| ID | Requisito | Estado v0.1.0 |
+## Alcance y trazabilidad
+
+| ID | Requisito y criterio verificable | Estado v0.3.0 |
 | --- | --- | --- |
-| RF01 | Convocatorias con estado y fechas UTC | Modelo SQL |
-| RF02 | Candidatos y tareas asociados a convocatoria | Modelo SQL |
-| RF03 | Nota de 0 a 10 y peso positivo por tarea | Dominio y restricciones SQL |
-| RF04 | Media ponderada; incompleto se muestra pendiente | Función compartida probada |
-| RF05 | Mostrar evaluación pública y apoyo con sus propios recuentos | Decisión documentada; UI pendiente |
-| RF06 | Un voto total por convocatoria, IP y navegador | Restricciones SQL; API cerrada |
-| RF07 | Votar solo mientras la convocatoria esté abierta | Pendiente |
-| RF08 | Administración autenticada y auditoría de cambios | Pendiente |
-| RF09 | Ranking, filtros y desglose de tareas | Pendiente |
-| RF11 | Consultar fichas de candidato y propuestas por tema | Vista con datos ficticios en la iteración visual |
-| RF10 | Estados vacíos, error y carga accesibles | Pantalla vacía inicial |
+| RF01 | Elegir localidad y conservarla en enlaces internos; un ID desconocido muestra recuperación | Otavalo e Ibarra de demostración |
+| RF02 | Dashboard con candidaturas, propuestas, afirmaciones y documentos calculados sobre catálogo activo | Implementado |
+| RF03 | Podio por apoyos descendentes y porcentajes sobre el total; total cero no divide por cero | Simulado; no pronóstico |
+| RF04 | Perfil por URL con nombre, grupo, descripción, propuestas por tema y acceso a evidencias | Implementado con personas ficticias |
+| RF05 | Comparar todas las candidaturas por un tema y mostrar plazo, alcance y ausencia de datos | Implementado |
+| RF06 | Listado de afirmaciones con búsqueda, candidatura, tema y estado combinables | Implementado |
+| RF07 | Recuentos de filtros derivados del conjunto visible; búsqueda sin coincidencias recuperable | Implementado |
+| RF08 | Detalle compartible con cita, contexto, minuto, explicación, revisión y documentos | Implementado con ejemplos sintéticos |
+| RF09 | Catálogo de documentos con editor, fecha, fragmento e identificación de su naturaleza | Implementado; fuentes reales pendientes |
+| RF10 | Entrevista con capítulos y marcadores que seleccionan un momento sin fingir reproducción | Navegación temporal de ejemplo; vídeo pendiente |
+| RF11 | Vídeo real autorizado con reproducción sincronizada, pregunta y cita exactas | Pendiente de contenidos reales e integración del reproductor |
+| RF12 | Método público, leyenda, limitaciones y reglas desplegables | Implementado |
+| RF13 | URL directa, recarga, atrás/adelante y navegación con teclado coherentes | Implementado |
+| RF14 | Catálogo público de solo lectura en `/api/public/catalog` | Implementado; modo demo explícito |
+| RF15 | Error remoto con copia de demostración identificada y reintento | Implementado |
+| RF16 | Simular una selección de apoyo, cambiarla o reiniciarla sin tráfico POST ni persistencia | Implementado solo en memoria |
+| RF17 | Voto público real con plazo, control de origen, Turnstile servidor, cookie segura, HMAC y unicidad atómica | Cerrado; pendiente |
+| RF18 | Administración autenticada de localidades, ediciones, candidaturas, propuestas, fuentes y entrevistas | Pendiente |
+| RF19 | Historial editorial, aportaciones y correcciones revisadas | Pendiente |
+| RF20 | Canal de transcripción y verificación asistida con versiones, costes, revisión y desacuerdos | Pendiente; no se ejecutan IA |
+| RF21 | Aplicar una política idéntica a todas las candidaturas de una edición | Regla de producto; canal editorial pendiente |
+| RF22 | Exportación de datos con fecha, metodología y procedencia | Pendiente |
+| RF23 | Integración estadística de apoyos reales por periodo, sin datos identificables | Pendiente |
 
-Regla inicial de producto: un voto de apoyo a un candidato por convocatoria y una valoración por candidato y tarea. La clasificación prevista combina un 70 % de evaluación pública con un 30 % de porcentaje de apoyo. Los pesos quedan configurados por convocatoria.
+## Reglas del producto
+
+1. Propuestas y promesas no reciben veredictos de hechos. Las opiniones no cuentan como afirmaciones contrastadas.
+2. La etiqueta de una afirmación exige evidencia y explicación; ausencia de documentos conserva estado pendiente. No se infiere intención de engaño.
+3. Popularidad y verificación permanecen separadas. El podio solo ordena apoyos. La fórmula previa 70/30 se mantiene como idea de evaluación por tareas, no se aplica a veracidad ni a esta entrega.
+4. Ante empate de apoyos, el nombre sirve solo como orden estable de presentación; no acredita un ganador. La aplicación no presenta una simulación como resultado electoral.
+5. Las cifras de una localidad nunca se agregan implícitamente con otra. Las ediciones tendrán identificador y fechas propias antes de aceptar votos reales.
+6. Los ejemplos se identifican en banner, detalle, fuente y método. No se usan personas políticas reales con afirmaciones inventadas ni documentos oficiales que no respalden los datos.
+7. No se afirma que dos IA han verificado una ficha sin registros de las dos ejecuciones y su revisión. Una futura automatización propondrá comprobaciones; la política editorial decidirá publicación.
+8. Se respetan derechos de los vídeos y documentos. Un futuro reproductor se cargará mediante acción del visitante, sin autoplay y con contexto de privacidad.
+9. Las futuras fuentes reales enlazarán al documento concreto, no solo a una portada institucional. Deben conservar fecha consultada, periodo del dato y correcciones.
 
 ## Requisitos no funcionales
 
-- RNF01: validación y autoridad del servidor; nunca confiar en localStorage para el recuento.
-- RNF02: diseño responsive desde 320 px, navegación con teclado, foco visible y etiquetas semánticas; objetivo WCAG 2.2 AA, sin certificación actual.
-- RNF03: datos y secretos separados entre preview y producción; mínimo permiso en Actions.
-- RNF04: restricciones SQL atómicas y pruebas ante solicitudes simultáneas antes de activar votos.
-- RNF05: HMAC de IP y cookie por convocatoria; sin huella invasiva ni IP en logs de aplicación.
-- RNF06: dependencias bloqueadas, auditoría automática y acciones fijadas por SHA.
-- RNF07: migraciones versionadas y respaldo/restauración ensayados antes de datos reales.
+- RNF01: React/TypeScript, Node 24 y esbuild existentes; clases para catálogo y servicios; componentes compartidos. No añadir frameworks para resolver funciones ya cubiertas.
+- RNF02: lectura útil a 320, 390 y 1440 px, sin desplazamiento horizontal de página; textos completos y botones de 44 px donde sean acciones principales. Navegación, etiquetas, foco visible y enlace de salto; objetivo WCAG 2.2 AA, no certificación.
+- RNF03: colores de estado acompañados de texto; animación prescindible y respeto a movimiento reducido. Sin recursos tipográficos externos obligatorios.
+- RNF04: contenido público sin secretos. CSP, cabeceras, API JSON independiente del fallback HTML; no abrir votación por añadir botones visuales.
+- RNF05: no recoger preferencias políticas en localStorage, cookies o logs de esta entrega. La simulación se pierde al recargar. Antes de participación real, definir datos mínimos, retención, acceso y aviso de privacidad.
+- RNF06: producción y previews aisladas. Los futuros IDs de D1 y secretos serán propios de cada entorno; no aplicar migraciones a producción desde ramas de prueba.
+- RNF07: dependencias bloqueadas y auditoría; Actions fijadas por SHA; CI verde antes de merge. feature → develop → release → master → sincronización.
+- RNF08: configuración de localidades en catálogo; no duplicar componentes por municipio. API y cliente reutilizan el mismo contrato de tipos.
+- RNF09: estadísticas, filtros y detalle usan el mismo conjunto de datos. Relaciones candidatura/afirmación/fuente verificadas en pruebas. Cero resultados, enlace inválido y fallo remoto no dejan pantalla en blanco.
+- RNF10: coste de los futuros proveedores de IA limitado por presupuesto y trabajos de fondo; sin claves en frontend ni llamadas sin control por cada visitante.
 
-## Criterios de aceptación de la siguiente versión
+## Datos y arquitectura objetivo
 
-Crear convocatoria, candidatos y tareas desde administración protegida; mostrar calificaciones completas y pendientes; registrar un voto válido; rechazar duplicados por cada identificador independientemente, carrera concurrente, origen incorrecto, convocatoria cerrada y Turnstile inválido. Sin estos criterios, no habilitar votos públicos.
+`Localidad → Edición → Candidatura → Propuesta / Entrevista → Afirmación → Revisión → Fuente`.
+
+La edición real añadirá entidades persistentes y administración. En v0.3.0 un catálogo tipado alimenta una API de lectura; `ObservatoryService` calcula orden, porcentajes, métricas y filtros. `CandidateDirectory` conserva la búsqueda reutilizable de perfiles. `CatalogClient` gestiona lectura remota y fallback identificado. La presentación no decide un veredicto ni escribe votos.
+
+## Puertas antes de una edición real
+
+- Incorporar candidatos y programas autorizados, vídeos y transcripciones revisadas.
+- Migraciones D1, administración con autorización verificada en servidor, auditoría y respaldo/restauración ensayados.
+- Revisión editorial con documentos originales y trazabilidad de cambios; discrepancias explícitas.
+- Abrir participación solo tras pruebas de origen, Turnstile inválido, duplicados, carreras concurrentes, cierre de plazo y separación entre entornos.
+- No prometer una persona/un voto mediante IP y navegador: existen redes compartidas, borrado de cookies y otros límites.

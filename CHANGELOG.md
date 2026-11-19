@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+Observatorio ciudadano configurable: dashboard neón y podio simulado, comparación temática, catálogo público, afirmaciones con filtros y evidencia, método y fuentes. Contenidos ficticios explícitos; votos reales cerrados.
+
 ## 0.2.0
 
 Fichas de candidatos, selector accesible y propuestas por tema con datos de demostración. QA de escritorio, móvil y 320 px.

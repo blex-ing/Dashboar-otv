@@ -1,10 +1,13 @@
 # Plan por entregas
 
-1. v0.1.0: estructura, documentación, pantalla inicial, esquema, CI y flujo Git. Votos cerrados.
-2. Fichas públicas: selector de candidatos, perfil y propuestas por tema. Vista con datos ficticios para validar móvil y escritorio. Sin escritura de datos.
-3. Convocatorias y evaluación pública: autenticación administrativa, auditoría, API D1 y una valoración por candidato y tarea. Confirmar naturaleza de la convocatoria.
-4. Apoyo público: un candidato por convocatoria, cookie segura, HMAC, Turnstile, origen, límites, SQL atómico, retención y avisos. Ensayar concurrencia real contra Worker/D1 antes de abrir votos.
-5. Dashboard: medias y recuentos por tarea, cuota de apoyo y evolución. Clasificación calculada en servidor con pesos iniciales de 70 % para evaluación pública y 30 % para apoyo. Guardar la fórmula aplicada por convocatoria.
-6. Operación: Cloudflare vinculado, previews aisladas, respaldo/restauración, reglas GitHub verificadas y observabilidad sin identificadores privados.
+- v0.1.0: base de frontend/Worker, esquema y flujo Git.
+- v0.1.1: configuración de producción y previews Cloudflare.
+- v0.2.0: perfiles y propuestas de demostración.
+- v0.3.0: observatorio neón, localidades configurables, dashboard/podio simulado, perfiles, comparador, afirmaciones filtrables, evidencia enlazable, método y fuentes. API pública de lectura. Sin votos reales.
+- Siguiente fase de contenidos: aportar candidaturas reales, programas, vídeos autorizados, documentos primarios y transcripciones; seleccionar edición y responsables de revisión.
+- Persistencia/editorial: migraciones D1, administración autenticada, historial y correcciones. Previews con bases propias.
+- Verificación asistida: extracción/transcripción con coste limitado, fuentes abiertas y revisiones registradas. No se automatiza una recomendación de voto.
+- Participación: Turnstile servidor, cookie segura/HMAC, origen, unicidad atómica, concurrencia, ventanas temporales, retención y límites claramente comunicados.
+- Estadísticas reales: evolución de apoyos agregados y exportaciones con contexto; nunca mezclar popularidad y veracidad.
 
-Cada entrega usa feature/fix → develop → release → master → sincronización, con criterios y notas de release. No se atribuyen funcionalidades pendientes a v0.1.0.
+Cada entrega pasa por feature/fix → develop → release → master → sincronización, pruebas y notas verificables. Las fases pendientes no se declaran implementadas por existir una interfaz de demostración.

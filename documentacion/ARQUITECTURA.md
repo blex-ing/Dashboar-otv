@@ -15,3 +15,9 @@ Capas previstas por módulo: candidates, campaigns, evaluations y voting. Crear 
 Las fichas React reutilizan el tipo compartido de candidato. La clase `CandidateDirectory` proporciona la lectura de los perfiles ficticios durante la iteración visual.
 
 Validación disponible: tipos frontend/worker, cálculo, API cerrada, restricciones SQL y build. Playwright verifica fichas, cambio de candidato, teclado y ausencia de desbordamiento en Chromium de escritorio y móvil. La prueba de persistencia Worker/D1 real queda pendiente.
+
+## Observatorio v0.3.0
+
+`shared/catalog.ts` define contratos de localidad, candidatura, propuesta, entrevista, afirmación y fuente. `CandidateDirectory` se reutiliza desde `ObservatoryService`; este calcula métricas, clasificación y filtros. El Worker publica el catálogo demo en `/api/public/catalog`; el cliente carga la API y señala cuando usa la copia demo local. No hay escritura ni almacenamiento de preferencias. Los parámetros `lugar`, `vista`, `c` y `afirmacion` permiten recarga y navegación atrás/adelante sin depender de reglas SPA de rutas. El componente de perfil de v0.2.0 se reutiliza; se retira el selector anterior duplicado. La simulación no altera el catálogo ni sus cifras.
+
+La selección temporal navega capítulos y evidencias de un guion sintético. No hay un iframe falso ni un reproductor desconectado: se explica que falta el vídeo. La incorporación de vídeos reales y sincronización queda descrita en RF11.

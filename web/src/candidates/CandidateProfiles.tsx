@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import type { CandidateDirectory, CandidateProfile, Proposal } from './profiles';
+import type { CandidateProfile, Proposal } from '../../../shared/catalog';
 
-function Profile({ candidate }: { candidate: CandidateProfile }) {
+export function CandidateProfileView({ candidate }: { candidate: CandidateProfile }) {
   const initials = candidate.name.split(' ').slice(0, 2).map(part => part.at(0)).join('');
 
   const proposalsByTopic = new Map<string, Proposal[]>();
@@ -37,36 +36,5 @@ function Profile({ candidate }: { candidate: CandidateProfile }) {
         </ul>
       ) : <p>Este candidato aún no tiene propuestas publicadas.</p>}
     </section>
-  );
-}
-
-export function CandidateProfiles({ directory }: { directory: CandidateDirectory }) {
-  const candidates = directory.list();
-  const [candidateId, setCandidateId] = useState(candidates[0]?.id ?? '');
-  const candidate = directory.find(candidateId) ?? candidates[0];
-
-  if (!candidate) return <p>Aún no hay candidaturas publicadas.</p>;
-
-  return (
-    <div className="directory">
-      <fieldset className="candidate-picker">
-        <legend>Elige un candidato</legend>
-        {candidates.map(entry => (
-          <label key={entry.id}>
-            <input
-              type="radio"
-              name="candidate"
-              value={entry.id}
-              checked={entry.id === candidate.id}
-              onChange={() => setCandidateId(entry.id)}
-            />
-            <span>{entry.name}</span>
-          </label>
-        ))}
-      </fieldset>
-      <div aria-live="polite" className="profile-container">
-        <Profile candidate={candidate} />
-      </div>
-    </div>
   );
 }
