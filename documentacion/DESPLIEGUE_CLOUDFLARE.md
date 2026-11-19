@@ -2,11 +2,11 @@
 
 ## Base preparada
 
-wrangler.jsonc define Worker y assets web/dist, con run_worker_first para aplicar cabeceras y reservar API. Producción prevista: dashboard-otv. Preview explícita: dashboard-otv-preview. Todavía no se ha vinculado el repositorio ni desplegado recursos.
+wrangler.jsonc define Worker y assets web/dist, con run_worker_first para aplicar cabeceras y reservar API. Producción: dashboar-otv (nombre del Worker conectado en Cloudflare). Preview explícita: dashboard-otv-preview. El usuario ha conectado el repositorio; el despliegue queda pendiente de verificación.
 
 ## Configuración Workers Builds
 
-Conectar blex-ing/Dashboar-otv. Raíz: repositorio. Rama de producción: master. Build: `npm --prefix web ci && npm --prefix web run build`. Deploy producción: `npx wrangler deploy`. Habilitar previews de ramas; usar el comando de preview que ofrezca Workers Builds (`npx wrangler versions upload` para versiones de preview), comprobando la URL real devuelta. No afirmar que una preview existe sin verificarla.
+Conectar blex-ing/Dashboar-otv. Raíz: repositorio. Rama de producción: master. Build: `npm --prefix web ci && npm --prefix web run build`. Deploy producción: `npx wrangler deploy --config wrangler.jsonc`. Habilitar previews de ramas; usar el comando de preview que ofrezca Workers Builds (`npx wrangler preview --config wrangler.jsonc` para previews por rama), comprobando la URL real devuelta. No afirmar que una preview existe sin verificarla.
 
 Antes de utilizar npx en automatización añadir Wrangler como dependencia de desarrollo fijada y bloqueada tras verificar la versión vigente; no se instala todavía porque esta entrega no publica infraestructura. El build local no necesita Wrangler.
 
@@ -21,3 +21,7 @@ Crear secretos de HMAC y Turnstile de manera independiente por entorno. No guard
 ## Verificación y rollback
 
 Comprobar GET /api/health, versión, respuestas JSON de errores API y que POST /api/votes sigue 503. Probar móvil/escritorio, cabeceras y ausencia de datos reales. Restaurar una versión previa del Worker solo si es compatible con el esquema actual; una reversión de código no revierte D1. No abrir votación hasta completar criterios y pruebas del roadmap.
+
+## Compilación y previews por rama
+
+El bloque previews vacío habilita el comando wrangler preview. Los assets permanecen en el nivel superior. El bloque build ejecuta la instalación reproducible y la compilación del frontend antes de procesar el Worker. No conecta recursos de producción a previews. Si Workers Builds ya ejecuta el mismo Build command, puede repetirse la compilación; se conserva como garantía para despliegues desde CLI.
