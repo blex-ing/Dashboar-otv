@@ -5,7 +5,7 @@ export default {
   const url = new URL(request.url);
   if (url.pathname.startsWith('/api/')) {
    const headers = { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
-   if (url.pathname === '/api/health' && request.method === 'GET') return Response.json({ status: 'ok', version: '0.3.1', voting: 'disabled' }, {headers});
+   if (url.pathname === '/api/health' && request.method === 'GET') return Response.json({ status: 'ok', version: '0.3.2', voting: 'disabled' }, {headers});
    if (url.pathname === '/api/public/catalog' && request.method === 'GET') return Response.json(demoCatalog,{headers});
    if (url.pathname === '/api/votes') return Response.json({error:'VOTING_NOT_ENABLED',message:'La votación todavía no está habilitada.'},{status:503,headers});
    return Response.json({error:'NOT_FOUND'},{status:404,headers});
