@@ -44,7 +44,7 @@ function apiResponse(request: Request, pathname: string): Response {
       });
     }
     const response = pathname === '/api/health'
-      ? Response.json({ status: 'ok', version: '0.3.5', voting: 'disabled' }, { headers })
+      ? Response.json({ status: 'ok', version: '0.3.6', voting: 'disabled' }, { headers })
       : Response.json(demoCatalog, { headers });
     return request.method === 'HEAD'
       ? new Response(null, { status: response.status, headers: response.headers })
