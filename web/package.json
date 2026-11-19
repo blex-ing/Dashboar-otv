@@ -12,7 +12,8 @@
     "test": "node --test ../tests/*.test.mjs && python3 ../tests/schema_test.py",
     "build": "npm run typecheck && node scripts/bundle.mjs build",
     "check": "npm run build && npm test",
-    "test:visual": "playwright test"
+    "test:visual": "playwright test",
+    "quality:metrics": "node scripts/quality-metrics.mjs"
   },
   "dependencies": {
     "react": "19.3.1",
