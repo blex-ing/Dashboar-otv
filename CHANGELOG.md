@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.7
+
+Análisis formal de complejidad ciclomática y cognitiva mediante AST, con métricas por función y clase, línea base reproducible y bloqueo de regresiones en CI. El artefacto de calidad vuelve a ser JSON válido y la metodología queda documentada.
+
 ## 0.3.0
 
 Observatorio ciudadano configurable: dashboard neón y podio simulado, comparación temática, catálogo público, afirmaciones con filtros y evidencia, método y fuentes. Contenidos ficticios explícitos; votos reales cerrados.
