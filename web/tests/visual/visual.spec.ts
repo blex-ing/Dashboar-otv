@@ -64,3 +64,24 @@ test('catálogo estructuralmente inválido muestra fallback demo sin error de Re
  await expect(page.locator('main h1')).toContainText('Otavalo');
  expect(errors).toEqual([]);
 });
+
+test('390 px: vistas, foco visible y movimiento reducido',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const view of ['inicio','candidatos','comparar','verificar','metodo','fuentes']){
+  await page.goto('/?lugar=otavalo&vista='+view);
+  await expect(page.locator('main h1')).toBeVisible();
+  const width=await page.evaluate(()=>document.documentElement.scrollWidth);
+  expect(width).toBeLessThanOrEqual(390);
+ }
+ await page.goto('/?lugar=otavalo&vista=inicio');
+ await page.keyboard.press('Tab');
+ const skip=page.getByRole('link',{name:'Saltar al contenido'});
+ await expect(skip).toBeFocused();
+ const styles=await skip.evaluate(el=>({
+  outline:getComputedStyle(el).outlineStyle,
+  scroll:getComputedStyle(document.documentElement).scrollBehavior
+ }));
+ expect(styles.outline).not.toBe('none');
+ expect(styles.scroll).toBe('auto');
+});
