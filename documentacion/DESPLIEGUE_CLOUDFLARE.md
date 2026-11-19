@@ -2,11 +2,11 @@
 
 ## Base preparada
 
-wrangler.jsonc define Worker y assets web/dist, con run_worker_first para aplicar cabeceras y reservar API. Producción prevista: dashboard-otv. Preview explícita: dashboard-otv-preview. Todavía no se ha vinculado el repositorio ni desplegado recursos.
+wrangler.jsonc define Worker y assets web/dist, con run_worker_first para aplicar cabeceras y reservar API. Producción: dashboar-otv (nombre del Worker conectado en Cloudflare). Preview explícita: dashboard-otv-preview. El usuario ha conectado el repositorio; el despliegue queda pendiente de verificación.
 
 ## Configuración Workers Builds
 
-Conectar blex-ing/Dashboar-otv. Raíz: repositorio. Rama de producción: master. Build: `npm --prefix web ci && npm --prefix web run build`. Deploy producción: `npx wrangler deploy`. Habilitar previews de ramas; usar el comando de preview que ofrezca Workers Builds (`npx wrangler versions upload` para versiones de preview), comprobando la URL real devuelta. No afirmar que una preview existe sin verificarla.
+Conectar blex-ing/Dashboar-otv. Raíz: repositorio. Rama de producción: master. Build: `npm --prefix web ci && npm --prefix web run build`. Deploy producción: `npx wrangler deploy --config wrangler.jsonc`. Habilitar previews de ramas; usar el comando de preview que ofrezca Workers Builds (`npx wrangler versions upload` para versiones de preview), comprobando la URL real devuelta. No afirmar que una preview existe sin verificarla.
 
 Antes de utilizar npx en automatización añadir Wrangler como dependencia de desarrollo fijada y bloqueada tras verificar la versión vigente; no se instala todavía porque esta entrega no publica infraestructura. El build local no necesita Wrangler.
 
