@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { demoCatalog, ObservatoryService, verdicts } from '../../../shared/catalog';
 import type { CatalogData, CivicCandidate, Claim, Territory, Verdict } from '../../../shared/catalog';
 import { CandidateProfileView } from '../candidates/CandidateProfiles';
+import { fetchCatalog } from '../../../shared/catalog-validation';
 
 type Page = 'inicio' | 'candidatos' | 'comparar' | 'verificar' | 'metodo' | 'fuentes';
 const pages: [Page,string,string][] = [['inicio','Dashboard','◈'],['candidatos','Candidaturas','◎'],['comparar','Comparar propuestas','⇄'],['verificar','Verificaciones','✓'],['metodo','Método','≡'],['fuentes','Fuentes','↗']];
@@ -11,7 +12,7 @@ export function time(seconds: number) { return `${Math.floor(seconds/60)}:${Stri
 function readRoute() { const q=new URLSearchParams(location.search);return {page:(pages.some(([p])=>p===q.get('vista'))?q.get('vista'):'inicio') as Page,territory:q.get('lugar')??'otavalo',candidate:q.get('c')??'',claim:q.get('afirmacion')??''}; }
 export class CatalogClient {
  async load(signal: AbortSignal): Promise<{data:CatalogData; offline:boolean}> {
-  try { const response=await fetch('/api/public/catalog',{signal});if(!response.ok)throw new Error('CATALOG_UNAVAILABLE');const data=await response.json();if(data.mode!=='demo'||!Array.isArray(data.territories)||!data.territories.length)throw new Error('INVALID_CATALOG');return {data,offline:false}; }
+  try { const data=await fetchCatalog(signal);return {data,offline:false}; }
   catch(error) { if(signal.aborted)throw error;return {data:demoCatalog,offline:true}; }
  }
 }
