@@ -1,6 +1,5 @@
-import ts from 'typescript';
 import { gzipSync } from 'node:zlib';
-import { readFile, readdir, stat } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { demoCatalog, ObservatoryService } from '../../shared/catalog.ts';
@@ -23,41 +22,24 @@ async function filesIn(relative) {
   return result;
 }
 
-function complexity(node) {
-  let score=1;
-  function walk(item) {
-    // Decision count approximates McCabe; do not present it as cognitive complexity.
-    if(ts.isIfStatement(item)||ts.isForStatement(item)||ts.isForInStatement(item)||
-      ts.isForOfStatement(item)||ts.isWhileStatement(item)||ts.isDoStatement(item)||
-      ts.isConditionalExpression(item)||ts.isCatchClause(item)||
-      (ts.isCaseClause(item))) score++;
-    if(ts.isBinaryExpression(item)&&[
-      ts.SyntaxKind.AmpersandAmpersandToken,ts.SyntaxKind.BarBarToken,
-      ts.SyntaxKind.QuestionQuestionToken
-    ].includes(item.operatorToken.kind)) score++;
-    ts.forEachChild(item,walk);
-  }
-  ts.forEachChild(node,walk);
-  return score;
+// Deterministic decision-token indicator, not a compiler or cognitive complexity metric.
+function lexicalDecisionIndicators(code) {
+  const stripped=code
+    .replace(/\\/\\*[\\s\\S]*?\\*\\//g,' ')
+    .replace(/\\/\\/[^\\n]*/g,' ')
+    .replace(/"(?:\\\\.|[^"\\\\])*"|'(?:\\\\.|[^'\\\\])*'|\\`(?:\\\\.|[^\\`\\\\])*\\`/g,' ');
+  return (stripped.match(/\\b(?:if|for|while|catch|case)\\b|&&|\\|\\||\\?\\?/g)??[]).length;
 }
-
 const measurements=[];
 for(const file of (await Promise.all(srcRoots.map(filesIn))).flat().sort()) {
-  const abs=path.join(root,file);
-  const code=await readFile(abs,'utf8');
-  const tree=ts.createSourceFile(file,code,ts.ScriptTarget.Latest,true);
-  function visit(n) {
-    if(ts.isFunctionDeclaration(n)||ts.isMethodDeclaration(n)||
-      ts.isConstructorDeclaration(n)||ts.isArrowFunction(n)||ts.isFunctionExpression(n)) {
-      const location=tree.getLineAndCharacterOfPosition(n.getStart(tree));
-      measurements.push({file:file.replaceAll('\\','/'),line:location.line+1,
-        name:n.name?.getText(tree)??'(anonymous)',cyclomaticEstimate:complexity(n)});
-    }
-    ts.forEachChild(n,visit);
-  }
-  visit(tree);
+  const code=await readFile(path.join(root,file),'utf8');
+  measurements.push({
+    file:file.replaceAll('\\\\','/'),
+    lines:code.split('\\n').length,
+    decisionTokenCount:lexicalDecisionIndicators(code)
+  });
 }
-measurements.sort((a,b)=>b.cyclomaticEstimate-a.cyclomaticEstimate||a.file.localeCompare(b.file));
+measurements.sort((a,b)=>b.decisionTokenCount-a.decisionTokenCount||a.file.localeCompare(b.file));
 
 async function sizeOfDist() {
  const assets=await filesIn('web/dist').catch(()=>[]);
@@ -94,12 +76,12 @@ const report={
  generatedAt:new Date().toISOString(),
  environment:{node:process.version,platform:process.platform,arch:process.arch},
  methodology:{
-  complexity:'Approximate per-function McCabe score from TypeScript AST: 1 + branches/loops/catches/case/ternaries/logical operators. Nested functions are independently counted AND also visited by enclosing functions; compare trend only, not precise complexity.',
+  complexity:'Lexical per-file decision-token indicator: if/for/while/catch/case/&&/||/?? after stripping comments and common strings. Not AST, not true cyclomatic or cognitive complexity; use trends only.',
   gzip:'gzipSync default on generated web/dist JS/CSS; not actual HTTP transfer size.',
   benchmark:'300 iterations, 30 warmups, single process, in-memory synthetic catalog; median and p95 wall-clock ms; no end-user latency measurement.'
  },
- functionsAnalyzed:measurements.length,
- highestComplexity:measurements.slice(0,15),
+ filesAnalyzed:measurements.length,
+ largestDecisionIndicators:measurements.slice(0,15),
  bundle:dist,
  bundleGzipTotalBytes:dist.reduce((sum,x)=>sum+x.gzipBytes,0),
  benchmark
