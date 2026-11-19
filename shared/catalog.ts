@@ -10,7 +10,7 @@ export interface Interview { candidateId: string; title: string; duration: numbe
 export interface TerritoryEdition { id: string; label: string; candidates: CivicCandidate[]; claims: Claim[]; sources: EvidenceSource[]; interviews: Interview[]; }
 export interface Locality { id: string; name: string; region: string; country: string; editions: TerritoryEdition[]; }
 /** Selected, read-only view for the existing pages; never aggregate editions implicitly. */
-export interface Territory extends Omit<Locality, 'editions'>, Omit<TerritoryEdition, 'id'> { editionId: string; edition: string; }
+export interface Territory extends Omit<Locality, 'editions'>, Omit<TerritoryEdition, 'id' | 'label'> { editionId: string; edition: string; }
 export interface CatalogData { mode: 'demo'; territories: Locality[]; }
 export const verdicts: Record<Verdict, string> = { supported: 'Respaldado', context: 'Falta contexto', contradicted: 'Contradicho', pending: 'Sin evidencia' };
 export class CandidateDirectory<T extends CandidateProfile = CandidateProfile> {
