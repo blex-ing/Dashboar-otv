@@ -23,17 +23,17 @@ test('rejects malformed root, invalid territory or duplicate locality', () => {
 
 test('rejects missing nested properties, broken references, invalid numeric values and unsafe URLs', () => {
   const transforms = [
-    d => { delete d.territories[0].candidates[0].proposals; },
-    d => { d.territories[0].candidates[0].votes = -1; },
-    d => { d.territories[0].candidates[0].votes = NaN; },
-    d => { d.territories[0].claims[0].candidateId = 'missing'; },
-    d => { d.territories[0].claims[0].sourceIds = ['missing']; },
-    d => { d.territories[0].claims[0].verdict = 'unrecognized'; },
-    d => { d.territories[0].claims[0].seconds = 100_000; },
-    d => { d.territories[0].interviews[0].chapters[0].seconds = 100_000; },
-    d => { d.territories[0].sources[0].url = 'javascript:alert(1)'; },
-    d => { d.territories[0].interviews[0].youtubeId = 'bad?query'; },
-    d => { d.territories[0].claims[0].sourceIds = ['acta-demo','acta-demo']; },
+    d => { delete d.territories[0].editions[0].candidates[0].proposals; },
+    d => { d.territories[0].editions[0].candidates[0].votes = -1; },
+    d => { d.territories[0].editions[0].candidates[0].votes = NaN; },
+    d => { d.territories[0].editions[0].claims[0].candidateId = 'missing'; },
+    d => { d.territories[0].editions[0].claims[0].sourceIds = ['missing']; },
+    d => { d.territories[0].editions[0].claims[0].verdict = 'unrecognized'; },
+    d => { d.territories[0].editions[0].claims[0].seconds = 100_000; },
+    d => { d.territories[0].editions[0].interviews[0].chapters[0].seconds = 100_000; },
+    d => { d.territories[0].editions[0].sources[0].url = 'javascript:alert(1)'; },
+    d => { d.territories[0].editions[0].interviews[0].youtubeId = 'bad?query'; },
+    d => { d.territories[0].editions[0].claims[0].sourceIds = ['acta-demo','acta-demo']; },
   ];
   for (const mutate of transforms) {
     const broken = fixture();
@@ -69,4 +69,24 @@ test('fetches and validates a well-formed payload', async () => {
   } finally {
     globalThis.fetch = original;
   }
+});
+
+test('rejects duplicate edition identifiers and edition cross references',()=>{
+ const same=fixture();
+ same.territories[0].editions.push(structuredClone(same.territories[0].editions[0]));
+ assert.throws(()=>parseCatalog(same),/INVALID_CATALOG/);
+ const cross=fixture();
+ const copy=structuredClone(cross.territories[0].editions[0]);
+ copy.id='otra';copy.label='Otra edición';
+ copy.candidates=copy.candidates.slice(0,1);
+ cross.territories[0].editions.push(copy);
+ assert.throws(()=>parseCatalog(cross),/INVALID_CATALOG/);
+});
+test('accepts two independent valid editions in one locality',()=>{
+ const d=fixture();
+ const copy=structuredClone(d.territories[0].editions[0]);
+ copy.id='otra'; copy.label='Otra edición ficticia';
+ copy.candidates[0].votes=0;
+ d.territories[0].editions.push(copy);
+ assert.equal(parseCatalog(d).territories[0].editions.length,2);
 });
