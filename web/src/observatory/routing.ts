@@ -1,3 +1,17 @@
 export type Page = 'inicio' | 'candidatos' | 'comparar' | 'verificar' | 'metodo' | 'fuentes';
 export const pages: [Page,string,string][] = [['inicio','Dashboard','◈'],['candidatos','Candidaturas','◎'],['comparar','Comparar propuestas','⇄'],['verificar','Verificaciones','✓'],['metodo','Método','≡'],['fuentes','Fuentes','↗']];
-export function readRoute() { const q=new URLSearchParams(location.search);return {page:(pages.some(([p])=>p===q.get('vista'))?q.get('vista'):'inicio') as Page,territory:q.get('lugar')??'otavalo',candidate:q.get('c')??'',claim:q.get('afirmacion')??''}; }
+export interface Route {page: Page; territory: string; edition: string; candidate: string; claim: string}
+export function readRoute(search = location.search): Route {
+ const q = new URLSearchParams(search);
+ const page = q.get('vista');
+ return { page: pages.some(([p]) => p === page) ? page as Page : 'inicio',
+  territory:q.get('lugar') ?? 'otavalo', edition:q.get('edicion') ?? '',
+  candidate:q.get('c') ?? '', claim:q.get('afirmacion') ?? '' };
+}
+export function routeHref(route: Route): string {
+ const query = new URLSearchParams({lugar:route.territory, vista:route.page});
+ if (route.edition) query.set('edicion',route.edition);
+ if (route.candidate) query.set('c',route.candidate);
+ if (route.claim) query.set('afirmacion',route.claim);
+ return `?${query}`;
+}

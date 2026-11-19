@@ -85,3 +85,28 @@ test('390 px: vistas, foco visible y movimiento reducido',async({page})=>{
  expect(styles.outline).not.toBe('none');
  expect(styles.scroll).toBe('auto');
 });
+
+test('multi-edition deep links, isolated counts and old URLs',async({page})=>{
+ const {demoCatalog}=await import('../../../shared/catalog');
+ const data=structuredClone(demoCatalog);
+ const other=structuredClone(data.territories[0].editions[0]);
+ other.id='segundo';other.label='Segunda edición ficticia';
+ other.candidates[0].votes=10;other.candidates[1].votes=0;other.candidates[2].votes=0;
+ other.claims=other.claims.slice(0,1);
+ other.sources=other.sources.slice(0,1);
+ data.territories[0].editions.push(other);
+ await page.route('**/api/public/catalog',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)}));
+ await page.goto('/?lugar=otavalo&vista=inicio');
+ await expect(page.getByLabel('Edición')).toHaveValue('laboratorio');
+ await page.getByLabel('Edición').selectOption('segundo');
+ await expect(page).toHaveURL(/edicion=segundo/);
+ await expect(page.getByText('10 apoyos ficticios')).toBeVisible();
+ await page.getByRole('link',{name:/Verificaciones/}).click();
+ await expect(page.locator('.claim-card')).toHaveCount(1);
+ await page.reload();await expect(page.locator('.claim-card')).toHaveCount(1);
+ await page.goBack();await expect(page.getByText('10 apoyos ficticios')).toBeVisible();
+ await page.getByLabel('Edición').selectOption('laboratorio');
+ await expect(page.getByText('2.675 apoyos ficticios')).toBeVisible();
+ await page.goto('/?lugar=ibarra&edicion=segundo&vista=inicio');
+ await expect(page.getByRole('heading',{name:'Localidad no encontrada'})).toBeVisible();
+});

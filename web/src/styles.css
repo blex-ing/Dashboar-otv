@@ -1408,3 +1408,20 @@ main:focus{
     transition:none!important
   }
 }
+
+/* Edition selector: each control occupies a full row on narrow displays. */
+@media(max-width:540px){
+  .topbar .territory-picker{
+    flex:1 1 100%;
+    width:100%;
+    min-width:0;
+    margin-right:0
+  }
+  .topbar .territory-picker select{
+    display:block;
+    flex:1 1 auto;
+    min-width:0;
+    width:100%;
+    max-width:100%
+  }
+}
