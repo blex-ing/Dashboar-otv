@@ -22,7 +22,7 @@ test('catalog relationships and counts stay consistent for every locality',()=>{
 test('public API exposes only demo catalog while writes remain closed',async()=>{
  const env={ASSETS:{fetch:()=>{throw new Error('API fell through')}}};
  const r=await worker.fetch(new Request('https://test/api/public/catalog'),env);assert.equal(r.status,200);assert.equal((await r.json()).mode,'demo');
- assert.equal((await worker.fetch(new Request('https://test/api/public/catalog',{method:'POST'}),env)).status,404);
+ assert.equal((await worker.fetch(new Request('https://test/api/public/catalog',{method:'POST'}),env)).status,405);
  assert.equal((await worker.fetch(new Request('https://test/api/votes',{method:'POST'}),env)).status,503);
 });
 
