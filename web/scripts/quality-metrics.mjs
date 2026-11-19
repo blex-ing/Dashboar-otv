@@ -25,17 +25,17 @@ async function filesIn(relative) {
 // Deterministic decision-token indicator, not a compiler or cognitive complexity metric.
 function lexicalDecisionIndicators(code) {
   const stripped=code
-    .replace(/\\/\\*[\\s\\S]*?\\*\\//g,' ')
-    .replace(/\\/\\/[^\\n]*/g,' ')
-    .replace(/"(?:\\\\.|[^"\\\\])*"|'(?:\\\\.|[^'\\\\])*'|\\`(?:\\\\.|[^\\`\\\\])*\\`/g,' ');
-  return (stripped.match(/\\b(?:if|for|while|catch|case)\\b|&&|\\|\\||\\?\\?/g)??[]).length;
+    .replace(/\/\*[\s\S]*?\*\//g,' ')
+    .replace(/\/\/[^\n]*/g,' ')
+    .replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\x60(?:\\.|[^\x60\\])*\x60/g,' ');
+  return (stripped.match(/\b(?:if|for|while|catch|case)\b|&&|\|\||\?\?/g)??[]).length;
 }
 const measurements=[];
 for(const file of (await Promise.all(srcRoots.map(filesIn))).flat().sort()) {
   const code=await readFile(path.join(root,file),'utf8');
   measurements.push({
-    file:file.replaceAll('\\\\','/'),
-    lines:code.split('\\n').length,
+    file:file.split(path.sep).join('/'),
+    lines:code.split('\n').length,
     decisionTokenCount:lexicalDecisionIndicators(code)
   });
 }
