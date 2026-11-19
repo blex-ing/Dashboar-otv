@@ -1,7 +1,8 @@
-import type { CatalogData, CivicCandidate, Territory } from './catalog';
+import type { CatalogData, CivicCandidate, Locality, TerritoryEdition } from './catalog';
 
 const MAX_CATALOG_CHARS = 1_000_000;
 const MAX_TERRITORIES = 100;
+const MAX_EDITIONS = 100;
 const MAX_CANDIDATES = 200;
 const MAX_CLAIMS = 10_000;
 const MAX_SOURCES = 10_000;
@@ -45,10 +46,9 @@ function candidate(value: unknown): value is CivicCandidate {
     (p.deadline === undefined || text(p.deadline, 250)));
 }
 
-function territory(value: unknown): value is Territory {
-  if (!record(value) || !identifier(value.id) || !text(value.name, 250) ||
-      !text(value.region, 250) || !text(value.country, 250) ||
-      !text(value.edition, 500) || !boundedArray(value.candidates, MAX_CANDIDATES) ||
+function edition(value: unknown): value is TerritoryEdition {
+  if (!record(value) || !identifier(value.id) || !text(value.label, 500) ||
+      !boundedArray(value.candidates, MAX_CANDIDATES) ||
       !boundedArray(value.claims, MAX_CLAIMS) || !boundedArray(value.sources, MAX_SOURCES) ||
       !boundedArray(value.interviews, MAX_INTERVIEWS)) return false;
 
@@ -91,13 +91,21 @@ function territory(value: unknown): value is Territory {
   });
 }
 
+function locality(value: unknown): value is Locality {
+  return record(value) && identifier(value.id) && text(value.name, 250) &&
+    text(value.region, 250) && text(value.country, 250) &&
+    boundedArray(value.editions, MAX_EDITIONS) && value.editions.length > 0 &&
+    value.editions.every(edition) &&
+    unique(value.editions.map(e => (e as TerritoryEdition).id));
+}
+
 /** The API is untrusted even when its TypeScript source shares the same interfaces. */
 export function parseCatalog(value: unknown): CatalogData {
   if (!record(value) || value.mode !== 'demo' ||
       !boundedArray(value.territories, MAX_TERRITORIES) ||
       value.territories.length === 0 ||
-      !value.territories.every(territory) ||
-      !unique(value.territories.map(t => (t as Territory).id))) {
+      !value.territories.every(locality) ||
+      !unique(value.territories.map(t => (t as Locality).id))) {
     throw new Error('INVALID_CATALOG');
   }
   return value as unknown as CatalogData;
