@@ -89,12 +89,13 @@ test('390 px: vistas, foco visible y movimiento reducido',async({page})=>{
 test('multi-edition deep links, isolated counts and old URLs',async({page})=>{
  const {demoCatalog}=await import('../../../shared/catalog');
  const data=structuredClone(demoCatalog);
- const other=structuredClone(data.territories[0].editions[0]);
+ const demoPlace=data.territories.find(t=>t.id==='ciudad-ejemplo')!;
+ const other=structuredClone(demoPlace.editions[0]);
  other.id='segundo';other.label='Segunda edición ficticia';
  other.candidates[0].votes=10;other.candidates[1].votes=0;other.candidates[2].votes=0;
  other.claims=other.claims.slice(0,1);
  other.sources=other.sources.slice(0,1);
- data.territories[0].editions.push(other);
+ demoPlace.editions.push(other);
  await page.route('**/api/public/catalog',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)}));
  await page.goto('/?lugar=ciudad-ejemplo&vista=inicio');
  await expect(page.getByLabel('Edición')).toHaveValue('laboratorio');
