@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedFor": "v0.4.0-draft",
+  "updatedFor": "v0.4.0",
   "requirements": [
     {"id":"RF01","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"búsqueda sin resultados, enlace inválido y catálogo no disponible"}]},
     {"id":"RF01a","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"multi-edition deep links, isolated counts and old URLs"}]},
