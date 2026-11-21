@@ -29,7 +29,7 @@ Node.js 24 y Python 3. Desde `web/` ejecutar `npm ci`, `npm run check` y `npm ru
 - [Matriz verificable de trazabilidad](documentacion/TRAZABILIDAD.md)
 - [Cadena de suministro y controles GitHub](documentacion/CADENA_SUMINISTRO.md)
 
-Estado actual (v0.4.0): observatorio ciudadano de demostración para Otavalo e Ibarra, con ediciones aisladas, dashboard neón, podio simulado, perfiles, comparador de propuestas, afirmaciones y documentos sintéticos. Sin votación pública, administración ni verificación automática por IA. Desde v0.4.0 incluye aviso legal, privacidad y política de cookies accesibles en todas las vistas, sin introducir cookies opcionales ni rastreadores. La revisión jurídica operativa sigue pendiente antes de cualquier tratamiento nuevo.
+Estado actual (v0.4.1): observatorio ciudadano de demostración para Otavalo e Ibarra, con ediciones aisladas, dashboard neón, podio simulado, perfiles, comparador de propuestas, afirmaciones y documentos sintéticos. Sin votación pública, administración ni verificación automática por IA. Desde v0.4.0 incluye aviso legal, privacidad y política de cookies accesibles en todas las vistas, sin introducir cookies opcionales ni rastreadores. La revisión jurídica operativa sigue pendiente antes de cualquier tratamiento nuevo.
 
 - [Alcance legal y privacidad de la demostración](documentacion/CUMPLIMIENTO_UE.md)
 - [Análisis de referencia y recorridos](documentacion/ANALISIS_REFERENCIA.md)
