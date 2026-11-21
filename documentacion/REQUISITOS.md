@@ -33,11 +33,11 @@ La fuente comprobable de estado y evidencias es [TRAZABILIDAD.md](TRAZABILIDAD.m
 | RF21 | Aplicar una política idéntica a todas las candidaturas de una edición | Regla de producto; canal editorial pendiente |
 | RF22 | Exportación de datos con fecha, metodología y procedencia | Pendiente |
 | RF23 | Integración estadística de apoyos reales por periodo, sin datos identificables | Pendiente |
-| RF24 | Mostrar desde todas las vistas enlaces permanentes a aviso legal, privacidad, cookies y método | Implementado; identidad pendiente antes de release |
-| RF25 | Explicar responsable, tratamientos reales, finalidades, bases, conservación, destinatarios, transferencias, derechos y AEPD | Implementado como borrador verificable |
+| RF24 | Mostrar desde todas las vistas enlaces permanentes a aviso legal, privacidad, cookies y método | Implementado |
+| RF25 | Explicar responsable, tratamientos reales, finalidades, bases, conservación, destinatarios, transferencias, derechos y AEPD | Implementado con información declarada por el responsable |
 | RF26 | Publicar inventario de cookies y tecnologías similares; sin tecnologías opcionales no mostrar consentimiento, y bloquear las futuras hasta consentimiento válido | Implementado para el estado actual |
-| RF27 | Versionar y fechar los textos legales, revisándolos cuando cambien responsable, proveedor, finalidades o tecnologías | Implementado; versión final pendiente |
-| RF28 | Ofrecer un canal público para derechos de privacidad y correcciones editoriales | Estructura implementada; correo pendiente de confirmación |
+| RF27 | Versionar y fechar los textos legales, revisándolos cuando cambien responsable, proveedor, finalidades o tecnologías | Implementado |
+| RF28 | Ofrecer un canal público para derechos de privacidad y correcciones editoriales | Implementado mediante correo específico |
 
 ## Reglas del producto
 

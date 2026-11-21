@@ -1,24 +1,28 @@
 export interface LegalIdentity {
   controllerName: string;
-  taxId: string;
-  legalAddress: string;
+  legalNature: string;
+  country: string;
+  taxStatus: string;
+  addressStatus: string;
   privacyEmail: string;
+  nonprofit: boolean;
 }
 
-// Public legal identification. Replace the empty fields with verified data
-// before creating a release branch; CI rejects incomplete release builds.
 export const legalIdentity: LegalIdentity = {
-  controllerName: '',
-  taxId: '',
-  legalAddress: '',
-  privacyEmail: ''
+  controllerName: 'Ali Tio Tech',
+  legalNature: 'Proyecto ciudadano sin personalidad jurídica societaria declarada',
+  country: 'Ecuador',
+  taxStatus: 'Sin NIF/CIF español; proyecto no constituido como sociedad',
+  addressStatus: 'Domicilio particular no publicado; contacto efectivo por correo electrónico',
+  privacyEmail: 'ali_tio@outlook.com',
+  nonprofit: true
 };
 
 export const legalDocument = {
-  version: '1.0-draft',
+  version: '1.0',
   reviewedOn: '21 de noviembre de 2026',
   serviceName: 'Observatorio ciudadano OTV',
   hostingProvider: 'Cloudflare, Inc.'
 } as const;
 
-export const hasCompleteLegalIdentity = Object.values(legalIdentity).every(value => value.trim().length > 0);
+export const hasCompleteLegalIdentity = Object.entries(legalIdentity).every(([,value]) => typeof value === 'boolean' || value.trim().length > 0);

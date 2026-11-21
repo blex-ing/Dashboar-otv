@@ -13,7 +13,7 @@ for(const file of sourceFiles){
 }
 for(const label of ['Aviso legal','Privacidad','Cookies']) if(!app.includes(`>${label}<`)) violations.push(`footer: missing ${label}`);
 if(process.argv.includes('--release')){
- for(const field of ['controllerName','taxId','legalAddress','privacyEmail']){
+ for(const field of ['controllerName','legalNature','country','taxStatus','addressStatus','privacyEmail']){
   if(new RegExp(`${field}:\\s*''`).test(config)) violations.push(`legal identity: ${field} is empty`);
  }
  if(config.includes("version: '1.0-draft'")) violations.push('legal document version is still draft');

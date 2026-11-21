@@ -1,6 +1,6 @@
 # Alcance de cumplimiento legal y privacidad — OTV
 
-Fecha de evaluación: 21 de noviembre de 2026. Estado: borrador técnico pendiente de completar la identidad del responsable y de revisión jurídica antes de producción.
+Fecha de evaluación: 21 de noviembre de 2026. Estado: implementación técnica completada con la información declarada por el responsable; se recomienda revisión jurídica antes de incorporar actividad económica o participación real.
 
 ## Objetivo y límite
 
@@ -24,13 +24,17 @@ Este bloque reduce riesgos previsibles de transparencia, privacidad y cookies pa
 6. Enlaces accesibles desde todas las vistas y pruebas a 320, 390 y 1440 píxeles.
 7. Control de CI para detectar almacenamiento o rastreadores conocidos y puerta de release que rechaza datos legales vacíos o textos en borrador.
 
-## Datos que debe confirmar el responsable
+## Información declarada por el responsable
 
-- Nombre completo o razón social.
-- NIF/CIF.
-- Domicilio o dirección pública válida para contacto legal.
-- Correo específico para privacidad y ejercicio de derechos.
-- Si existen actividad económica, publicidad, patrocinios, afiliación o servicios de pago.
+- Responsable operativo: Ali Tio Tech.
+- Naturaleza: proyecto ciudadano sin personalidad jurídica societaria declarada.
+- País: Ecuador.
+- Identificación fiscal: sin NIF/CIF español; no se declara sociedad constituida.
+- Dirección: domicilio particular no publicado; contacto efectivo por correo electrónico.
+- Correo para privacidad y derechos: `ali_tio@outlook.com`.
+- Actividad: sin ánimo de lucro, sin publicidad, patrocinios, afiliación ni servicios de pago en esta versión.
+
+Si cualquiera de estas circunstancias cambia, los textos deben revisarse antes del despliegue. Si una autoridad o una relación contractual exige una dirección postal completa, el responsable deberá facilitar un domicilio válido por el canal privado correspondiente.
 - Datos registrales o profesionales, si resultan aplicables.
 - Configuración contractual y de conservación de registros en Cloudflare.
 
@@ -44,4 +48,4 @@ Este bloque reduce riesgos previsibles de transparencia, privacidad y cookies pa
 
 ## Criterio de publicación
 
-No se crea una rama `release/*` ni se fusiona a `master` mientras `npm run legal:check:release` detecte identidad vacía o versión de texto en borrador. Después de completar esos datos se ejecutan CI, pruebas visuales, revisión del diff y el flujo normal feature → develop → release → master.
+No se crea una rama `release/*` ni se fusiona a `master` mientras `npm run legal:check:release` detecte identidad declarada incompleta o versión de texto en borrador. Superada esa puerta se ejecutan CI, pruebas visuales, revisión del diff y el flujo normal feature → develop → release → master.
