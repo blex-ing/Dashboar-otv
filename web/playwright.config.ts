@@ -6,7 +6,8 @@ export default defineConfig({
   retries:process.env.CI?1:0,
   reporter:process.env.CI?'html':'list',
   outputDir:'test-results/visual',
-  use:{baseURL:'http://127.0.0.1:4173',trace:'retain-on-failure'},
+  use:{baseURL:'http://127.0.0.1:4173',trace:'retain-on-failure',
+    ...(process.env.PLAYWRIGHT_CHROMIUM_PATH?{launchOptions:{executablePath:process.env.PLAYWRIGHT_CHROMIUM_PATH}}:{})},
   projects:[
     {name:'desktop-chromium',use:{...devices['Desktop Chrome'],viewport:{width:1440,height:900}}},
     {name:'narrow-chromium',use:{...devices['Desktop Chrome'],viewport:{width:320,height:800}}},
