@@ -152,3 +152,37 @@ test('electoral guide is legible without horizontal overflow on small mobile',as
  await expect(page.locator('.electoral-card')).toHaveCount(6);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
+
+test('real candidates have equal deep-linkable profiles with disabled public participation',async({page,context})=>{
+ const posts:string[]=[];
+ page.on('request',r=>{if(r.method()==='POST')posts.push(r.url());});
+ await page.goto('/?lugar=otavalo&vista=elecciones');
+ await expect(page.locator('.electoral-card')).toHaveCount(6);
+ await expect(page.getByRole('heading',{name:'Participación pública'})).toBeVisible();
+ await expect(page.getByText('No hay recuentos reales disponibles.',{exact:false})).toBeVisible();
+ await expect(page.locator('.electoral-podium-candidate')).toHaveCount(0);
+ for(const name of ['Franklin Hermosa','Jorge Luis Morocho','Juan Carlos Lema Conejo','Karen Daniela Guerrón Valencia','Lourdes Marisol Alta Lima','Tupac Amaru Anrango']){
+  const card=page.locator('.electoral-card').filter({has:page.getByRole('heading',{name})});
+  await card.getByRole('link',{name:'Consultar ficha'}).click();
+  await expect(page.locator('main h1')).toHaveText(name);
+  await expect(page.getByText('Votación no habilitada')).toBeVisible();
+  const participate=page.getByRole('button',{name:'Votar en OTV'});
+  await expect(participate).toBeDisabled();
+  await expect(page.getByText('Sin datos de apoyos reales')).toBeVisible();
+  await page.reload();
+  await expect(page.locator('main h1')).toHaveText(name);
+  await page.getByRole('link',{name:'Volver a las seis candidaturas'}).click();
+ }
+ expect(posts).toEqual([]);
+ expect(await context.cookies()).toEqual([]);
+ expect(await page.evaluate(()=>({local:localStorage.length,session:sessionStorage.length}))).toEqual({local:0,session:0});
+});
+
+test('unknown real candidate profile is recoverable on mobile with no false podium',async({page})=>{
+ await page.setViewportSize({width:320,height:800});
+ await page.goto('/?lugar=otavalo&vista=elecciones&c=unknown-candidate');
+ await expect(page.getByRole('heading',{name:'Candidatura no encontrada'})).toBeVisible();
+ await page.getByRole('link',{name:'Volver a las seis candidaturas'}).click();
+ await expect(page.locator('.electoral-card')).toHaveCount(6);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+});

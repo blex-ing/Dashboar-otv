@@ -10,6 +10,8 @@
 - v0.4.0: aviso legal, privacidad y cookies visibles; controles CI preventivos y contacto de derechos. Alcance limitado a la demostración, con revisión jurídica por confirmar para nuevas funcionalidades.
 - v0.4.1: coherencia documental posrelease y comprobación automática del estado de versión en README, changelog y roadmap; sin cambios funcionales.
 - v0.5.0: guía documental inicial para las seis candidaturas reales a la Alcaldía de Otavalo (29-11-2026), fuentes periodísticas contrastadas, enlace al directorio del CNE y límites explícitos de verificación primaria; separada del laboratorio ficticio.
+- v0.5.1: fichas individuales enlazables de candidaturas reales, participación claramente bloqueada y pruebas de no persistencia. No se presentan podios de apoyos reales ni se habilita votación pública sin las puertas de seguridad y privacidad.
+- Fichas individuales para las candidaturas reales de Otavalo: navegación directa, mismas fuentes por perfil y módulo de participación bloqueado; **sin podio real** mientras no exista una recogida legal y segura de apoyos. La simulación existente permanece exclusiva del catálogo ficticio.
 - Primera fase de contenidos electorales Otavalo 2026: directorio neutral con seis candidaturas contrastadas en prensa local y fuentes enlazadas, separado del laboratorio; **planes y documentos primarios todavía pendientes de revisión individual**.
 - Siguiente fase de contenidos: cotejar las seis fichas y planes originales del CNE, registrar apartados/páginas, competencia municipal, presupuesto y responsables editoriales; incorporar luego vídeos autorizados y transcripciones verificadas.
 - Persistencia/editorial: migraciones D1, administración autenticada, historial y correcciones. Previews con bases propias.
