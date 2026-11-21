@@ -4,7 +4,7 @@ Se reutiliza el patrón comprobado en mini_podcast y martes_fc: frontend separad
 
 React/TypeScript en web/ presenta la interfaz. shared/ contiene tipos y cálculo puro de notas. worker/ reserva /api/* y sirve assets con cabeceras. La API actual expone GET /api/health, devuelve 503 para /api/votes y 404 JSON para otras rutas API. No hay endpoints de escritura activos.
 
-El esquema representa convocatorias, candidatos, tareas, evaluaciones y votos. Claves compuestas impiden asociar evaluación o voto a candidatos de otra convocatoria. Dos UNIQUE independientes bloquean repeticiones por IP o navegador. No se implementa read-then-write para decidir duplicados.
+El esquema inicial representa convocatorias, candidatos, tareas, evaluaciones y una tabla de votos **no utilizada**. No debe habilitarse tal como está: vincula candidatura con HMAC de red/navegador. El diseño futuro minimizado separa guardas anti-duplicado y totales agregados, sin relación identificador-candidatura, y requiere una migración nueva. Véase [DISEÑO_PARTICIPACION_REAL.md](DISENO_PARTICIPACION_REAL.md).
 
 La calificación es sum(nota × peso) / sum(peso), redondeada a dos decimales. Falta de tareas o de una evaluación devuelve pendiente. Antes de publicar evaluaciones se validarán IDs, duplicados y pesos de toda la configuración. Las tareas se congelarán al abrir la convocatoria.
 
@@ -29,3 +29,9 @@ El catálogo demo agrupa `Locality → TerritoryEdition`. Cada edición tiene `i
 La URL compartible usa `lugar` y `edicion`. Cambiar de localidad selecciona su edición inicial, y cambiar de edición reinicia la navegación a su dashboard. La selección simulada solo reside en memoria React y usa la clave compuesta localidad:edición, sin requests de escritura. El validador runtime impide IDs duplicados y referencias a candidaturas o fuentes ajenas a cada edición.
 
 Esta versión **no incorpora nuevas elecciones reales**; el único contenido sigue siendo sintético. D1, modelos persistentes y administración electoral se mantienen fuera de alcance.
+
+## Decisión de participación futura (v0.3.9)
+
+La arquitectura propuesta conserva al Worker como único punto de escritura y D1 como unidad transaccional. Dos guardas HMAC por edición limitan duplicados; ninguna contiene la candidatura elegida. En la misma transacción se incrementa el total agregado. Turnstile, CSRF, origen, ventana y pertenencia candidatura-edición se validan antes de D1.
+
+El diseño no habilita endpoints ni bindings. Las puertas jurídicas, de privacidad, seguridad, restauración y concurrencia permanecen obligatorias; hasta su aprobación `/api/votes` continúa cerrado.
