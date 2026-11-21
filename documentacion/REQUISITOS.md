@@ -40,6 +40,7 @@ La fuente comprobable de estado y evidencias es [TRAZABILIDAD.md](TRAZABILIDAD.m
 | RF28 | Ofrecer un canal público para derechos de privacidad y correcciones editoriales | Implementado mediante correo específico |
 | RF29 | Mostrar candidaturas reales de Alcaldía de Otavalo 2026 sin confundirlas con la demo, con procedencia enlazada y fecha de revisión; no atribuir programas sin fuente primaria | Parcial: seis identidades contrastadas en dos medios; planes originales y datos finales CNE por validar |
 | RF30 | Publicar propuestas por candidatura con fuente primaria, apartado/página, cotejo factual y correcciones editoriales | Pendiente: examen individual de seis planes CNE |
+| RF31 | Abrir una ficha documental individual por candidatura real desde la guía de Otavalo, con URL directa, fuentes y controles de participación inhabilitados mientras RF17 esté bloqueado | Implementado: seis fichas; sin registro de votos, recuentos ni clasificación real |
 
 ## Reglas del producto
 
