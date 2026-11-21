@@ -1,7 +1,7 @@
 {
   "name": "dashboard-otv-web",
   "private": true,
-  "version": "0.3.7",
+  "version": "0.3.8",
   "type": "module",
   "engines": {
     "node": ">=24 <25"
@@ -9,12 +9,13 @@
   "scripts": {
     "dev": "node scripts/bundle.mjs dev",
     "typecheck": "tsc --noEmit && tsc -p ../worker/tsconfig.json",
-    "test": "node --test ../tests/*.test.mjs && python3 ../tests/schema_test.py",
+    "test": "node --test ../tests/*.test.mjs && python3 ../tests/schema_test.py && npm run traceability:check",
     "build": "npm run typecheck && node scripts/bundle.mjs build",
     "check": "npm run build && npm test",
     "test:visual": "playwright test",
     "quality:metrics": "node scripts/quality-metrics.mjs",
-    "quality:metrics:check": "node scripts/quality-metrics.mjs --check-baseline"
+    "quality:metrics:check": "node scripts/quality-metrics.mjs --check-baseline",
+    "traceability:check": "node scripts/traceability-check.mjs"
   },
   "dependencies": {
     "react": "19.3.1",
@@ -27,5 +28,8 @@
     "@typescript/typescript6": "6.0.2",
     "esbuild": "0.28.2",
     "typescript": "7.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }
