@@ -110,3 +110,45 @@ test('multi-edition deep links, isolated counts and old URLs',async({page})=>{
  await page.goto('/?lugar=ibarra&edicion=segundo&vista=inicio');
  await expect(page.getByRole('heading',{name:'Localidad no encontrada'})).toBeVisible();
 });
+
+test('electoral guide uses six real candidates without simulated votes',async({page})=>{
+ const writes:string[]=[];
+ page.on('request',request=>{if(request.method()==='POST')writes.push(request.url());});
+ await page.goto('/?lugar=otavalo&vista=elecciones');
+ await expect(page.getByRole('heading',{name:'Candidaturas a la Alcaldía de Otavalo'})).toBeVisible();
+ const cards=page.locator('.electoral-card');
+ await expect(cards).toHaveCount(6);
+ for(const name of ['Franklin Hermosa','Jorge Luis Morocho','Juan Carlos Lema Conejo',
+ 'Karen Daniela Guerrón Valencia','Lourdes Marisol Alta Lima','Tupac Amaru Anrango']){
+  await expect(cards.getByRole('heading',{name})).toHaveCount(1);
+ }
+ await expect(cards.getByText('pendiente de lectura y contraste directo',{exact:false})).toHaveCount(6);
+ await expect(page.getByRole('link',{name:/Consultar Voto Informado del CNE/})).toHaveAttribute('href','https://votoinformado.cne.gob.ec/');
+ await expect(page.getByText('La votación pública está cerrada.',{exact:false})).toHaveCount(0);
+ await expect(page.locator('.podium')).toHaveCount(0);
+ await expect(page.locator('.vote-button')).toHaveCount(0);
+ await expect(page.locator('.candidate-card')).toHaveCount(0);
+ await page.reload();
+ await expect(cards).toHaveCount(6);
+ expect(writes).toEqual([]);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
+});
+
+test('electoral guide stays in Otavalo and preserves old demo navigation',async({page})=>{
+ await page.goto('/?lugar=ibarra&vista=inicio');
+ await page.getByRole('navigation',{name:'Principal'}).getByRole('link',{name:'Elecciones 2026'}).click();
+ await expect(page).toHaveURL(/lugar=otavalo/);
+ await expect(page).toHaveURL(/vista=elecciones/);
+ await expect(page.getByRole('heading',{name:'Candidaturas a la Alcaldía de Otavalo'})).toBeVisible();
+ await page.getByRole('navigation',{name:'Principal'}).getByRole('link',{name:'Dashboard'}).click();
+ await expect(page.getByText('Candidaturas, apoyos y documentos ficticios.',{exact:false})).toBeVisible();
+ await expect(page.locator('.electoral-card')).toHaveCount(0);
+});
+
+test('electoral guide is legible without horizontal overflow on small mobile',async({page})=>{
+ await page.setViewportSize({width:320,height:800});
+ await page.goto('/?lugar=otavalo&vista=elecciones');
+ await expect(page.locator('main h1')).toBeVisible();
+ await expect(page.locator('.electoral-card')).toHaveCount(6);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+});
