@@ -11,11 +11,29 @@ import { readRoute, routeHref, pages, legalPages } from './routing';
 import type { Page } from './routing';
 import { Verification } from './Verification';
 import { LegalPages } from '../legal/LegalPages';
+import { ElectionGuide } from '../elections/ElectionGuide';
 
 const count = new Intl.NumberFormat('es-EC');
 
-function LegalRoute({page}:{page:Page}) {
+function LegalRoute({page,place,onNavigate}:{page:Page;place:string;onNavigate:()=>void}) {
+ if(page==='elecciones') return <ElectionRoute place={place} onNavigate={onNavigate}/>;
  return legalPages.includes(page)?<LegalPages page={page as 'aviso-legal'|'privacidad'|'cookies'}/>:null;
+}
+
+function menuTerritory(page:Page, current:string):string {
+ return page==='elecciones'?'otavalo':current;
+}
+function menuEdition(page:Page, current:string):string {
+ return page==='elecciones'?'':current;
+}
+function PageNotice({isElection}:{isElection:boolean}) {
+ return isElection
+  ? <div className="demo-banner"><strong>Guía electoral informativa.</strong> Esta vista presenta candidaturas reales reportadas por prensa local; planes aún pendientes de verificación primaria. No ofrece pronósticos ni recomendaciones de voto.</div>
+  : <div className="demo-banner"><strong>Un laboratorio para decidir mejor.</strong> Candidaturas, apoyos y documentos ficticios. No es una encuesta ni un resultado electoral. La votación pública está cerrada.</div>;
+}
+function ElectionRoute({place,onNavigate}:{place:string;onNavigate:()=>void}) {
+ if(place==='otavalo') return <ElectionGuide/>;
+ return <section className="empty"><h1>Guía disponible para Otavalo</h1><p>Esta edición documental inicial solo cubre la Alcaldía de Otavalo.</p><button onClick={onNavigate}>Consultar Otavalo</button></section>;
 }
 
 export function App(){
@@ -26,10 +44,10 @@ export function App(){
  function navigate(page:Page,candidate='',claim='',territoryId=t.id,editionId=territoryId===t.id?t.editionId:''){ history.pushState(null,'',routeHref({page,territory:territoryId,edition:editionId,candidate,claim}));setRoute(readRoute());setMessage('');window.scrollTo({top:0});main.current?.focus(); }
  function vote(candidate:CivicCandidate){setSimulated(p=>({...p,[`${t.id}:${t.editionId}`]:candidate.id}));setMessage(`Simulación: elegiste a ${candidate.name}. No se ha enviado ni guardado un voto real.`);}
  const summary=service.summary(t),ranked=service.ranking(t);const candidate=service.candidate(t,route.candidate);const activeClaim=t.claims.find(c=>c.id===route.claim);
- return <><a className="skip" href="#main">Saltar al contenido</a><aside className="sidebar"><a className="brand" href={routeHref({page:'inicio',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('inicio');}}><span className="brand-symbol">◈</span><span>OTV<small>OBSERVATORIO CIUDADANO</small></span></a><p className="nav-label">EXPLORA TU COMUNIDAD</p><nav aria-label="Principal">{pages.map(([p,label,icon])=><a key={p} aria-current={route.page===p?'page':undefined} href={routeHref({page:p,territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate(p);}}><span aria-hidden="true">{icon}</span>{label}</a>)}</nav><div className="sidebar-note"><span className="live-dot"/> Hecho para preguntar.<br/><strong>Diseñado para comprender.</strong><p>De Otavalo a cualquier comunidad.</p></div></aside>
+ return <><a className="skip" href="#main">Saltar al contenido</a><aside className="sidebar"><a className="brand" href={routeHref({page:'inicio',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('inicio');}}><span className="brand-symbol">◈</span><span>OTV<small>OBSERVATORIO CIUDADANO</small></span></a><p className="nav-label">EXPLORA TU COMUNIDAD</p><nav aria-label="Principal">{pages.map(([p,label,icon])=><a key={p} aria-current={route.page===p?'page':undefined} href={routeHref({page:p,territory:menuTerritory(p,t.id),edition:menuEdition(p,t.editionId),candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate(p,'','',menuTerritory(p,t.id));}}><span aria-hidden="true">{icon}</span>{label}</a>)}</nav><div className="sidebar-note"><span className="live-dot"/> Hecho para preguntar.<br/><strong>Diseñado para comprender.</strong><p>De Otavalo a cualquier comunidad.</p></div></aside>
  <div className="workspace"><header className="topbar"><div className="breadcrumb">{t.country} <span>/</span> {t.region} <span>/</span> <strong>{t.name}</strong></div><label className="territory-picker">Localidad <select value={t.id} onChange={e=>{navigate('inicio','','',e.target.value);}}>{service.data.territories.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label><label className="territory-picker">Edición <select aria-label="Edición" value={t.editionId} onChange={e=>navigate('inicio','','',t.id,e.target.value)}>{service.locality(t.id)?.editions.map(e=><option key={e.id} value={e.id}>{e.label}</option>)}</select></label><span className="demo-pill"><span className="live-dot"/> DEMOSTRACIÓN</span></header>
  <main id="main" ref={main} tabIndex={-1}>
- <div className="demo-banner"><strong>Un laboratorio para decidir mejor.</strong> Candidaturas, apoyos y documentos ficticios. No es una encuesta ni un resultado electoral. La votación pública está cerrada.</div>
+ <PageNotice isElection={route.page==='elecciones'}/>
  {!catalog&&<p role="status" className="loading">Cargando el observatorio…</p>}
  {offline&&<div className="fallback" role="status">No se pudo cargar el catálogo remoto. Estás viendo una copia de demostración.<button onClick={()=>setReload(n=>n+1)}>Reintentar</button></div>}
  {invalid?<section className="empty"><h1>Localidad no encontrada</h1><p>Selecciona una localidad disponible para continuar.</p><button onClick={()=>navigate('inicio','','','otavalo')}>Ir a Otavalo</button></section>:<>
@@ -42,9 +60,10 @@ export function App(){
  {route.page==='candidatos'&&<><PageHeading eyebrow="CANDIDATURAS" title={candidate?candidate.name:'Conoce las propuestas'} text="Los mismos temas y la misma información para todas las candidaturas de demostración."/>{route.candidate&&!candidate?<Empty onReset={()=>navigate('candidatos')}/>:<><div className="candidate-tabs" aria-label="Seleccionar candidatura">{t.candidates.map(c=><button key={c.id} aria-pressed={candidate?.id===c.id} onClick={()=>navigate('candidatos',c.id)}>{c.name}</button>)}</div>{candidate?<><div className="profile-meta"><Avatar candidate={candidate}/><p>{candidate.group}<br/><span className="subtle">Perfil ficticio · {t.name}</span></p><button className="secondary" onClick={()=>navigate('verificar',candidate.id)}>Ver sus afirmaciones ↗</button></div><CandidateProfileView candidate={candidate}/><InterviewPanel t={t} candidate={candidate} claim={undefined} onSelect={c=>navigate('verificar',candidate.id,c.id)}/></>:<div className="candidate-grid">{t.candidates.map(c=><article className={`candidate-card ${c.color}`} key={c.id}><Avatar candidate={c}/><h2>{c.name}</h2><p>{c.description}</p><p>{c.proposals.length} propuestas · {t.claims.filter(x=>x.candidateId===c.id).length} afirmaciones de ejemplo</p><button className="primary" onClick={()=>navigate('candidatos',c.id)}>Explorar candidatura ↗</button></article>)}</div>}</> }</>}
  {route.page==='comparar'&&<Comparison t={t}/>}
  {route.page==='verificar'&&<Verification key={t.id+':'+t.editionId+':'+route.candidate} t={t} service={service} candidateId={route.candidate} claim={activeClaim} invalidClaim={!!route.claim&&!activeClaim} onSelect={c=>navigate('verificar',c.candidateId,c.id)} onBack={()=>navigate('verificar',route.candidate)} onSource={id=>navigate('fuentes','',id)}/>}
+ 
  {route.page==='metodo'&&<Method onSources={()=>navigate('fuentes')}/>}
  {route.page==='fuentes'&&<><PageHeading eyebrow="TRAZABILIDAD" title="La evidencia, a un clic." text="Esta edición utiliza documentos sintéticos para mostrar el recorrido completo. No son datos oficiales de Otavalo ni de Ibarra."/><div className="sources-grid">{t.sources.map(s=><article className="panel source-card" key={s.id} id={s.id}><span className="tiny">DOCUMENTO SINTÉTICO · {s.date}</span><h2>{s.title}</h2><p className="subtle">{s.publisher}</p><p>{s.excerpt}</p><button className="text-button" onClick={()=>{const c=t.claims.find(x=>x.sourceIds.includes(s.id));if(c)navigate('verificar',c.candidateId,c.id);}}>Ver una afirmación vinculada ↗</button></article>)}</div><div className="panel"><h2>Cuando incorporemos fuentes reales</h2><p>Cada documento deberá tener organismo, título, fecha, URL y el fragmento que respalda la comprobación. No basta con enlazar a la portada de una institución.</p></div></>}
- <LegalRoute page={route.page}/>
+ <LegalRoute page={route.page} place={t.id} onNavigate={()=>navigate('elecciones','','','otavalo')}/>
  </>}
  <p className="feedback" role="status" aria-live="polite">{message}</p>
  <footer><nav aria-label="Información legal"><a href={routeHref({page:'aviso-legal',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('aviso-legal');}}>Aviso legal</a><a href={routeHref({page:'privacidad',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('privacidad');}}>Privacidad</a><a href={routeHref({page:'cookies',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('cookies');}}>Cookies</a><a href={routeHref({page:'metodo',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('metodo');}}>Método y límites</a></nav><span>OTV · Información para tu comunidad · v0.4.1</span><span>Demostración · Sin votos reales</span></footer>

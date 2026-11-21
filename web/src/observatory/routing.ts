@@ -1,5 +1,5 @@
-export type Page = 'inicio' | 'candidatos' | 'comparar' | 'verificar' | 'metodo' | 'fuentes' | 'aviso-legal' | 'privacidad' | 'cookies';
-export const pages: [Page,string,string][] = [['inicio','Dashboard','◈'],['candidatos','Candidaturas','◎'],['comparar','Comparar propuestas','⇄'],['verificar','Verificaciones','✓'],['metodo','Método','≡'],['fuentes','Fuentes','↗']];
+export type Page = 'inicio' | 'candidatos' | 'comparar' | 'verificar' | 'metodo' | 'fuentes' | 'elecciones' | 'aviso-legal' | 'privacidad' | 'cookies';
+export const pages: [Page,string,string][] = [['inicio','Dashboard','◈'],['candidatos','Candidaturas','◎'],['comparar','Comparar propuestas','⇄'],['verificar','Verificaciones','✓'],['metodo','Método','≡'],['fuentes','Fuentes','↗'],['elecciones','Elecciones 2026','◈']];
 export const legalPages: Page[] = ['aviso-legal','privacidad','cookies'];
 export interface Route {page: Page; territory: string; edition: string; candidate: string; claim: string}
 export function readRoute(search = location.search): Route {
