@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+Primera fase del directorio documental de las elecciones seccionales de Otavalo (29-11-2026): seis candidaturas reales contrastadas en dos publicaciones locales, referencias al CNE y ficha de procedencia con estado de revisión. Vista separada del catálogo ficticio, sin encuestas, veredictos personales ni votación real. Las propuestas específicas siguen pendientes de cotejo de los seis planes oficiales.
+
 ## 0.4.1
 
 Corrección de la deriva documental tras la incorporación legal de v0.4.0. README, changelog y roadmap se mantienen alineados con la versión del paquete mediante una comprobación automática integrada en CI. Sin cambios de funcionalidad, tratamiento de datos ni apertura de participación.
