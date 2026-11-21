@@ -1588,3 +1588,22 @@ main:focus{
   outline:2px solid #f3d582;
   outline-offset:4px;
 }
+
+/* Source-led dashboard: six equal cards instead of a simulated election podium. */
+.real-election-dashboard{max-width:1250px;min-width:0}
+.real-election-hero{min-height:245px}
+.real-election-hero h1{max-width:850px;font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.12}
+.real-election-action{display:inline-flex;min-height:44px;align-items:center;text-decoration:none}
+.real-participation-notice{border-left:3px solid #59cecc;margin:20px 0 34px}
+.real-participation-notice h2{font-size:1.55rem;margin:9px 0}
+.real-candidate-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}
+.real-candidate-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.real-candidate-card h3{font-size:1.35rem;line-height:1.25;overflow-wrap:anywhere}
+.real-candidate-card p{margin:0;overflow-wrap:anywhere}
+.real-candidate-card .group{color:#9ddadf}
+.real-candidate-card .subtle{flex:1}
+.real-initials{display:grid;place-items:center;width:54px;height:54px;border:1px solid #51c7cb;border-radius:50%;background:rgba(81,199,203,.13);color:#65e7e0;font-weight:700}
+.real-profile-action,.real-directory-link{display:inline-flex;align-items:center;min-height:44px;color:#7ee9e2;text-underline-offset:4px;font-weight:650}
+.real-election-dashboard a:focus-visible{outline:2px solid #f3d582;outline-offset:4px}
+@media(max-width:960px){.real-candidate-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.real-candidate-grid{grid-template-columns:minmax(0,1fr)}.real-election-hero{min-height:auto}.real-election-hero h1{font-size:2.35rem}}

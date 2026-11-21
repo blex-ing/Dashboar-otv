@@ -3,7 +3,7 @@ import {expect,test} from '@playwright/test';
 // Lightweight automated accessibility guardrails (not a WCAG audit).
 for(const view of ['inicio','candidatos','comparar','verificar','metodo','fuentes','elecciones','aviso-legal','privacidad','cookies']){
  test(`accessible structure and control names: ${view}`,async({page})=>{
-  await page.goto(`/?lugar=otavalo&vista=${view}`);
+  await page.goto(`/?lugar=${['inicio','candidatos','comparar','verificar','fuentes'].includes(view)?'ciudad-ejemplo':'otavalo'}&vista=${view}`);
   await expect(page.getByRole('main')).toHaveCount(1);
   await expect(page.getByRole('navigation',{name:'Principal'})).toHaveCount(1);
   await expect(page.getByRole('link',{name:'Saltar al contenido'})).toHaveAttribute('href','#main');
@@ -35,7 +35,7 @@ for(const view of ['inicio','candidatos','comparar','verificar','metodo','fuente
 
 test('keyboard skip navigation and focus visible in mobile layout',async({page})=>{
  await page.setViewportSize({width:320,height:800});
- await page.goto('/?lugar=otavalo&vista=inicio');
+ await page.goto('/?lugar=ciudad-ejemplo&vista=inicio');
  await page.keyboard.press('Tab');
  const skip=page.getByRole('link',{name:'Saltar al contenido'});
  await expect(skip).toBeFocused();

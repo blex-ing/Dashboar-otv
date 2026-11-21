@@ -7,7 +7,7 @@ const fixture = () => structuredClone(demoCatalog);
 
 test('accepts complete demo catalog and keeps both territories isolated', () => {
   const data = parseCatalog(fixture());
-  assert.equal(data.territories.length, 2);
+  assert.equal(data.territories.length, 3);
   assert.notEqual(data.territories[0].id, data.territories[1].id);
 });
 

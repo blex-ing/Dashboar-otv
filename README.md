@@ -38,6 +38,8 @@ Estado actual (v0.5.1): observatorio ciudadano de demostración para Otavalo e I
 
 El catálogo se lee desde `/api/public/catalog`; en desarrollo estático se señala el fallback a la misma demostración local. La simulación de apoyo solo vive en memoria y no modifica las cifras de ejemplo.
 
+Al entrar en **Otavalo** el Dashboard muestra seis candidaturas reales en orden alfabético, sin podio ni apoyos inventados; «Candidaturas» enlaza al directorio documental. Selecciona **Ciudad Ejemplo** para recorrer los perfiles ficticios, los datos sintéticos y el podio de demostración.
+
 El módulo **Elecciones 2026** es un directorio separado de la demo: seis candidaturas reales contrastadas con dos fuentes periodísticas, enlace al CNE y aviso de planes individuales pendientes de contraste primario. No presenta clasificaciones, encuestas, recomendaciones ni votación real; no debe confundirse la corroboración de identidad con la verificación de propuestas. Las seis candidaturas cuentan con fichas individuales accesibles por URL. La participación real sigue deshabilitada; el podio con cifras simuladas pertenece únicamente al laboratorio ficticio.
 
 Desde `web/`: `npx playwright install chromium` y `npm run test:visual`. CI valida escritorio, móvil y 320 px, filtros, enlaces directos, historial, comparación, simulación sin POST y fallo del catálogo. Las capturas quedan en los artifacts de Visual QA.
