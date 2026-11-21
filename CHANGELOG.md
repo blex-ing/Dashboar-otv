@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+El Dashboard de Otavalo muestra seis candidaturas reales con fichas, enlaces y metadatos de fecha, período y procedencia. En Candidaturas se accede al directorio real; Comparar, Verificaciones y Fuentes señalan la investigación documental pendiente en vez de mostrar información sintética atribuida a Otavalo. El podio ficticio y las tres candidaturas de ejemplo siguen disponibles seleccionando Ciudad Ejemplo. Sin votación real, porcentajes ni recuentos inventados. Pruebas móviles, navegación, CI y controles de complejidad.
+
 ## 0.5.1
 
 Fichas individuales de las seis candidaturas reales de Otavalo con enlaces directos, referencias documentales y estado de revisión. Módulo de participación pública explícitamente deshabilitado hasta disponer de garantías jurídicas, privacidad, protección contra abuso y registros transaccionales. No se publican recuentos, rankings ni podios de personas reales; el podio existente continúa exclusivamente en el laboratorio ficticio. Pruebas de navegación, privacidad y accesibilidad.
