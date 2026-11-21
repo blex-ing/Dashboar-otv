@@ -1,7 +1,7 @@
 import {expect,test} from '@playwright/test';
 
 // Lightweight automated accessibility guardrails (not a WCAG audit).
-for(const view of ['inicio','candidatos','comparar','verificar','metodo','fuentes']){
+for(const view of ['inicio','candidatos','comparar','verificar','metodo','fuentes','aviso-legal','privacidad','cookies']){
  test(`accessible structure and control names: ${view}`,async({page})=>{
   await page.goto(`/?lugar=otavalo&vista=${view}`);
   await expect(page.getByRole('main')).toHaveCount(1);
@@ -43,4 +43,13 @@ test('keyboard skip navigation and focus visible in mobile layout',async({page})
  await page.keyboard.press('Enter');
  await expect(page.getByRole('main')).toBeFocused();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+});
+
+test('legal navigation and current storage disclosure stay consistent',async({page,context})=>{
+ await page.goto('/?lugar=otavalo&vista=inicio');
+ await expect(page.getByRole('navigation',{name:'Información legal'})).toBeVisible();
+ await page.getByRole('link',{name:'Cookies',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Política de cookies'})).toBeVisible();
+ expect(await context.cookies()).toEqual([]);
+ expect(await page.evaluate(()=>({local:localStorage.length,session:sessionStorage.length}))).toEqual({local:0,session:0});
 });
