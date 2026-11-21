@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+Fichas individuales de las seis candidaturas reales de Otavalo con enlaces directos, referencias documentales y estado de revisión. Módulo de participación pública explícitamente deshabilitado hasta disponer de garantías jurídicas, privacidad, protección contra abuso y registros transaccionales. No se publican recuentos, rankings ni podios de personas reales; el podio existente continúa exclusivamente en el laboratorio ficticio. Pruebas de navegación, privacidad y accesibilidad.
+
 ## 0.5.0
 
 Primera fase del directorio documental de las elecciones seccionales de Otavalo (29-11-2026): seis candidaturas reales contrastadas en dos publicaciones locales, referencias al CNE y ficha de procedencia con estado de revisión. Vista separada del catálogo ficticio, sin encuestas, veredictos personales ni votación real. Las propuestas específicas siguen pendientes de cotejo de los seis planes oficiales.
