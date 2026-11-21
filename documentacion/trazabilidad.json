@@ -483,6 +483,24 @@
           "contains": "unknown real candidate profile is recoverable on mobile with no false podium"
         }
       ]
+    },
+    {
+      "id": "RF32",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "web/tests/visual/visual.spec.ts",
+          "contains": "Otavalo dashboard presents six real candidates without invented votes or podium"
+        },
+        {
+          "file": "web/tests/visual/visual.spec.ts",
+          "contains": "example city exclusively presents the existing fictional podium and demo candidates"
+        },
+        {
+          "file": "web/tests/visual/visual.spec.ts",
+          "contains": "real candidate dashboard is responsive and individual profiles remain linked"
+        }
+      ]
     }
   ]
 }
