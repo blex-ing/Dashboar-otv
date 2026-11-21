@@ -1560,3 +1560,31 @@ main:focus{
     padding:20px
   }
 }
+/* Real candidacy profiles: no fabricated rank or preference storage. */
+.electoral-participation{
+  margin:24px 0 32px;
+  border-left:3px solid var(--line);
+}
+.electoral-participation button:disabled{
+  cursor:not-allowed;
+  opacity:.65;
+}
+.electoral-profile-link,.electoral-back{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  width:fit-content;
+  font-weight:700;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+.electoral-back{
+  margin:24px 0 4px;
+}
+.electoral-profile .panel{
+  margin-bottom:24px;
+}
+.electoral-profile a:focus-visible,.electoral-profile-link:focus-visible{
+  outline:2px solid #f3d582;
+  outline-offset:4px;
+}
