@@ -60,4 +60,4 @@ function territory(id: string,name: string): Locality {
  ]);
  return {id,name,region:'Imbabura',country:'Ecuador',editions:[{id:'laboratorio',label:'Laboratorio ciudadano · edición de demostración',candidates:candidates.map(c=>({...c,proposals:c.proposals.map(p=>({...p}))})),claims,sources,interviews:candidates.map(c=>({candidateId:c.id,title:`Conversación de ejemplo · ${c.name}`,duration:900,youtubeId:null,chapters:[{seconds:0,title:'Presentación'},{seconds:180,title:'Servicios y ambiente'},{seconds:400,title:'Economía local'},{seconds:580,title:'Participación y rendición de cuentas'}]}))}]};
 }
-export const demoCatalog: CatalogData = {mode:'demo',territories:[territory('otavalo','Otavalo'),territory('ibarra','Ibarra')]};
+export const demoCatalog: CatalogData = {mode:'demo',territories:[territory('otavalo','Otavalo'),territory('ibarra','Ibarra'),territory('ciudad-ejemplo','Ciudad Ejemplo')]};
