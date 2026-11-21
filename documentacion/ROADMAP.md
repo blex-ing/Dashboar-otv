@@ -7,6 +7,7 @@
 - v0.3.1–v0.3.7: contrato remoto validado, responsabilidades separadas, CSS mantenible, ediciones aisladas, Worker endurecido, QA ampliado y análisis formal de complejidad con baseline.
 - v0.3.8: documentación coherente con el producto, matriz RF/RNF verificable y controles de CI/cadena de suministro documentados.
 - v0.3.9: diseño minimizado de participación real, privacidad, amenazas, retención, entornos y recuperación; implementación todavía bloqueada.
+- v0.4.0: aviso legal, privacidad y cookies visibles; controles CI preventivos y contacto de derechos. Alcance limitado a la demostración, con revisión jurídica por confirmar para nuevas funcionalidades.
 - Siguiente fase de contenidos: aportar candidaturas reales, programas, vídeos autorizados, documentos primarios y transcripciones; seleccionar edición y responsables de revisión.
 - Persistencia/editorial: migraciones D1, administración autenticada, historial y correcciones. Previews con bases propias.
 - Verificación asistida: extracción/transcripción con coste limitado, fuentes abiertas y revisiones registradas. No se automatiza una recomendación de voto.
