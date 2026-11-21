@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.1
+
+Corrección de la deriva documental tras la incorporación legal de v0.4.0. README, changelog y roadmap se mantienen alineados con la versión del paquete mediante una comprobación automática integrada en CI. Sin cambios de funcionalidad, tratamiento de datos ni apertura de participación.
+
+## 0.4.0
+
+Aviso legal, política de privacidad y política de cookies accesibles en todas las vistas. Nueva comprobación técnica preventiva de tecnologías de almacenamiento/rastreadores y puerta de release para identidad legal declarada. El observatorio sigue siendo un laboratorio sin cuentas, votos reales ni publicidad. El cumplimiento jurídico integral y la configuración efectiva del proveedor no quedan certificados por CI.
+
 ## 0.3.9
 
 Diseño futuro de participación minimizada: guardas anti-duplicado separadas de los totales, sin vínculo HMAC-candidatura, flujo seguro con Turnstile/CSRF/origen, modelo de amenazas, retención, aislamiento de entornos y recuperación D1. La votación continúa deshabilitada hasta superar diez puertas jurídicas, de privacidad y seguridad.
