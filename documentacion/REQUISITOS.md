@@ -38,6 +38,8 @@ La fuente comprobable de estado y evidencias es [TRAZABILIDAD.md](TRAZABILIDAD.m
 | RF26 | Publicar inventario de cookies y tecnologías similares; sin tecnologías opcionales no mostrar consentimiento, y bloquear las futuras hasta consentimiento válido | Implementado para el estado actual |
 | RF27 | Versionar y fechar los textos legales, revisándolos cuando cambien responsable, proveedor, finalidades o tecnologías | Implementado |
 | RF28 | Ofrecer un canal público para derechos de privacidad y correcciones editoriales | Implementado mediante correo específico |
+| RF29 | Mostrar candidaturas reales de Alcaldía de Otavalo 2026 sin confundirlas con la demo, con procedencia enlazada y fecha de revisión; no atribuir programas sin fuente primaria | Parcial: seis identidades contrastadas en dos medios; planes originales y datos finales CNE por validar |
+| RF30 | Publicar propuestas por candidatura con fuente primaria, apartado/página, cotejo factual y correcciones editoriales | Pendiente: examen individual de seis planes CNE |
 
 ## Reglas del producto
 
@@ -65,6 +67,7 @@ La fuente comprobable de estado y evidencias es [TRAZABILIDAD.md](TRAZABILIDAD.m
 - RNF10: coste de los futuros proveedores de IA limitado por presupuesto y trabajos de fondo; sin claves en frontend ni llamadas sin control por cada visitante.
 - RNF11: CI detecta almacenamiento web, escritura de cookies o rastreadores conocidos y bloquea una release con identidad legal vacía o textos en borrador.
 - RNF12: las páginas legales tienen un único `h1`, navegación por teclado, tablas desplazables dentro de su región y lectura sin desbordamiento a 320 px.
+- RNF13: las páginas de información electoral real deben distinguirse visual y semánticamente del catálogo ficticio, no recoger preferencias políticas, no presentar rankings y conservar cobertura equivalente para cada candidatura; verificar 320 px y enlaces.
 
 ## Datos y arquitectura objetivo
 
