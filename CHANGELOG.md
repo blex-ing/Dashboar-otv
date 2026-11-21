@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.8
+
+Documentación reconciliada con el producto real, matriz automática de trazabilidad para 38 RF/RNF y 34 evidencias, estado verificable de ramas/rulesets y revisión de cadena de suministro. La ejecución de instalación de esbuild queda autorizada únicamente para la versión 0.28.2 revisada.
+
 ## 0.3.7
 
 Análisis formal de complejidad ciclomática y cognitiva mediante AST, con métricas por función y clase, línea base reproducible y bloqueo de regresiones en CI. El artefacto de calidad vuelve a ser JSON válido y la metodología queda documentada.
