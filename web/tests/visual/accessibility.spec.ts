@@ -1,7 +1,7 @@
 import {expect,test} from '@playwright/test';
 
 // Lightweight automated accessibility guardrails (not a WCAG audit).
-for(const view of ['inicio','candidatos','comparar','verificar','metodo','fuentes','aviso-legal','privacidad','cookies']){
+for(const view of ['inicio','candidatos','comparar','verificar','metodo','fuentes','elecciones','aviso-legal','privacidad','cookies']){
  test(`accessible structure and control names: ${view}`,async({page})=>{
   await page.goto(`/?lugar=otavalo&vista=${view}`);
   await expect(page.getByRole('main')).toHaveCount(1);
