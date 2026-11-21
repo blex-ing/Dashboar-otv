@@ -186,3 +186,40 @@ test('unknown real candidate profile is recoverable on mobile with no false podi
  await expect(page.locator('.electoral-card')).toHaveCount(6);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
+
+test('Otavalo dashboard presents six real candidates without invented votes or podium',async({page})=>{
+ const writes:string[]=[];page.on('request',r=>{if(r.method()==='POST') writes.push(r.url());});
+ await page.goto('/?lugar=otavalo&vista=inicio');
+ await expect(page.getByRole('heading',{name:'Otavalo: conoce las candidaturas'})).toBeVisible();
+ await expect(page.locator('.real-candidate-card')).toHaveCount(6);
+ await expect(page.getByText('Ana Rivera')).toHaveCount(0);
+ await expect(page.locator('.podium')).toHaveCount(0);
+ await expect(page.getByText('2.675 apoyos ficticios')).toHaveCount(0);
+ await expect(page.getByText('Votación no habilitada',{exact:false})).toBeVisible();
+ await page.getByRole('navigation',{name:'Principal'}).getByRole('link',{name:'Candidaturas'}).click();
+ await expect(page.getByRole('heading',{name:'Candidaturas a la Alcaldía de Otavalo'})).toBeVisible();
+ await expect(page.locator('.electoral-card')).toHaveCount(6);
+ expect(writes).toEqual([]);
+});
+
+test('example city exclusively presents the existing fictional podium and demo candidates',async({page})=>{
+ await page.goto('/?lugar=otavalo&vista=inicio');
+ await page.getByLabel('Localidad').selectOption('ciudad-ejemplo');
+ await expect(page).toHaveURL(/lugar=ciudad-ejemplo/);
+ await expect(page.locator('.podium')).toHaveCount(1);
+ await expect(page.locator('.candidate-card')).toHaveCount(3);
+ await expect(page.getByText('Ana Rivera').first()).toBeVisible();
+ await page.getByLabel('Localidad').selectOption('otavalo');
+ await expect(page.locator('.real-candidate-card')).toHaveCount(6);
+ await expect(page.locator('.podium')).toHaveCount(0);
+});
+
+test('real candidate dashboard is responsive and individual profiles remain linked',async({page})=>{
+ await page.setViewportSize({width:320,height:800});
+ await page.goto('/?lugar=otavalo&vista=inicio');
+ await expect(page.locator('.real-candidate-card')).toHaveCount(6);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+ await page.locator('.real-candidate-card').first().getByRole('link',{name:'Consultar ficha'}).click();
+ await expect(page.locator('main h1')).toHaveText('Franklin Hermosa');
+ await expect(page.getByRole('button',{name:'Votar en OTV'})).toBeDisabled();
+});
