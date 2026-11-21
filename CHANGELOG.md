@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.9
+
+Diseño futuro de participación minimizada: guardas anti-duplicado separadas de los totales, sin vínculo HMAC-candidatura, flujo seguro con Turnstile/CSRF/origen, modelo de amenazas, retención, aislamiento de entornos y recuperación D1. La votación continúa deshabilitada hasta superar diez puertas jurídicas, de privacidad y seguridad.
+
 ## 0.3.8
 
 Documentación reconciliada con el producto real, matriz automática de trazabilidad para 38 RF/RNF y 34 evidencias, estado verificable de ramas/rulesets y revisión de cadena de suministro. La ejecución de instalación de esbuild queda autorizada únicamente para la versión 0.28.2 revisada.
