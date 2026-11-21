@@ -1,6 +1,6 @@
 # Dashboard OTV
 
-Base para evaluar candidatos por tareas y medir apoyo público. Repositorio: `blex-ing/Dashboar-otv` (nombre remoto conservado).
+Observatorio ciudadano configurable para conocer candidaturas, comparar propuestas y consultar evidencias. La instalación publicada es un laboratorio con contenido sintético: no ofrece resultados electorales ni registra votos reales. Repositorio: `blex-ing/Dashboar-otv` (nombre remoto conservado).
 
 ## Inicio local
 
@@ -26,8 +26,10 @@ Node.js 24 y Python 3. Desde `web/` ejecutar `npm ci`, `npm run check` y `npm ru
 - [Git y releases](documentacion/FLUJO_GIT_Y_RELEASES.md)
 - [Cloudflare](documentacion/DESPLIEGUE_CLOUDFLARE.md)
 - [Plan de implementación](documentacion/ROADMAP.md)
+- [Matriz verificable de trazabilidad](documentacion/TRAZABILIDAD.md)
+- [Cadena de suministro y controles GitHub](documentacion/CADENA_SUMINISTRO.md)
 
-Estado actual: observatorio ciudadano de demostración para Otavalo e Ibarra, con dashboard neón, podio simulado, perfiles, comparador de propuestas, afirmaciones y documentos sintéticos. Sin votación pública, administración ni verificación automática por IA.
+Estado actual (v0.3.7): observatorio ciudadano de demostración para Otavalo e Ibarra, con ediciones aisladas, dashboard neón, podio simulado, perfiles, comparador de propuestas, afirmaciones y documentos sintéticos. Sin votación pública, administración ni verificación automática por IA.
 
 - [Análisis de referencia y recorridos](documentacion/ANALISIS_REFERENCIA.md)
 - [Requisitos y límites por función](documentacion/REQUISITOS.md)
@@ -35,3 +37,5 @@ Estado actual: observatorio ciudadano de demostración para Otavalo e Ibarra, co
 El catálogo se lee desde `/api/public/catalog`; en desarrollo estático se señala el fallback a la misma demostración local. La simulación de apoyo solo vive en memoria y no modifica las cifras de ejemplo.
 
 Desde `web/`: `npx playwright install chromium` y `npm run test:visual`. CI valida escritorio, móvil y 320 px, filtros, enlaces directos, historial, comparación, simulación sin POST y fallo del catálogo. Las capturas quedan en los artifacts de Visual QA.
+
+`npm run traceability:check` comprueba que todos los RF/RNF declarados estén clasificados y que las evidencias referenciadas existan. La matriz distingue implementación, cobertura parcial, política y trabajo pendiente; una referencia a una prueba no equivale por sí sola a certificación legal, de seguridad o WCAG.

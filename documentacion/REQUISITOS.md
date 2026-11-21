@@ -6,7 +6,9 @@ Portal neutral para conocer candidaturas, contrastar propuestas y consultar evid
 
 ## Alcance y trazabilidad
 
-| ID | Requisito y criterio verificable | Estado v0.3.0 |
+La fuente comprobable de estado y evidencias es [TRAZABILIDAD.md](TRAZABILIDAD.md), respaldada por `trazabilidad.json`. CI ejecuta `npm run traceability:check` para impedir que un RF/RNF desaparezca de la matriz o apunte a un archivo inexistente.
+
+| ID | Requisito y criterio verificable | Estado actual |
 | --- | --- | --- |
 | RF01 | Elegir localidad y conservarla en enlaces internos; un ID desconocido muestra recuperación | Otavalo e Ibarra de demostración |
 | RF02 | Dashboard con candidaturas, propuestas, afirmaciones y documentos calculados sobre catálogo activo | Implementado |
