@@ -23,7 +23,7 @@
     {"id":"RF15","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"catálogo estructuralmente inválido muestra fallback demo sin error de React"}]},
     {"id":"RF16","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"simulación no envía votos y cambio de localidad"}]},
     {"id":"RF16a","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"multi-edition deep links, isolated counts and old URLs"}]},
-    {"id":"RF17","status":"blocked","evidence":[{"file":"tests/observatory.test.mjs","contains":"Worker rejects API writes with explicit method policy and leaves voting disabled"}]},
+    {"id":"RF17","status":"blocked","evidence":[{"file":"tests/observatory.test.mjs","contains":"Worker rejects API writes with explicit method policy and leaves voting disabled"},{"file":"documentacion/DISENO_PARTICIPACION_REAL.md","contains":"Puertas de aprobación"}]},
     {"id":"RF18","status":"pending","evidence":[]},
     {"id":"RF19","status":"pending","evidence":[]},
     {"id":"RF20","status":"pending","evidence":[]},

@@ -1,23 +1,26 @@
 # Votación, abuso y privacidad
 
-## Diseño previsto; no habilitado
+## Estado
 
-1. El Worker emite una cookie aleatoria opaca Secure, HttpOnly, SameSite=Lax, Path=/ y sin Domain (prefijo __Host-). El servidor valida formato y firma. No usar fingerprint de hardware.
-2. Obtener IP exclusivamente de la cabecera de Cloudflare en el despliegue Worker. Nunca aceptar X-Forwarded-For del usuario como autoridad. Canonicalizar IPv4/IPv6 y definir el tratamiento de IPv6 antes de abrir votos.
-3. Derivar ip_hmac y device_hmac con HMAC-SHA-256, secreto en Worker y separación de dominio y convocatoria. Un hash simple de IP no es suficiente. Mantener estable la clave durante toda la convocatoria.
-4. Validar método POST, origen exacto permitido, Content-Type, tamaño máximo del cuerpo, campos y convocatoria abierta en UTC. Rechazar solicitudes sin origen, sin cookie válida o sin configuración de seguridad.
-5. Verificar Turnstile en servidor con Siteverify y comprobar hostname y action. Nunca confiar solo en el widget. Aplicar límites de peticiones antes del trabajo costoso y devolver 429 con Retry-After.
-6. INSERT atómico contra las dos restricciones UNIQUE. Mapear exclusivamente el conflicto de duplicado a 409; otros errores no deben presentarse como votos existentes. No incrementar contadores separados susceptibles de desincronización.
-7. Publicar solo agregados por candidato; no exponer hashes, cookies ni IP. Cabeceras no-store en respuestas de voto. Un voto no recibido o rechazado no puede cambiar el resultado.
+La participación real **no está habilitada**. `/api/votes` continúa respondiendo 503 y la selección visible solo existe en memoria. El diseño para una futura fase técnica está en [DISEÑO_PARTICIPACION_REAL.md](DISENO_PARTICIPACION_REAL.md); aprobar el documento no autoriza el tratamiento de datos ni el despliegue.
 
-## Garantías y límites
+## Decisiones principales
 
-La regla es un voto por convocatoria si ya coincide la IP O el identificador del navegador. No utilizar UNIQUE(campaign_id, ip_hmac, device_hmac): permitiría cambiar uno de ellos y votar otra vez.
+1. No guardar IP cruda, fingerprint ni una relación entre identificador seudónimo y candidatura.
+2. Separar controles anti-duplicado de totales agregados y escribirlos en una única transacción D1.
+3. Tratar HMAC, cookie y participación como datos personales seudonimizados hasta que una evaluación competente determine otra cosa.
+4. Verificar Turnstile exclusivamente en servidor, origen exacto y token CSRF ligado a una cookie segura.
+5. Mantener D1, secretos, claves HMAC y Turnstile separados entre preview y producción.
+6. No afirmar “una persona, un voto”: la medida limita abuso, pero redes compartidas, cambio de red/cookie y VPN producen falsos positivos y evasiones.
+7. Publicar solo agregados con umbral mínimo; no exponer guardas, cookies, HMAC ni eventos individuales.
 
-Una IP compartida puede impedir votar a varias personas de una familia, oficina o red móvil. Cambiar red y borrar cookies permite evadir el control; distintos navegadores del mismo dispositivo no son identificables de forma fiable. VPN, proxies e IPv6 requieren políticas de abuso. Este diseño limita duplicados, no certifica identidad ni una persona/un voto. Para garantías mayores habrá que definir autenticación o verificación adicional.
+## Puertas que siguen bloqueando la implementación
 
-## Antes de recoger datos reales
+- Responsable, finalidad, base jurídica y ámbito territorial definidos por escrito.
+- EIPD/análisis de riesgo y revisión jurídica/privacidad aprobados.
+- Texto informativo, derechos, canal de contacto, retención y supresión aprobados.
+- Modelo de amenazas y pruebas negativas ejecutados en preview.
+- D1 y secretos distintos por ambiente; restauración ensayada.
+- Revisión explícita antes de cambiar `/api/votes` de 503 a escritura.
 
-Definir responsable, finalidad, información al participante, periodo de retención y borrado de identificadores al terminar la revisión de resultados. HMAC es seudonimización, no anonimización garantizada. Documentar accesos a D1 y tratamiento de logs de infraestructura. La política y los plazos son decisiones pendientes; no habilitar recopilación mientras falten.
-
-Fuentes técnicas: https://developers.cloudflare.com/turnstile/get-started/server-side-validation/ y https://developers.cloudflare.com/workers/static-assets/ .
+Mientras alguna puerta permanezca pendiente, la única alternativa autorizada es mantener la demostración sin persistencia.
