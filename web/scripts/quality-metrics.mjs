@@ -83,4 +83,7 @@ const report={
  benchmark
 };
 console.log(JSON.stringify(report,null,2));
-if(process.argv.includes('--check-baseline')&&!complexityComparison.passed) process.exitCode=1;
+if(process.argv.includes('--check-baseline')&&!complexityComparison.passed) {
+ console.error('Complexity baseline regressions:',JSON.stringify(complexityComparison.regressions));
+ process.exitCode=1;
+}
