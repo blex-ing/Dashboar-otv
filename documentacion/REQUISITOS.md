@@ -33,6 +33,11 @@ La fuente comprobable de estado y evidencias es [TRAZABILIDAD.md](TRAZABILIDAD.m
 | RF21 | Aplicar una política idéntica a todas las candidaturas de una edición | Regla de producto; canal editorial pendiente |
 | RF22 | Exportación de datos con fecha, metodología y procedencia | Pendiente |
 | RF23 | Integración estadística de apoyos reales por periodo, sin datos identificables | Pendiente |
+| RF24 | Mostrar desde todas las vistas enlaces permanentes a aviso legal, privacidad, cookies y método | Implementado; identidad pendiente antes de release |
+| RF25 | Explicar responsable, tratamientos reales, finalidades, bases, conservación, destinatarios, transferencias, derechos y AEPD | Implementado como borrador verificable |
+| RF26 | Publicar inventario de cookies y tecnologías similares; sin tecnologías opcionales no mostrar consentimiento, y bloquear las futuras hasta consentimiento válido | Implementado para el estado actual |
+| RF27 | Versionar y fechar los textos legales, revisándolos cuando cambien responsable, proveedor, finalidades o tecnologías | Implementado; versión final pendiente |
+| RF28 | Ofrecer un canal público para derechos de privacidad y correcciones editoriales | Estructura implementada; correo pendiente de confirmación |
 
 ## Reglas del producto
 
@@ -58,6 +63,8 @@ La fuente comprobable de estado y evidencias es [TRAZABILIDAD.md](TRAZABILIDAD.m
 - RNF08: configuración de localidades en catálogo; no duplicar componentes por municipio. API y cliente reutilizan el mismo contrato de tipos.
 - RNF09: estadísticas, filtros y detalle usan el mismo conjunto de datos. Relaciones candidatura/afirmación/fuente verificadas en pruebas. Cero resultados, enlace inválido y fallo remoto no dejan pantalla en blanco.
 - RNF10: coste de los futuros proveedores de IA limitado por presupuesto y trabajos de fondo; sin claves en frontend ni llamadas sin control por cada visitante.
+- RNF11: CI detecta almacenamiento web, escritura de cookies o rastreadores conocidos y bloquea una release con identidad legal vacía o textos en borrador.
+- RNF12: las páginas legales tienen un único `h1`, navegación por teclado, tablas desplazables dentro de su región y lectura sin desbordamiento a 320 px.
 
 ## Datos y arquitectura objetivo
 

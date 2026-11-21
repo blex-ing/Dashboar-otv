@@ -7,11 +7,16 @@ import { Avatar, Badge, PageHeading, Empty, time } from './common';
 import { Comparison } from './Comparison';
 import { Method } from './Method';
 import { InterviewPanel } from './InterviewPanel';
-import { readRoute, routeHref, pages } from './routing';
+import { readRoute, routeHref, pages, legalPages } from './routing';
 import type { Page } from './routing';
 import { Verification } from './Verification';
+import { LegalPages } from '../legal/LegalPages';
 
 const count = new Intl.NumberFormat('es-EC');
+
+function LegalRoute({page}:{page:Page}) {
+ return legalPages.includes(page)?<LegalPages page={page as 'aviso-legal'|'privacidad'|'cookies'}/>:null;
+}
 
 export function App(){
  const [route,setRoute]=useState(readRoute);const [catalog,setCatalog]=useState<CatalogData|null>(null);const [offline,setOffline]=useState(false);const [reload,setReload]=useState(0);const [simulated,setSimulated]=useState<Record<string,string>>({});const [message,setMessage]=useState('');const main=useRef<HTMLElement>(null);
@@ -39,8 +44,9 @@ export function App(){
  {route.page==='verificar'&&<Verification key={t.id+':'+t.editionId+':'+route.candidate} t={t} service={service} candidateId={route.candidate} claim={activeClaim} invalidClaim={!!route.claim&&!activeClaim} onSelect={c=>navigate('verificar',c.candidateId,c.id)} onBack={()=>navigate('verificar',route.candidate)} onSource={id=>navigate('fuentes','',id)}/>}
  {route.page==='metodo'&&<Method onSources={()=>navigate('fuentes')}/>}
  {route.page==='fuentes'&&<><PageHeading eyebrow="TRAZABILIDAD" title="La evidencia, a un clic." text="Esta edición utiliza documentos sintéticos para mostrar el recorrido completo. No son datos oficiales de Otavalo ni de Ibarra."/><div className="sources-grid">{t.sources.map(s=><article className="panel source-card" key={s.id} id={s.id}><span className="tiny">DOCUMENTO SINTÉTICO · {s.date}</span><h2>{s.title}</h2><p className="subtle">{s.publisher}</p><p>{s.excerpt}</p><button className="text-button" onClick={()=>{const c=t.claims.find(x=>x.sourceIds.includes(s.id));if(c)navigate('verificar',c.candidateId,c.id);}}>Ver una afirmación vinculada ↗</button></article>)}</div><div className="panel"><h2>Cuando incorporemos fuentes reales</h2><p>Cada documento deberá tener organismo, título, fecha, URL y el fragmento que respalda la comprobación. No basta con enlazar a la portada de una institución.</p></div></>}
+ <LegalRoute page={route.page}/>
  </>}
  <p className="feedback" role="status" aria-live="polite">{message}</p>
- <footer><a href={routeHref({page:'metodo',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('metodo');}}>Método y límites</a><span>OTV · Información para tu comunidad · v0.3.9</span><span>Demostración · Sin votos reales</span></footer>
+ <footer><nav aria-label="Información legal"><a href={routeHref({page:'aviso-legal',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('aviso-legal');}}>Aviso legal</a><a href={routeHref({page:'privacidad',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('privacidad');}}>Privacidad</a><a href={routeHref({page:'cookies',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('cookies');}}>Cookies</a><a href={routeHref({page:'metodo',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('metodo');}}>Método y límites</a></nav><span>OTV · Información para tu comunidad · v0.3.9</span><span>Demostración · Sin votos reales</span></footer>
  </main></div></>;
 }

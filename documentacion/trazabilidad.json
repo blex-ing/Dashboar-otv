@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedFor": "v0.3.9",
+  "updatedFor": "v0.4.0-draft",
   "requirements": [
     {"id":"RF01","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"búsqueda sin resultados, enlace inválido y catálogo no disponible"}]},
     {"id":"RF01a","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"multi-edition deep links, isolated counts and old URLs"}]},
@@ -30,6 +30,11 @@
     {"id":"RF21","status":"policy","evidence":[{"file":"documentacion/REQUISITOS.md","contains":"Aplicar una política idéntica"}]},
     {"id":"RF22","status":"pending","evidence":[]},
     {"id":"RF23","status":"pending","evidence":[]},
+    {"id":"RF24","status":"implemented","evidence":[{"file":"web/tests/visual/accessibility.spec.ts","contains":"legal navigation and current storage disclosure stay consistent"}]},
+    {"id":"RF25","status":"partial","evidence":[{"file":"web/src/legal/LegalPages.tsx","contains":"Tus derechos"}]},
+    {"id":"RF26","status":"implemented","evidence":[{"file":"web/scripts/legal-compliance-check.mjs","contains":"forbidden"},{"file":"web/tests/visual/accessibility.spec.ts","contains":"context.cookies"}]},
+    {"id":"RF27","status":"partial","evidence":[{"file":"web/src/legal/legal-config.ts","contains":"reviewedOn"}]},
+    {"id":"RF28","status":"blocked","evidence":[{"file":"web/src/legal/legal-config.ts","contains":"privacyEmail"}]},
     {"id":"RNF01","status":"implemented","evidence":[{"file":".github/workflows/ci.yml","contains":"npm run check"}]},
     {"id":"RNF02","status":"partial","evidence":[{"file":"web/tests/visual/accessibility.spec.ts","contains":"keyboard skip navigation and focus visible in mobile layout"},{"file":"web/tests/visual/visual.spec.ts","contains":"390 px: vistas, foco visible y movimiento reducido"}]},
     {"id":"RNF03","status":"implemented","evidence":[{"file":"web/tests/visual/visual.spec.ts","contains":"390 px: vistas, foco visible y movimiento reducido"}]},
@@ -39,6 +44,8 @@
     {"id":"RNF07","status":"implemented","evidence":[{"file":".github/workflows/ci.yml","contains":"npm audit --audit-level=high"},{"file":".github/dependabot.yml","contains":"target-branch: \"develop\""}]},
     {"id":"RNF08","status":"implemented","evidence":[{"file":"tests/catalog-validation.test.mjs","contains":"accepts two independent valid editions in one locality"}]},
     {"id":"RNF09","status":"implemented","evidence":[{"file":"tests/catalog-validation.test.mjs","contains":"adversarial schema bounds and referential integrity fail closed"}]},
-    {"id":"RNF10","status":"pending","evidence":[]}
+    {"id":"RNF10","status":"pending","evidence":[]},
+    {"id":"RNF11","status":"implemented","evidence":[{"file":".github/workflows/ci.yml","contains":"legal:check:release"}]},
+    {"id":"RNF12","status":"implemented","evidence":[{"file":"web/tests/visual/accessibility.spec.ts","contains":"aviso-legal"}]}
   ]
 }
