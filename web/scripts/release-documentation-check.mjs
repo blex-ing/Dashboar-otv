@@ -14,8 +14,8 @@ const errors = [];
 for (const {path, re} of files) {
   const body = readFileSync(resolve(repoRoot, path), 'utf8');
   const matches = [...body.matchAll(re)];
-  // The first occurrence is the active version; older history is deliberately retained.
-  const latest = matches[0]?.[1];
+  // Changelog is newest first; roadmap is chronological. README has one marker.
+  const latest = path.endsWith('ROADMAP.md') ? matches.at(-1)?.[1] : matches[0]?.[1];
   if (latest !== version) {
     errors.push(`${path}: expected active v${version}, found ${latest ?? 'no version marker'}`);
   }
