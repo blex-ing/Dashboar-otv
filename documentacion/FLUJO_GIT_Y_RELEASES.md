@@ -7,7 +7,6 @@
 - feature/* y fix/*: desde develop, PR a develop con CI verde.
 - release/vX.Y.Z: desde develop, notas y versión; PR a master.
 - Sincronizar master hacia develop por PR después de cada release.
-- main: bootstrap del repositorio vacío. Conservar hasta cambiar la rama predeterminada a master y verificar que no tiene trabajo exclusivo.
 
 La primera escritura de README es la única excepción de bootstrap porque no existía ningún commit ni rama. El resto se integra mediante PR. El repositorio remoto conserva su nombre original Dashboar-otv.
 
@@ -23,6 +22,6 @@ cleanup-temporary-branches.yml elimina feature/* y fix/* solo después del merge
 
 ## Reglas de GitHub
 
-Configurar en Settings la rama predeterminada master y protección de master/develop: PR obligatorio, checks de CI, bloqueo de force push y borrado. Un solo mantenedor no debe exigir autoaprobación imposible. En repositorios públicos GitHub Free permite protección; el workflow no sustituye las reglas del servidor. Estas reglas no se consideran activas hasta verificarlas en GitHub; el conector disponible no permite administrarlas.
+La rama predeterminada es `master` y las únicas ramas permanentes son `master` y `develop`. El 21-11-2026 la API accesible devolvió cero rulesets; la lectura específica de protección de ramas devolvió 403 por permisos de la integración, por lo que **no se afirma que exista protección activa**. Debe comprobarse manualmente en Settings: PR obligatorio, checks de CI, bloqueo de force push y borrado para ambas ramas. Un solo mantenedor no debe exigir autoaprobación imposible. El workflow de limpieza no sustituye las reglas del servidor.
 
-Actions reutiliza SHA de checkout/setup-node comprobados en los repositorios de referencia. Dependabot propone actualizaciones semanales hacia develop, con revisión de compatibilidad. Nunca copiar secretos ni credenciales de los otros proyectos.
+Actions reutiliza SHA completos comprobados contra sus tags oficiales; el registro de la revisión está en [CADENA_SUMINISTRO.md](CADENA_SUMINISTRO.md). Dependabot propone actualizaciones semanales hacia develop, con revisión de compatibilidad. Nunca copiar secretos ni credenciales de otros proyectos.
