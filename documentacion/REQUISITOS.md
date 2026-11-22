@@ -95,3 +95,13 @@ La edición real añadirá entidades persistentes y administración. En v0.3.0 u
 - Prueba mínima: dos ediciones sintéticas en Otavalo con recuentos diferentes y una edición inexistente en Ibarra; comprobar navegación, URL, recarga, historial y ausencia de escrituras.
 
 **Límite:** son contratos y fixtures de laboratorio; ni el origen de los datos ni los veredictos son todavía publicaciones electorales reales.
+
+## Nueva línea de observatorio cívico · Seguridad vial E35 (issue #72)
+
+- **RF33:** nueva ruta pública `?lugar=otavalo&vista=seguridad-vial`, accesible desde Dashboard y navegación; localidad fijada en Otavalo y sin mezcla con información electoral.
+- **RF34:** exhibir un registro de 10 fichas F01–F10 de fotografías de 2025, separando procedencia, observación y comprobaciones; no republicar imágenes de Google Maps sin revisar licencia/permiso.
+- **RF35:** desplegar siete líneas de investigación y lista de verificación interactiva sin persistencia; sin presentar probabilidades, velocidades ni índices inventados.
+- **RF36:** cronología de antecedentes documentados y testimonios diferenciados; el choque con 3 fallecidos y 1 herido del 30/10/2026 es entre vehículos, no acreditado como atropello peatonal y sin localización exacta demostrada en el semáforo.
+- **RNF14:** accesibilidad de navegación, un `h1`, 320/390/1440 px, sin cookies, nuevas dependencias ni escrituras; pruebas dedicadas en CI.
+
+Contrato, archivos de fuentes y cuestiones abiertas: [Seguridad vial E35](seguridad-vial/CONTRATO.md) y [Expediente E35](seguridad-vial/EXPEDIENTE_E35.md). No ejecutar obras ni análisis causal a partir de estos datos.
