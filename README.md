@@ -29,7 +29,7 @@ Node.js 24 y Python 3. Desde `web/` ejecutar `npm ci`, `npm run check` y `npm ru
 - [Matriz verificable de trazabilidad](documentacion/TRAZABILIDAD.md)
 - [Cadena de suministro y controles GitHub](documentacion/CADENA_SUMINISTRO.md)
 
-Estado actual (v0.6.0): observatorio ciudadano de demostración para Otavalo e Ibarra, con ediciones aisladas, dashboard neón, podio simulado, perfiles, comparador de propuestas, afirmaciones y documentos sintéticos. Sin votación pública, administración ni verificación automática por IA. Desde v0.4.0 incluye aviso legal, privacidad y política de cookies accesibles en todas las vistas, sin introducir cookies opcionales ni rastreadores. La revisión jurídica operativa sigue pendiente antes de cualquier tratamiento nuevo.
+Estado actual (v0.7.0): observatorio ciudadano de demostración para Otavalo e Ibarra, con ediciones aisladas, dashboard neón, podio simulado, perfiles, comparador de propuestas, afirmaciones y documentos sintéticos. Sin votación pública, administración ni verificación automática por IA. Desde v0.4.0 incluye aviso legal, privacidad y política de cookies accesibles en todas las vistas, sin introducir cookies opcionales ni rastreadores. La revisión jurídica operativa sigue pendiente antes de cualquier tratamiento nuevo.
 
 - [Alcance legal y privacidad de la demostración](documentacion/CUMPLIMIENTO_UE.md)
 - [Investigación electoral: Otavalo 29N 2026](documentacion/investigaciones/OTAVALO_2026_ALCALDIA.md)
@@ -46,6 +46,6 @@ Desde `web/`: `npx playwright install chromium` y `npm run test:visual`. CI vali
 
 `npm run traceability:check` comprueba que todos los RF/RNF declarados estén clasificados y que las evidencias referenciadas existan. La matriz distingue implementación, cobertura parcial, política y trabajo pendiente; una referencia a una prueba no equivale por sí sola a certificación legal, de seguridad o WCAG.
 
-## Módulo documental de seguridad vial (feature #72)
+## Módulo documental de seguridad vial (v0.7.0)
 
-La rama de desarrollo incorpora una nueva sección no electoral accesible desde **Seguridad vial** en el menú o mediante `?lugar=otavalo&vista=seguridad-vial`. Presenta diez fichas de observaciones fotográficas históricas, siete líneas de investigación, incidentes documentados y una checklist temporal; no recopila información personal ni habilita votaciones. Las capturas originales de Google Street View permanecen en el expediente local hasta revisar condiciones de publicación. [Contrato](documentacion/seguridad-vial/CONTRATO.md) · [Expediente](documentacion/seguridad-vial/EXPEDIENTE_E35.md).
+Desde v0.7.0, el Dashboard incorpora una nueva sección no electoral accesible desde **Seguridad vial** en el menú o mediante `?lugar=otavalo&vista=seguridad-vial`. Presenta diez fichas de observaciones fotográficas históricas, siete líneas de investigación, incidentes documentados y una checklist temporal; no recopila información personal ni habilita votaciones. Las capturas originales de Google Street View permanecen en el expediente local hasta revisar condiciones de publicación. [Contrato](documentacion/seguridad-vial/CONTRATO.md) · [Expediente](documentacion/seguridad-vial/EXPEDIENTE_E35.md).
