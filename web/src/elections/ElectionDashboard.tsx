@@ -24,6 +24,7 @@ export function ElectionDashboard(){
    <h2>Votación no habilitada</h2>
    <p>No se han recogido apoyos reales. Por tanto, no hay cifras, porcentajes ni podio electoral que mostrar. La participación está pendiente de garantías legales y de seguridad.</p>
   </section>
+  <section className="panel real-participation-notice" aria-label="Otros temas ciudadanos"><p className="eyebrow">OBSERVATORIO · MOVILIDAD Y COMUNIDAD</p><h2>Seguridad vial: E35 · Eugenio Espejo</h2><p>Consulta el expediente del cruce semaforizado, diez vistas históricas, siete puntos por investigar y los siniestros documentados.</p><a className="real-directory-link" href="?lugar=otavalo&vista=seguridad-vial">Abrir estudio vial ↗</a></section>
   <section aria-labelledby="otavalo-directory-title">
    <div className="section-title"><div><p className="eyebrow">CANDIDATURAS · ORDEN ALFABÉTICO</p><h2 id="otavalo-directory-title">Las personas candidatas</h2></div><a className="real-directory-link" href="?lugar=otavalo&vista=elecciones">Directorio y fuentes ↗</a></div>
    <div className="real-candidate-grid">

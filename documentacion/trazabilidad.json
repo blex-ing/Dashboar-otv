@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedFor": "v0.4.0",
+  "updatedFor": "issue-72-road-safety-feature",
   "requirements": [
     {
       "id": "RF01",
@@ -499,6 +499,76 @@
         {
           "file": "web/tests/visual/visual.spec.ts",
           "contains": "real candidate dashboard is responsive and individual profiles remain linked"
+        }
+      ]
+    },
+    {
+      "id": "RF33",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "web/tests/visual/road-safety.spec.ts",
+          "contains": "seguridad vial from the menu stays separated from the electoral demo"
+        },
+        {
+          "file": "web/src/observatory/routing.ts",
+          "contains": "seguridad-vial"
+        }
+      ]
+    },
+    {
+      "id": "RF34",
+      "status": "partial",
+      "evidence": [
+        {
+          "file": "tests/road-safety.test.mjs",
+          "contains": "road-safety case preserves all ten distinct 2025 visual records"
+        },
+        {
+          "file": "web/src/road-safety/RoadSafetyPage.tsx",
+          "contains": "Archivo fotográfico"
+        }
+      ]
+    },
+    {
+      "id": "RF35",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "tests/road-safety.test.mjs",
+          "contains": "seven risks are hypotheses requiring field checks"
+        },
+        {
+          "file": "web/tests/visual/road-safety.spec.ts",
+          "contains": "seguridad vial evidence, incidents and checks are documented and interactive"
+        }
+      ]
+    },
+    {
+      "id": "RF36",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "tests/road-safety.test.mjs",
+          "contains": "fatal October 2026 event is reported as vehicle collision"
+        },
+        {
+          "file": "documentacion/seguridad-vial/EXPEDIENTE_E35.md",
+          "contains": "Accidente del 30 de octubre de 2026"
+        }
+      ]
+    },
+    {
+      "id": "RNF14",
+      "status": "partial",
+      "evidence": [
+        {
+          "file": "web/tests/visual/road-safety.spec.ts",
+          "contains": "seguridad vial responsive 320, 390, 1440 and no client storage"
+        },
+        {
+          "file": "web/src/road-safety/road-safety.css",
+          "contains": "@media(max-width:620px)"
         }
       ]
     }

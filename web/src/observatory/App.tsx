@@ -13,6 +13,7 @@ import { Verification } from './Verification';
 import { LegalPages } from '../legal/LegalPages';
 import { ElectionGuide } from '../elections/ElectionGuide';
 import { ElectionDashboard } from '../elections/ElectionDashboard';
+import { RoadSafetyPage } from '../road-safety/RoadSafetyPage';
 
 const count = new Intl.NumberFormat('es-EC');
 
@@ -22,13 +23,15 @@ function LegalRoute({page,place,onNavigate}:{page:Page;place:string;onNavigate:(
 }
 
 function menuTerritory(page:Page, current:string):string {
- return page==='elecciones'?'otavalo':current;
+ return page==='elecciones'||page==='seguridad-vial'?'otavalo':current;
 }
 function menuEdition(page:Page, current:string):string {
- return page==='elecciones'?'':current;
+ return page==='elecciones'||page==='seguridad-vial'?'':current;
 }
-function PageNotice({isElection,isReal}:{isElection:boolean;isReal:boolean}) {
- return isReal
+function PageNotice({isElection,isReal,isRoadSafety}:{isElection:boolean;isReal:boolean;isRoadSafety:boolean}) {
+ return isRoadSafety
+  ? <div className="demo-banner"><strong>Investigación ciudadana · seguridad vial E35.</strong> Observaciones históricas y noticias documentadas, no una auditoría técnica. Sin relación con votos o candidaturas.</div>
+  : isReal
   ? <div className="demo-banner"><strong>Otavalo · información electoral pública.</strong> Candidaturas reportadas en prensa. La votación está deshabilitada; las fuentes oficiales de planes siguen en revisión.</div>
   : isElection
   ? <div className="demo-banner"><strong>Guía electoral informativa.</strong> Esta vista presenta candidaturas reales reportadas por prensa local; planes aún pendientes de verificación primaria. No ofrece pronósticos ni recomendaciones de voto.</div>
@@ -51,6 +54,12 @@ function OtavaloContent({page,active}:{page:Page;active:boolean}) {
  return null;
 }
 
+function RoadSafetyRoute({page,active,onNavigate}:{page:Page;active:boolean;onNavigate:()=>void}){
+ if(page!=='seguridad-vial') return null;
+ if(active) return <RoadSafetyPage/>;
+ return <section className="empty"><h1>Estudio vial disponible para Otavalo</h1><p>Este expediente corresponde exclusivamente al acceso a Eugenio Espejo, en Otavalo.</p><button onClick={onNavigate}>Consultar seguridad vial de Otavalo</button></section>;
+}
+
 export function App(){
  const [route,setRoute]=useState(readRoute);const [catalog,setCatalog]=useState<CatalogData|null>(null);const [offline,setOffline]=useState(false);const [reload,setReload]=useState(0);const [simulated,setSimulated]=useState<Record<string,string>>({});const [message,setMessage]=useState('');const main=useRef<HTMLElement>(null);
  useEffect(()=>{const ctl=new AbortController();new CatalogClient().load(ctl.signal).then(r=>{setCatalog(r.data);setOffline(r.offline);}).catch(()=>{});return()=>ctl.abort();},[reload]);
@@ -63,11 +72,12 @@ export function App(){
  return <><a className="skip" href="#main">Saltar al contenido</a><aside className="sidebar"><a className="brand" href={routeHref({page:'inicio',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('inicio');}}><span className="brand-symbol">◈</span><span>OTV<small>OBSERVATORIO CIUDADANO</small></span></a><p className="nav-label">EXPLORA TU COMUNIDAD</p><nav aria-label="Principal">{pages.map(([p,label,icon])=><a key={p} aria-current={route.page===p?'page':undefined} href={routeHref({page:p,territory:menuTerritory(p,t.id),edition:menuEdition(p,t.editionId),candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate(p,'','',menuTerritory(p,t.id));}}><span aria-hidden="true">{icon}</span>{label}</a>)}</nav><div className="sidebar-note"><span className="live-dot"/> Hecho para preguntar.<br/><strong>Diseñado para comprender.</strong><p>De Otavalo a cualquier comunidad.</p></div></aside>
  <div className="workspace"><header className="topbar"><div className="breadcrumb">{t.country} <span>/</span> {t.region} <span>/</span> <strong>{t.name}</strong></div><label className="territory-picker">Localidad <select value={t.id} onChange={e=>{navigate('inicio','','',e.target.value);}}>{service.data.territories.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label><label className="territory-picker">Edición <select aria-label="Edición" value={t.editionId} onChange={e=>navigate('inicio','','',t.id,e.target.value)}>{service.locality(t.id)?.editions.map(e=><option key={e.id} value={e.id}>{e.label}</option>)}</select></label><span className="demo-pill"><span className="live-dot"/> {contextLabel(isReal)}</span></header>
  <main id="main" ref={main} tabIndex={-1}>
- <PageNotice isElection={route.page==='elecciones'} isReal={isReal}/>
+ <PageNotice isElection={route.page==='elecciones'} isReal={isReal} isRoadSafety={route.page==='seguridad-vial'}/>
  {!catalog&&<p role="status" className="loading">Cargando el observatorio…</p>}
  {offline&&<div className="fallback" role="status">No se pudo cargar el catálogo remoto. Estás viendo una copia de demostración.<button onClick={()=>setReload(n=>n+1)}>Reintentar</button></div>}
  {invalid?<section className="empty"><h1>Localidad no encontrada</h1><p>Selecciona una localidad disponible para continuar.</p><button onClick={()=>navigate('inicio','','','otavalo')}>Ir a Otavalo</button></section>:<>
  <OtavaloContent page={route.page} active={isReal}/>
+ <RoadSafetyRoute page={route.page} active={isReal} onNavigate={()=>navigate('seguridad-vial','','','otavalo')}/>
  {isDemoRoute(route.page,'inicio',isReal)&&<><div className="hero"><p className="eyebrow">TU COMUNIDAD. TUS PREGUNTAS. TUS DECISIONES.</p><h1>{t.name},<br/>con la información <em>a la vista.</em></h1><p>Conoce a quienes proponen. Compara sus ideas.<br/>Contrasta sus palabras antes de dar tu apoyo.</p><div className="hero-actions"><button className="primary" onClick={()=>navigate('comparar')}>Explorar propuestas <span>↗</span></button><button className="secondary" onClick={()=>navigate('metodo')}>Cómo funciona</button></div><div className="hero-orbit" aria-hidden="true"><span>OTV</span><small>INFORMACIÓN<br/>QUE CONECTA</small></div></div>
  <section className="stats" aria-label="Resumen del observatorio">{[[summary.candidates,'Candidaturas de ejemplo'],[summary.proposals,'Propuestas para comparar'],[summary.claims,'Afirmaciones de ejemplo'],[summary.sources,'Documentos sintéticos']].map(([n,label])=><div key={label}><strong>{n}</strong><span>{label}</span><i aria-hidden="true">↗</i></div>)}</section>
  <section className="podium-section"><div className="section-title"><div><p className="eyebrow">PARTICIPACIÓN · DATOS SIMULADOS</p><h2>Así se vería el apoyo ciudadano</h2></div><span className="subtle">{count.format(summary.votes)} apoyos ficticios</span></div><p className="subtle">El podio ordena únicamente apoyos de ejemplo. No mide veracidad, capacidad ni intención de voto.</p><ol className="podium" aria-label="Podio de apoyos simulados">{ranked.map((c,i)=><li key={c.id} className={`podium-place place-${i+1} ${c.color}`}><span className="podium-caption">{i===0?'MAYOR APOYO SIMULADO':`POSICIÓN ${i+1}`}</span><Avatar candidate={c} large/><div className="pedestal"><span className="rank">{i+1}<small>º</small></span><h3>{c.name}</h3><p>{count.format(c.votes)} <span>apoyos</span></p><strong>{service.share(t,c).toFixed(0)} %</strong><button onClick={()=>navigate('candidatos',c.id)}>Conocer propuestas ↗</button></div></li>)}</ol></section>
@@ -85,6 +95,6 @@ export function App(){
  <LegalRoute page={route.page} place={t.id} onNavigate={()=>navigate('elecciones','','','otavalo')}/>
  </>}
  <p className="feedback" role="status" aria-live="polite">{message}</p>
- <footer><nav aria-label="Información legal"><a href={routeHref({page:'aviso-legal',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('aviso-legal');}}>Aviso legal</a><a href={routeHref({page:'privacidad',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('privacidad');}}>Privacidad</a><a href={routeHref({page:'cookies',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('cookies');}}>Cookies</a><a href={routeHref({page:'metodo',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('metodo');}}>Método y límites</a></nav><span>OTV · Información para tu comunidad · v0.6.0</span><span>Demostración · Sin votos reales</span></footer>
+ <footer><nav aria-label="Información legal"><a href={routeHref({page:'aviso-legal',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('aviso-legal');}}>Aviso legal</a><a href={routeHref({page:'privacidad',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('privacidad');}}>Privacidad</a><a href={routeHref({page:'cookies',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('cookies');}}>Cookies</a><a href={routeHref({page:'metodo',territory:t.id,edition:t.editionId,candidate:'',claim:''})} onClick={e=>{e.preventDefault();navigate('metodo');}}>Método y límites</a></nav><span>OTV · Información para tu comunidad · v0.7.0</span><span>Demostración · Sin votos reales</span></footer>
  </main></div></>;
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+
+Nueva sección de seguridad vial para el acceso E35 a Eugenio Espejo desde Dashboard Otavalo: croquis conceptual, diez fichas fotográficas históricas, siete puntos por investigar, cronología de siniestros con fuentes y checklist local sin persistencia. El choque mortal de 30/10/2026 queda descrito como colisión de vehículos, sin atribuir atropellos ni localización exacta. Sin cambios en votación, D1 o dependencias; pruebas de accesibilidad y CI.
+
 ## 0.6.0
 
 El Dashboard de Otavalo muestra seis candidaturas reales con fichas, enlaces y metadatos de fecha, período y procedencia. En Candidaturas se accede al directorio real; Comparar, Verificaciones y Fuentes señalan la investigación documental pendiente en vez de mostrar información sintética atribuida a Otavalo. El podio ficticio y las tres candidaturas de ejemplo siguen disponibles seleccionando Ciudad Ejemplo. Sin votación real, porcentajes ni recuentos inventados. Pruebas móviles, navegación, CI y controles de complejidad.
