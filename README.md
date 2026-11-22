@@ -45,3 +45,7 @@ El módulo **Elecciones 2026** es un directorio separado de la demo: seis candid
 Desde `web/`: `npx playwright install chromium` y `npm run test:visual`. CI valida escritorio, móvil y 320 px, filtros, enlaces directos, historial, comparación, simulación sin POST y fallo del catálogo. Las capturas quedan en los artifacts de Visual QA.
 
 `npm run traceability:check` comprueba que todos los RF/RNF declarados estén clasificados y que las evidencias referenciadas existan. La matriz distingue implementación, cobertura parcial, política y trabajo pendiente; una referencia a una prueba no equivale por sí sola a certificación legal, de seguridad o WCAG.
+
+## Módulo documental de seguridad vial (feature #72)
+
+La rama de desarrollo incorpora una nueva sección no electoral accesible desde **Seguridad vial** en el menú o mediante `?lugar=otavalo&vista=seguridad-vial`. Presenta diez fichas de observaciones fotográficas históricas, siete líneas de investigación, incidentes documentados y una checklist temporal; no recopila información personal ni habilita votaciones. Las capturas originales de Google Street View permanecen en el expediente local hasta revisar condiciones de publicación. [Contrato](documentacion/seguridad-vial/CONTRATO.md) · [Expediente](documentacion/seguridad-vial/EXPEDIENTE_E35.md).
