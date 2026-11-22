@@ -1,3 +1,4 @@
+import './road-safety.css';
 import {useState} from 'react';
 import {roadSafetyCase} from '../../../shared/road-safety-e35';
 import {PageHeading} from '../observatory/common';
