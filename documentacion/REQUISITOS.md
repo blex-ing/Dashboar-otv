@@ -105,3 +105,16 @@ La edición real añadirá entidades persistentes y administración. En v0.3.0 u
 - **RNF14:** accesibilidad de navegación, un `h1`, 320/390/1440 px, sin cookies, nuevas dependencias ni escrituras; pruebas dedicadas en CI.
 
 Contrato, archivos de fuentes y cuestiones abiertas: [Seguridad vial E35](seguridad-vial/CONTRATO.md) y [Expediente E35](seguridad-vial/EXPEDIENTE_E35.md). No ejecutar obras ni análisis causal a partir de estos datos.
+
+## Integración de la demo E35 en el Dashboard OTV — Issue #76
+
+Esta entrega respeta el contrato de [integración de demo E35](seguridad-vial/CONTRATO_INTEGRACION_DEMO.md) y el expediente ya publicado. No abre votaciones ni sustituye módulos electorales.
+
+- **RF37:** presentar el hero «Una vía rápida. Una comunidad a ambos lados», ficha de ubicación, cuatro indicadores documentales, cinco observaciones visuales y diagrama sin escala. La foto F10 se muestra al importar localmente el expediente JSON del usuario.
+- **RF38:** galería de diez evidencias iniciales con filtro y visor accesible (siguiente/anterior/Escape), relación con riesgos, incorporación de fotos del usuario e importación/exportación JSON; prohibido republicar capturas de Street View en la web pública sin autorización.
+- **RF39:** matriz R01–R07 con filtro por tema y enlaces a evidencias; checklist de campo con diez pasos, progreso, reinicio, exportación y restauración mediante importación explícita, sin persistencia automática.
+- **RF40:** mostrar cuatro fuentes originales de la demo, dos fuentes periodísticas añadidas en octubre de 2026 y cronología completa; distinguir colisión entre vehículos, testimonios y ubicación pendiente de verificación.
+- **RF41:** integrar los cinco apartados de la demo en la ruta existente `?lugar=otavalo&vista=seguridad-vial`, mantener navegación y nombres de control compatibles con pruebas de v0.7.0, sin regresiones de otras páginas.
+- **RNF15:** diseño móvil/escritorio (320/390/1440 px), controles etiquetados y navegación por teclado, validación y límites de tamaño para archivos; sin cookies, trackers ni backend adicional; persistencia de **fotografías** exclusivamente en IndexedDB local tras una activación expresa, con opción de borrado y divulgación legal específica. El checklist sigue en memoria.
+
+**Límite de publicación:** las diez capturas que contiene el ZIP siguen siendo archivos del usuario con procedencia Google Maps/Street View; el repositorio pública únicamente fichas y enlaces, no copias de las fotografías protegidas. El usuario puede visualizar esas fotos sin subirlas a OTV, importando `datos/expediente_completo.json` desde el ZIP original. Su envío a terceros al exportar requerirá evaluar derechos y privacidad.
