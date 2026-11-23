@@ -48,7 +48,7 @@ function validImportedImage(item:unknown):ParsedImage|null {
 function parseChecklist(value:unknown):Record<string,boolean>{
  if(!Array.isArray(value))return {};
  const items=value.map(readImageEntry).filter((entry):entry is Record<string,unknown>=>entry!==null);
- const valid=items.filter(item=>/^C\\d{1,2}$/.test(String(item.id))&&typeof item.done==='boolean');
+ const valid=items.filter(item=>/^C\d{1,2}$/.test(String(item.id))&&typeof item.done==='boolean');
  return Object.fromEntries(valid.map(item=>[String(item.id),item.done as boolean]));
 }
 function importedRoot(raw:string):Record<string,unknown>{
