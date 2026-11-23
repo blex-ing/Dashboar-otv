@@ -24,35 +24,51 @@ export function safeImageData(value:unknown):string|undefined{
 function readImageEntry(value:unknown):Record<string,unknown>|null {
  return typeof value==='object'&&value!==null&&!Array.isArray(value)?value as Record<string,unknown>:null;
 }
-export function parseImportedAlbum(raw:string):ImportedAlbum{
+const originalIds=new Set(initialEvidence.map(photo=>photo.id));
+interface ParsedImage {id:string;src:string;photo?:EvidencePhoto}
+function validImportedImage(item:unknown):ParsedImage|null {
+ const image=readImageEntry(item);
+ if(!image)return null;
+ const id=short(image.id,40),src=safeImageData(image.src);
+ if(!id||!src)return null;
+ if(originalIds.has(id))return {id,src};
+ if(!/^N[a-zA-Z0-9_-]{1,39}$/.test(id))return null;
+ const title=short(image.name??image.title,120);
+ const observed=short(image.observation??image.observed,1000);
+ if(!title||!observed)return null;
+ const category=short(image.category,24);
+ const photo:EvidencePhoto={
+  id,src,title,observed,category:allowedCategory.has(category)?category:'Entorno',
+  date:short(image.period??image.date,90)||'Fecha no indicada',
+  verify:short(image.verify,1000),
+  source:'Imagen aportada localmente · sin verificación editorial',origin:'local'
+ };
+ return {id,src,photo};
+}
+function parseChecklist(value:unknown):Record<string,boolean>{
+ if(!Array.isArray(value))return {};
+ const items=value.map(readImageEntry).filter((entry):entry is Record<string,unknown>=>entry!==null);
+ const valid=items.filter(item=>/^C\\d{1,2}$/.test(String(item.id))&&typeof item.done==='boolean');
+ return Object.fromEntries(valid.map(item=>[String(item.id),item.done as boolean]));
+}
+function importedRoot(raw:string):Record<string,unknown>{
  if(raw.length>maxImportBytes)throw new Error('Archivo JSON demasiado grande (máximo 16 MB)');
- const data:unknown=JSON.parse(raw);
- const obj=readImageEntry(data);
+ const obj=readImageEntry(JSON.parse(raw));
  if(!obj||!Array.isArray(obj.images))throw new Error('El JSON no contiene una lista de imágenes');
  if(obj.images.length>70)throw new Error('Demasiadas imágenes en el expediente');
- const overlays:Record<string,string>={};
- const extras:EvidencePhoto[]=[];
- const known=new Set(initialEvidence.map(p=>p.id));
- const ids=new Set<string>();
- for(const item of obj.images){
-  const image=readImageEntry(item);if(!image)continue;
-  const id=short(image.id,40),src=safeImageData(image.src);
-  if(!src||!id||ids.has(id))continue;
-  ids.add(id);
-  if(known.has(id)){overlays[id]=src;continue;}
-  if(!/^N[a-zA-Z0-9_-]{1,39}$/.test(id))continue;
-  const title=short(image.name??image.title,120);
-  const observed=short(image.observation??image.observed,1000);
-  if(!title||!observed)continue;
-  const category=short(image.category,24);
-  extras.push({id,title,observed,category:allowedCategory.has(category)?category:'Entorno',date:short(image.period??image.date,90)||'Fecha no indicada',verify:short(image.verify,1000),source:'Imagen aportada localmente · sin verificación editorial',src,origin:'local'});
+ return obj;
+}
+export function parseImportedAlbum(raw:string):ImportedAlbum {
+ const dataset=importedRoot(raw);
+ const extras:EvidencePhoto[]=[],overlays:Record<string,string>={},seen=new Set<string>();
+ for(const candidate of dataset.images as unknown[]){
+  const image=validImportedImage(candidate);
+  if(!image||seen.has(image.id))continue;
+  seen.add(image.id);
+  if(image.photo)extras.push(image.photo);
+  else overlays[image.id]=image.src;
  }
- const checklist:Record<string,boolean>={};
- if(Array.isArray(obj.checklist))for(const row of obj.checklist){
-  const c=readImageEntry(row);
-  if(c&&/^C\d{1,2}$/.test(String(c.id))&&typeof c.done==='boolean')checklist[String(c.id)]=c.done;
- }
- return {extras,overlays,checklist};
+ return {extras,overlays,checklist:parseChecklist(dataset.checklist)};
 }
 export function evidenceExport(album:EvidenceAlbum,checked:string[]){
  return {
