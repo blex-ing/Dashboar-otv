@@ -10,10 +10,10 @@ import {useEvidenceAlbum} from './useEvidenceAlbum';
 type Tab='resumen'|'fotografias'|'riesgos'|'campo'|'fuentes';
 const tabs:{id:Tab;label:string;accessible:string}[]=[
  {id:'resumen',label:'Resumen',accessible:'Resumen'},
- {id:'fotografias',label:'Evidencias',accessible:'Fotografías (10)'},
+ {id:'fotografias',label:'Evidencias',accessible:'Evidencias · Fotografías (10)'},
  {id:'riesgos',label:'Riesgos',accessible:'Riesgos (7)'},
- {id:'campo',label:'Trabajo de campo',accessible:'Inspección de campo'},
- {id:'fuentes',label:'Fuentes',accessible:'Siniestros y fuentes'}
+ {id:'campo',label:'Trabajo de campo',accessible:'Trabajo de campo · Inspección de campo'},
+ {id:'fuentes',label:'Fuentes',accessible:'Fuentes · Siniestros y fuentes'}
 ];
 const coords='0.2090241, -78.2503891';
 
