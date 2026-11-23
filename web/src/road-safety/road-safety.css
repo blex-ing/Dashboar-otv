@@ -1,66 +1,161 @@
-/* RF33–RF36: road safety research module, isolated from election styling. */
-.road-safety-page{max-width:1260px;min-width:0}
-.road-safety-page .page-heading{margin-bottom:24px}
-.road-safety-page .page-heading h1{font-size:clamp(2rem,4vw,3.45rem)}
-.road-safety-hero{display:grid;grid-template-columns:minmax(0,2fr) minmax(220px,1fr);gap:22px;align-items:center;margin:16px 0 20px;border:1px solid #2e5359;background:linear-gradient(145deg,#10282e,#101927 72%)}
-.road-safety-hero h2{font-size:clamp(1.5rem,2.2vw,2.1rem);margin:10px 0}
-.road-safety-hero p{margin-bottom:16px}
-.road-safety-hero p strong,.road-safety-note strong{color:#e7f1f8}
-.road-safety-maplink{width:fit-content;text-align:center;text-decoration:none}
-.road-safety-location{border:1px solid #3c5962;border-radius:12px;background:#0d202a;padding:18px;min-width:0;display:flex;flex-direction:column;gap:9px}
-.road-safety-location strong{font-size:1.1rem}
-.road-safety-location>span:last-child{font-size:.8rem;color:#c3d3df}
-.road-safety-tabs{display:flex;gap:10px;overflow-x:auto;max-width:100%;padding:2px 2px 12px;margin:24px 0;scrollbar-width:thin}
-.road-safety-tabs button{min-height:45px;padding:10px 15px;white-space:nowrap;border:1px solid #34455a;border-radius:9px;color:#cad8e5;background:#111d2d;font-size:.8rem}
-.road-safety-tabs button[aria-pressed="true"]{border-color:#51ccbd;background:#123632;color:#b7fff1;box-shadow:inset 0 -2px #51ccbd}
-.road-safety-content{min-width:0;padding-bottom:34px}
-.road-safety-section-intro{margin:15px 0 23px}
-.road-safety-section-intro h2{margin:0 0 10px}
-.road-safety-section-intro p{max-width:790px;margin:0 0 10px}
-.road-safety-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.road-safety-grid>.panel{min-width:0;margin:0;padding:23px}
-.road-safety-photo h3,.road-safety-risk h3,.road-safety-event h3{font-size:1.2rem;line-height:1.25;margin:9px 0}
-.road-safety-photo p,.road-safety-risk p,.road-safety-event p{font-size:.83rem}
-.road-safety-photo p strong{color:#dbe8f3}
-.road-safety-photo-symbol{min-height:115px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;border:1px solid #274958;border-radius:8px;margin-bottom:15px;background:repeating-linear-gradient(145deg,#122938,#122938 16px,#0e202d 16px,#0e202d 32px)}
-.road-safety-photo-symbol>span{position:absolute;top:12px;left:15px;font-size:.7rem;font-weight:800;color:#9eece2}
-.road-safety-photo-symbol>strong{font-size:2.1rem}
-.road-safety-photo-symbol>small{font-size:.53rem;letter-spacing:.13em;color:#a8beca}
-.road-safety-photo details{margin-top:12px;border-top:1px solid #344256;padding-top:11px}
-.road-safety-photo summary{color:#8de5db;cursor:pointer;min-height:36px;font-size:.78rem;font-weight:650}
-.road-safety-source{font-size:.66rem!important;color:#8b9ba9!important;margin:17px 0 0}
-.road-safety-note{margin:20px 0;border-left:3px solid #4ee4d5}
-.road-safety-note p{font-size:.84rem}
-.road-safety-page a{color:#9beee4;text-underline-offset:4px}
-.road-safety-page a:focus-visible{outline:3px solid #f6de93;outline-offset:3px}
-.road-safety-page .primary{color:#052c2a}
-.road-safety-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}
-.road-safety-stats>div{min-width:0;padding:18px;border:1px solid #314153;border-radius:10px;background:#101c2b;display:flex;flex-direction:column;gap:7px}
-.road-safety-stats strong{font-size:clamp(1.2rem,2.6vw,2rem);color:#c6faf2;overflow-wrap:anywhere}
-.road-safety-stats span{font-size:.74rem;color:#a8bacb}
-.road-safety-scheme{margin:18px 0 24px;border:1px solid #334858;padding:14px;background:#0c1726;border-radius:12px;max-width:780px}
-.road-safety-scheme svg{width:100%;height:auto;display:block}
-.road-safety-scheme p{font-size:.7rem;margin:8px 0 0}
-.road-safety-controls{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:19px}
-.road-safety-controls label{display:flex;flex-direction:column;gap:7px;font-size:.8rem;color:#c5dbe4}
-.road-safety-controls select{min-width:175px}
-.road-safety-controls [role="status"]{font-size:.75rem;color:#a6d7d4}
-.road-safety-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center}
-.road-safety-priority{font-size:.7rem;background:#28343f;border:1px solid #435361;padding:6px 10px;border-radius:30px}
-.road-safety-check{margin-top:14px;padding:12px 14px;background:#0e2529;border-left:2px solid #4ebaae}
-.road-safety-check strong{font-size:.73rem;color:#c4e6e5}
-.road-safety-check p{margin:5px 0}
-.road-safety-timeline{display:grid;gap:15px}
-.road-safety-event{border-left:3px solid #5ebaba}
-.road-safety-event .eyebrow{margin:0}
-.road-safety-event h3{font-size:1.35rem}
-.road-safety-incident-count{color:#f6d0a9}
-.road-safety-sources{display:flex;flex-wrap:wrap;gap:12px}
-.road-safety-sources a{font-size:.78rem}
-.road-safety-checklist{display:grid;gap:0;max-width:850px;padding:10px 22px}
-.road-safety-task{display:flex;align-items:center;gap:14px;padding:16px 3px;min-height:50px;font-size:.85rem;border-bottom:1px solid #28384a;cursor:pointer}
-.road-safety-task:last-child{border-bottom:0}
-.road-safety-task input{min-width:19px;min-height:19px;accent-color:#4ee4d5;flex-shrink:0}
-.road-safety-alert{padding:15px;border:1px solid #66543c;border-radius:8px;max-width:850px;background:#251e18;color:#f5dab9;font-size:.82rem}
-@media(max-width:850px){.road-safety-hero{grid-template-columns:minmax(0,1fr)}.road-safety-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.road-safety-page .page-heading h1{font-size:2rem}.road-safety-grid{grid-template-columns:minmax(0,1fr)}.road-safety-grid>.panel{padding:19px}.road-safety-stats>div{padding:15px}.road-safety-checklist{padding:8px 15px}.road-safety-tabs{margin:19px 0 12px}.road-safety-maplink{width:100%;justify-content:center}}
+/* E35 v0.8 documentary module — fully scoped, no global dashboard overrides. */
+.safety-demo-page{--sv-bg:#0a1826;--sv-panel:#112235;--sv-panel2:#152b3d;--sv-line:#2d4358;--sv-mint:#64dfd0;--sv-muted:#9db5c7;max-width:1240px;min-width:0;margin:0 auto 45px;color:#e9f1f7}
+.safety-demo-page button,.safety-demo-page input,.safety-demo-page select,.safety-demo-page textarea{font:inherit}
+.safety-demo-page a{color:#a6eee3;text-underline-offset:4px}
+.safety-demo-page :focus-visible{outline:3px solid #a2e9d7;outline-offset:3px}
+.safety-demo-page .eyebrow{font-size:.62rem;letter-spacing:.14em;color:var(--sv-mint);font-weight:800}
+.safety-demo-page p{line-height:1.6}
+.safety-section-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:5px 0 16px;margin-bottom:3px;border-bottom:1px solid var(--sv-line)}
+.safety-section-brand{display:flex;align-items:center;gap:11px;min-width:0}
+.safety-section-brand>span{border:1px solid #52cfbf;color:#79ffeb;background:#17534e80;border-radius:10px;width:39px;height:39px;display:grid;place-items:center;font-size:.78rem;font-weight:900;flex:none}
+.safety-section-brand strong{font-size:.77rem;letter-spacing:.07em;display:block}
+.safety-section-brand small{font-size:.64rem;color:var(--sv-muted);display:block;margin-top:2px}
+.safety-section-header>a{border:1px solid #405e71;border-radius:10px;padding:10px 13px;background:#1c3445;color:#e3f0f4;font-size:.73rem;font-weight:700;white-space:nowrap}
+.safety-demo-tabs{display:flex;justify-content:flex-end;align-items:center;gap:5px;overflow-x:auto;max-width:100%;margin:10px 0 18px;scrollbar-width:thin;padding:3px 0 8px}
+.safety-demo-tabs button{background:transparent;color:#b0c6d1;min-height:42px;border:1px solid transparent;padding:9px 13px;border-radius:10px;font-size:.78rem;font-weight:750;white-space:nowrap}
+.safety-demo-tabs button[aria-pressed=true]{background:#173b43;color:#83f6e4;border-color:#2e5b5b}
+.safety-hero{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(245px,.8fr);gap:clamp(20px,4vw,47px);align-items:center;position:relative;isolation:isolate;padding:clamp(24px,3.5vw,41px);border-radius:21px;background:linear-gradient(120deg,#173347,#122638 60%,#14474b);border:1px solid #30536a;overflow:hidden;box-shadow:0 16px 45px #0002}
+.safety-hero:before{content:"";position:absolute;width:420px;height:420px;border:1px solid #7ae8d31f;border-radius:50%;right:-150px;top:-310px;z-index:-1;box-shadow:0 0 0 55px #38c3b208,0 0 0 130px #38c3b206}
+.safety-hero h1{font-size:clamp(2.1rem,4.1vw,3.7rem);line-height:1.12;margin:12px 0 20px;max-width:850px;font-weight:800;letter-spacing:-.047em}
+.safety-hero h1 span{color:#76e4d8}
+.safety-hero>div>p:not(.eyebrow){font-size:.89rem;color:#bdd0da;max-width:645px;margin:0 0 23px}
+.safety-pill-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.safety-pill{font-size:.67rem;border:1px solid #436477;background:#12293c88;padding:6px 11px;border-radius:20px;color:#bdd2db}
+.safety-pill.highlighted{color:#84efd7;border-color:#388777}
+.safety-action-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.safety-demo-page .safety-action{display:inline-flex;align-items:center;justify-content:center;background:#60dbcc;border:1px solid #78ecdd;border-radius:10px;color:#062f33;font-size:.77rem;font-weight:800;min-height:43px;padding:10px 16px;text-align:center}
+.safety-secondary-action{display:inline-flex;align-items:center;justify-content:center;border:1px solid #456778;background:#21394b;color:#e9f5f4!important;border-radius:10px;min-height:42px;padding:10px 14px;font-size:.76rem!important;font-weight:720;text-align:center;max-width:100%}
+.safety-secondary-action:hover,.safety-demo-page .safety-action:hover{filter:brightness(1.1)}
+.safety-location-card{min-width:0;border:1px solid #466577;background:#092234c4;border-radius:17px;padding:21px;box-shadow:0 15px 30px #0014}
+.safety-location-pin{font-size:1.4rem}
+.safety-location-card h2{font-size:1.12rem;line-height:1.35;letter-spacing:-.02em;margin:11px 0}
+.safety-location-card p{font-size:.77rem;margin:0 0 16px}
+.safety-coordinate-readout{display:flex;flex-direction:column;gap:3px;background:#0a1726;border:1px solid #2d485b;border-radius:9px;padding:11px;min-width:0}
+.safety-coordinate-readout code{font-size:.68rem;color:#8cd9cc;overflow-wrap:anywhere}
+.safety-coordinate-readout small{font-size:.67rem;color:#8cc3bc}
+.safety-location-card .safety-secondary-action{font-size:.67rem!important;padding:9px 11px}
+.safety-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 31px}
+.safety-metrics>div{min-width:0;display:flex;flex-direction:column;gap:5px;padding:19px 20px;background:#0e2132;border:1px solid var(--sv-line);border-radius:14px}
+.safety-metrics strong{font-size:1.65rem;color:#edf5f9;line-height:1.15;letter-spacing:-.035em}
+.safety-metrics span{color:#a4bacb;font-size:.72rem}
+.safety-heading-row{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;flex-wrap:wrap;margin:30px 0 15px}
+.safety-heading-row h2{font-size:1.55rem;line-height:1.3;margin:0 0 4px;letter-spacing:-.03em}
+.safety-heading-row p{font-size:.77rem;color:var(--sv-muted);margin:4px 0;max-width:700px}
+.safety-overview-two,.safety-diagram-two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr);gap:15px}
+.safety-overview-photo,.safety-observation-panel,.safety-diagram-note{border:1px solid var(--sv-line);background:#0f2133;border-radius:17px;overflow:hidden;min-width:0}
+.safety-overview-image{min-height:315px;position:relative;background:#203a49}
+.safety-overview-image>img{height:330px;width:100%;object-fit:cover;display:block}
+.safety-overview-photo-unavailable{height:330px;padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:15px;background:linear-gradient(145deg,#224e58,#152b3b 58%,#101b2b)}
+.safety-overview-photo-unavailable>span{font-size:3.1rem}
+.safety-overview-photo-unavailable strong{max-width:365px;color:#d8f7ee}
+.safety-overview-photo-unavailable p{font-size:.79rem;max-width:350px}
+.safety-overview-caption{position:absolute;bottom:0;left:0;right:0;padding:44px 22px 15px;background:linear-gradient(transparent,#06131df5);display:flex;flex-direction:column;gap:2px}
+.safety-overview-caption strong{font-size:1.04rem}
+.safety-overview-caption small{font-size:.71rem;color:#bdd3e2}
+.safety-photo-tags{padding:15px}
+.safety-photo-tags span{font-size:.65rem;padding:6px 8px;background:#1e3c4c;border-radius:6px;color:#b9d2d9}
+.safety-observation-panel{padding:20px 22px}
+.safety-observation-panel h3{font-size:.94rem;margin:0 0 15px;letter-spacing:-.01em}
+.safety-observation-panel ol{list-style:none;padding:0;margin:0}
+.safety-observation-panel li{padding:12px 0;display:flex;align-items:flex-start;gap:11px;border-bottom:1px solid #2c4353;min-width:0}
+.safety-observation-panel li:last-child{border-bottom:0}
+.safety-round-number{display:grid;place-items:center;flex:0 0 25px;height:25px;font-size:.7rem;font-weight:800;background:#20544f;border-radius:8px;color:#80e4d4}
+.safety-observation-panel li strong,.safety-observations li strong{font-size:.75rem;display:block}
+.safety-observation-panel li p,.safety-observations li p{font-size:.7rem;color:#a8bdcb;margin:2px 0 0}
+.safety-diagram-figure{margin:0;min-width:0;border:1px solid #345369;border-radius:17px;overflow:hidden;background:#102538}
+.safety-diagram-figure svg{display:block;width:100%;height:auto}
+.safety-diagram-figure figcaption{padding:11px 14px;color:#9fb9c7;font-size:.7rem;line-height:1.5}
+.safety-diagram-note{padding:25px}
+.safety-diagram-note h3{font-size:1.08rem;margin:12px 0}
+.safety-diagram-note p:not(.eyebrow){font-size:.78rem}
+.safety-risk-shortcuts{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.safety-risk-shortcuts button{padding:9px;border:1px solid #385a6f;background:#163a47;color:#cbebeb;border-radius:8px;font-size:.72rem;min-height:40px}
+.safety-warning{border-left:3px solid #e6b968;padding:12px;background:#f3b64a0f;color:#e5d3b4!important;border-radius:5px 10px 10px 5px;margin:17px 0 0}
+.safety-legal-note{font-size:.73rem;margin:20px 0;padding:15px 17px;border:1px solid #415a66;background:#102536;border-radius:12px;color:#afc5d0}
+.safety-legal-note strong{color:#dce9f0}
+.safety-photo-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:18px 0}
+.safety-photo-controls label,.safety-heading-row label{font-size:.75rem;display:flex;flex-direction:column;gap:7px;color:#c3d9df}
+.safety-photo-controls select,.safety-heading-row select{min-width:175px;font-size:.79rem}
+.safety-photo-controls [role=status]{font-size:.75rem;color:#bdd8d5}
+.safety-photos-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.safety-photo-card{border-radius:14px;min-width:0;border:1px solid #31485c;background:#112336;overflow:hidden}
+.safety-photo-card button{width:100%;height:100%;padding:0;text-align:left;border:0;background:transparent;color:#e9f2f7}
+.safety-photo-card button:hover{background:#192d40}
+.safety-photo-card:focus-within{outline:2px solid #8fe9d9;outline-offset:3px}
+.safety-photo-card img,.safety-photo-card .safety-preview-placeholder{width:100%;height:155px;object-fit:cover;display:block}
+.safety-preview-placeholder{display:flex!important;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:12px;background:repeating-linear-gradient(140deg,#1f3c4c,#1f3c4c 17px,#142c3d 17px,#142c3d 35px);color:#b9e8dd;text-align:center}
+.safety-preview-placeholder>span{font-size:1.6rem}
+.safety-preview-placeholder strong{font-size:.78rem}
+.safety-preview-placeholder small{font-size:.57rem;line-height:1.35}
+.safety-photo-summary{padding:13px}
+.safety-photo-summary h3{font-size:.85rem;line-height:1.4;margin:5px 0}
+.safety-photo-summary p{font-size:.72rem;margin:5px 0 12px;color:#afc3d0}
+.safety-chip{display:inline-block;padding:3px 6px;border:1px solid #43576a;border-radius:7px;font-size:.6rem;margin:3px 2px 0 0;color:#bdd2df}
+.safety-photo-overlay{position:fixed;inset:0;z-index:100;background:#020a16ed;backdrop-filter:blur(8px);padding:20px;display:flex;align-items:center;justify-content:center;overflow-y:auto}
+.safety-photo-modal{background:#102235;border:1px solid #517080;border-radius:17px;width:min(1030px,100%);max-height:min(95vh,1000px);overflow-y:auto;box-shadow:0 28px 75px #000b}
+.safety-photo-modal-head{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #354e60}
+.safety-photo-modal-head strong{font-size:.85rem}
+.safety-photo-modal-head button,.safety-photo-modal-actions button{border:1px solid #4b6a80;border-radius:9px;background:#1d3c4d;color:#f0f8fa;padding:10px 13px;min-height:43px;font-size:.76rem}
+.safety-photo-modal-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr);min-height:0}
+.safety-photo-modal-image{background:#081524;display:flex;align-items:center;justify-content:center;padding:12px;min-width:0;max-height:70vh}
+.safety-photo-modal-image>img{max-width:100%;max-height:65vh;object-fit:contain}
+.safety-photo-modal-image>.safety-preview-placeholder{min-height:320px;width:100%}
+.safety-photo-modal-info{padding:20px}
+.safety-photo-modal-info h2{font-size:1.3rem;margin:8px 0 17px}
+.safety-photo-modal-info h3{font-size:.68rem;color:#8de5d7;letter-spacing:.08em;text-transform:uppercase;margin:15px 0 4px}
+.safety-photo-modal-info p{font-size:.79rem;margin:5px 0;color:#c1d2dc}
+.safety-photo-modal-actions{display:flex;gap:8px;margin-top:20px}
+.safety-photo-modal-actions button:disabled{opacity:.35}
+.safety-evidence-upload{margin-top:36px}
+.safety-upload-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.8fr);gap:15px}
+.safety-form-panel{border-radius:16px;background:#112538;border:1px solid #36556a;padding:21px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-content:start;min-width:0}
+.safety-form-panel label{display:flex;flex-direction:column;gap:7px;font-size:.71rem;color:#cde1e7;font-weight:650;min-width:0}
+.safety-form-panel input,.safety-form-panel select,.safety-form-panel textarea{width:100%;min-width:0;font-size:.78rem}
+.safety-form-panel textarea{resize:vertical}
+.safety-form-panel .safety-full{grid-column:1/-1}
+.safety-import-panel{display:flex;flex-direction:column;gap:13px}
+.safety-import-panel h3{margin:0;font-size:1.04rem}
+.safety-import-panel p{font-size:.75rem;margin:0;color:#b4c8d2}
+.safety-import-panel code{overflow-wrap:anywhere}
+.safety-form-panel .safety-private-switch{display:flex;flex-direction:row;align-items:flex-start;gap:10px}
+.safety-private-switch input{flex:0 0 18px;width:18px;height:18px;accent-color:#5bdccd}
+.safety-small{font-size:.74rem;color:#a1b8c6}
+.safety-import-status{min-height:1.5em;color:#b6f0dc!important}
+.safety-risk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.safety-risk-card,.safety-field-panel,.safety-source-card{border-radius:15px;background:#112438;border:1px solid var(--sv-line);padding:22px;min-width:0}
+.safety-risk-card{display:flex;flex-direction:column;gap:11px}
+.safety-risk-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.safety-priority{font-size:.66rem;color:#f0d4a5;border:1px solid #8c653e;background:#2c2825;padding:5px 10px;border-radius:20px}
+.safety-risk-card h3{font-size:1.07rem;margin:0}
+.safety-risk-card p{font-size:.77rem;margin:0}
+.safety-risk-status{color:#86dccc!important;font-size:.7rem!important}
+.safety-risk-next{padding:12px;background:#081b2a;border-left:2px solid #59d4c4;border-radius:5px}
+.safety-risk-next strong{font-size:.72rem}
+.safety-risk-next p{margin:4px 0 0}
+.safety-text-action{align-self:flex-start;color:#8be6d8;background:transparent;border:0;font-size:.75rem;font-weight:750;padding:8px 0;margin-top:auto}
+.safety-field-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:15px}
+.safety-field-panel h3{font-size:1.03rem;margin:0 0 13px}
+.safety-progress-caption{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.safety-progress-caption h3{margin:0 0 10px}
+.safety-progress-caption strong{font-size:.83rem}
+.safety-progress-track{height:9px;overflow:hidden;border-radius:50px;background:#254355;margin:0 0 14px}
+.safety-progress-track>div{height:100%;background:#61dbcb;transition:width .18s}
+.safety-task-list{display:grid}
+.safety-task{display:flex;align-items:flex-start;gap:12px;min-height:49px;padding:12px 0;border-bottom:1px solid #294358;font-size:.78rem;cursor:pointer}
+.safety-task input{flex:0 0 18px;width:18px;height:18px;accent-color:#50d8c9}
+.safety-task span{display:block}
+.safety-task small{display:block;color:#8ea9b9;font-size:.66rem;margin:5px 0 0}
+.safety-observations{list-style:none;padding:0;margin:0}
+.safety-observations li{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid #2c4255}
+.safety-source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.safety-source-card h3{font-size:1.04rem;line-height:1.4;margin:8px 0}
+.safety-source-card p{font-size:.77rem;margin:6px 0 13px}
+.safety-source-card a,.safety-sources-inline a{font-size:.75rem;overflow-wrap:anywhere}
+.safety-incident-list{display:grid;gap:14px;padding:0;list-style:none}
+.safety-incident-list .safety-source-card{border-left:3px solid #57cbba}
+.safety-sources-inline{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:1050px){.safety-hero{grid-template-columns:minmax(0,1.3fr) minmax(220px,.75fr);gap:19px}.safety-photos-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.safety-overview-two,.safety-diagram-two{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}}
+@media(max-width:780px){.safety-hero{grid-template-columns:minmax(0,1fr)}.safety-location-card{max-width:480px}.safety-overview-two,.safety-diagram-two,.safety-field-grid,.safety-upload-grid,.safety-photo-modal-grid{grid-template-columns:minmax(0,1fr)}.safety-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-diagram-figure{max-width:760px}.safety-photo-modal-image{max-height:54vh}.safety-photo-modal-image>img{max-height:50vh}.safety-risk-grid{grid-template-columns:minmax(0,1fr)}.safety-demo-tabs{justify-content:flex-start}}
+@media(max-width:580px){.safety-hero{padding:24px 18px}.safety-hero h1{font-size:clamp(1.95rem,8.8vw,2.6rem)}.safety-photos-grid,.safety-source-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.safety-photo-card img,.safety-photo-card .safety-preview-placeholder{height:122px}.safety-photo-summary{padding:11px}.safety-photo-summary h3{font-size:.76rem}.safety-photo-summary p{display:none}.safety-observation-panel{padding:16px}.safety-form-panel{grid-template-columns:minmax(0,1fr)}.safety-form-panel .safety-full{grid-column:auto}.safety-source-grid{grid-template-columns:minmax(0,1fr)}.safety-heading-row h2{font-size:1.4rem}.safety-demo-tabs button{font-size:.72rem;padding:9px 11px}.safety-photo-overlay{padding:8px}.safety-photo-modal{max-height:97vh}.safety-photo-modal-info{padding:16px}.safety-section-brand strong{font-size:.66rem}.safety-location-card{padding:17px}}
+@media(max-width:350px){.safety-metrics>div{padding:14px}.safety-metrics strong{font-size:1.42rem}.safety-section-header>a{font-size:.65rem;padding:9px}.safety-hero h1{font-size:1.9rem}.safety-photos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.safety-photo-card .safety-preview-placeholder small{font-size:.51rem}}
+@media(prefers-reduced-motion:reduce){.safety-demo-page *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

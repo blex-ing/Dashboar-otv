@@ -19,8 +19,8 @@ export const legalIdentity: LegalIdentity = {
 };
 
 export const legalDocument = {
-  version: '1.0',
-  reviewedOn: '21 de noviembre de 2026',
+  version: '1.1',
+  reviewedOn: '23 de noviembre de 2026',
   serviceName: 'Observatorio ciudadano OTV',
   hostingProvider: 'Cloudflare, Inc.'
 } as const;

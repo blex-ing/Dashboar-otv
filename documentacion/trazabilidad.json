@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedFor": "issue-72-road-safety-feature",
+  "updatedFor": "issue-76-e35-demo-integration",
   "requirements": [
     {
       "id": "RF01",
@@ -525,8 +525,8 @@
           "contains": "road-safety case preserves all ten distinct 2025 visual records"
         },
         {
-          "file": "web/src/road-safety/RoadSafetyPage.tsx",
-          "contains": "Archivo fotográfico"
+          "file": "web/src/road-safety/SafetyPhotos.tsx",
+          "contains": "Archivo de evidencias"
         }
       ]
     },
@@ -568,7 +568,95 @@
         },
         {
           "file": "web/src/road-safety/road-safety.css",
-          "contains": "@media(max-width:620px)"
+          "contains": "@media(max-width:580px)"
+        }
+      ]
+    },
+    {
+      "id": "RF37",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "web/tests/visual/road-safety-integration.spec.ts",
+          "contains": "diseño E35 integrado mantiene la ruta, cabecera y cinco observaciones"
+        },
+        {
+          "file": "web/src/road-safety/RoadSafetyPage.tsx",
+          "contains": "Una vía rápida."
+        }
+      ]
+    },
+    {
+      "id": "RF38",
+      "status": "partial",
+      "evidence": [
+        {
+          "file": "web/tests/visual/road-safety-integration.spec.ts",
+          "contains": "filtrado y visor con teclado, controles anterior siguiente"
+        },
+        {
+          "file": "web/src/road-safety/SafetyPhotos.tsx",
+          "contains": "Importar expediente JSON"
+        }
+      ]
+    },
+    {
+      "id": "RF39",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "web/tests/visual/road-safety-integration.spec.ts",
+          "contains": "checklist conserva progreso y exportación sin persistencia"
+        },
+        {
+          "file": "web/src/road-safety/SafetyPanels.tsx",
+          "contains": "Progreso de inspección"
+        }
+      ]
+    },
+    {
+      "id": "RF40",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "tests/road-safety-integration.test.mjs",
+          "contains": "original 2007/2023 and institutional sources remain linked"
+        },
+        {
+          "file": "web/src/road-safety/SafetyPanels.tsx",
+          "contains": "Antecedentes y actualización del cruce"
+        }
+      ]
+    },
+    {
+      "id": "RF41",
+      "status": "implemented",
+      "evidence": [
+        {
+          "file": "web/tests/visual/road-safety-integration.spec.ts",
+          "contains": "diseño integrado responsive 320/390/1440"
+        },
+        {
+          "file": "web/src/road-safety/RoadSafetyPage.tsx",
+          "contains": "Apartados de seguridad vial"
+        }
+      ]
+    },
+    {
+      "id": "RNF15",
+      "status": "partial",
+      "evidence": [
+        {
+          "file": "web/src/road-safety/evidence-data.ts",
+          "contains": "safeImageData"
+        },
+        {
+          "file": "web/src/legal/LegalPages.tsx",
+          "contains": "IndexedDB"
+        },
+        {
+          "file": "web/tests/visual/road-safety-integration.spec.ts",
+          "contains": "sin persistencia"
         }
       ]
     }

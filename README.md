@@ -49,3 +49,7 @@ Desde `web/`: `npx playwright install chromium` y `npm run test:visual`. CI vali
 ## Módulo documental de seguridad vial (v0.7.0)
 
 Desde v0.7.0, el Dashboard incorpora una nueva sección no electoral accesible desde **Seguridad vial** en el menú o mediante `?lugar=otavalo&vista=seguridad-vial`. Presenta diez fichas de observaciones fotográficas históricas, siete líneas de investigación, incidentes documentados y una checklist temporal; no recopila información personal ni habilita votaciones. Las capturas originales de Google Street View permanecen en el expediente local hasta revisar condiciones de publicación. [Contrato](documentacion/seguridad-vial/CONTRATO.md) · [Expediente](documentacion/seguridad-vial/EXPEDIENTE_E35.md).
+
+### Demostración vial integrada (issue #76)
+
+La sección `?lugar=otavalo&vista=seguridad-vial` integra el diseño del archivo HTML aportado, con visor de fotos, filtros, riesgos, campo, fuentes y cronología, sin alterar la aplicación electoral. Las capturas de Street View se importan **localmente** desde el JSON contenido en el ZIP del usuario; no se redistribuyen en producción. [Instrucciones de uso y privacidad](documentacion/seguridad-vial/USO_DEMO_INTEGRADA.md).
