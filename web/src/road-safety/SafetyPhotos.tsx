@@ -31,18 +31,19 @@ function PhotoDialog({photo,photos,onOpen}:{photo:EvidencePhoto;photos:EvidenceP
   document.body.style.overflow='hidden';ref.current?.focus();
   return ()=>{document.body.style.overflow=previousOverflow;prior?.focus();};
  },[]);
+ function keepFocus(event:React.KeyboardEvent<HTMLDivElement>){
+  const controls=[...event.currentTarget.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')];
+  if(!controls.length)return;
+  const first=controls[0],last=controls[controls.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();return;}
+  if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+ }
  function onKeys(event:React.KeyboardEvent<HTMLDivElement>){
-  if(event.key==='Escape'){event.preventDefault();onOpen(null);}
-  else if(event.key==='ArrowRight'&&photos.length>1){event.preventDefault();onOpen(next.id);}
-  else if(event.key==='ArrowLeft'&&photos.length>1){event.preventDefault();onOpen(previous.id);}
-  else if(event.key==='Tab'){
-   const controls=[...event.currentTarget.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')];
-   if(controls.length){
-    const first=controls[0],last=controls[controls.length-1];
-    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
-    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
-   }
-  }
+  if(event.key==='Escape'){event.preventDefault();onOpen(null);return;}
+  if(event.key==='Tab'){keepFocus(event);return;}
+  if(photos.length<2)return;
+  if(event.key==='ArrowRight'){event.preventDefault();onOpen(next.id);return;}
+  if(event.key==='ArrowLeft'){event.preventDefault();onOpen(previous.id);}
  }
  return <div className="safety-photo-overlay" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)onOpen(null);}}>
   <div className="safety-photo-modal" role="dialog" aria-modal="true" aria-label={photo.id+' · Archivo fotográfico'} onKeyDown={onKeys}>
