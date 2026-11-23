@@ -35,7 +35,7 @@ function SafetyOverview({onTab,onRisk,photoUrl,count}:{onTab:(tab:Tab)=>void;onR
  return <div className="safety-overview">
   <section className="safety-hero" aria-labelledby="safety-main-title">
    <div><p className="eyebrow">EXPEDIENTE DE SEGURIDAD VIAL · ACTUALIZACIÓN 2026</p>
-    <h1 id="safety-main-title">Una vía rápida.<br/><span>Una comunidad a ambos lados.</span></h1>
+    <h1 id="safety-main-title" aria-label="Seguridad vial: E35 · Una vía rápida. Una comunidad a ambos lados.">Una vía rápida.<br/><span>Una comunidad a ambos lados.</span></h1>
     <p>Reconstrucción documental del cruce semaforizado de la Panamericana E35 en Eugenio Espejo. Primera fase: entender el estado visible antes de diseñar intervenciones.</p>
     <div className="safety-pill-row"><span className="safety-pill highlighted">● Estudio preliminar</span><span className="safety-pill">Street View · feb/mar 2025</span><span className="safety-pill">Actualidad 2026: por verificar</span></div>
     <div className="safety-action-row"><button type="button" className="primary safety-action" onClick={()=>onTab('fotografias')}>Explorar fotografías ↗</button><button className="safety-secondary-action" type="button" onClick={()=>onTab('riesgos')}>Ver hipótesis de riesgo</button></div>
