@@ -5,7 +5,7 @@ const root=resolve(import.meta.dirname,'..');
 const config=readFileSync(resolve(root,'src/legal/legal-config.ts'),'utf8');
 const app=readFileSync(resolve(root,'src/observatory/App.tsx'),'utf8');
 const forbidden=[/localStorage\s*\./,/sessionStorage\s*\./,/document\.cookie\s*=/,/googletagmanager/i,/google-analytics/i,/facebook\.net\/.*fbevents/i];
-const sourceFiles=['src/observatory/App.tsx','src/observatory/catalog-client.ts','src/candidates/CandidateProfiles.tsx'];
+const sourceFiles=['src/observatory/App.tsx','src/observatory/catalog-client.ts','src/candidates/CandidateProfiles.tsx','src/road-safety/evidence-data.ts','src/road-safety/useEvidenceAlbum.ts'];
 const violations=[];
 for(const file of sourceFiles){
  const text=readFileSync(resolve(root,file),'utf8');
