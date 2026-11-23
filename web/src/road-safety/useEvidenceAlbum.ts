@@ -20,7 +20,7 @@ export function useEvidenceAlbum(onChecklistImported:(ids:string[])=>void){
    const imported=parseImportedAlbum(await file.text());
    const updated=mergeAlbums(album,imported);
    setAlbum(updated);
-   onChecklistImported(Object.keys(imported.checklist??{}).filter(id=>imported.checklist?.[id]));
+   if(Object.keys(imported.checklist??{}).length)onChecklistImported(Object.keys(imported.checklist??{}).filter(id=>imported.checklist?.[id]));
    await persist(updated);
    setNotice('Importación completada: '+Object.keys(imported.overlays).length+' imágenes del catálogo y '+imported.extras.length+' nuevas fotografías. No se enviaron al servidor.');
   }catch(e){setNotice('No se pudo importar el expediente: '+(e instanceof Error?e.message:'Formato inválido'));}
