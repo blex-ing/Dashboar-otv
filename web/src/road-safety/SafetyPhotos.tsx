@@ -107,7 +107,7 @@ export function SafetyPhotos(props:PhotosProps){
   <div className="safety-heading-row"><div><p className="eyebrow">ARCHIVO DOCUMENTAL</p><h2>Fotografías del estado visible</h2><p>Diez fichas iniciales y las imágenes privadas que hayas importado. La procedencia y las comprobaciones siguen visibles.</p></div>
    <button className="safety-secondary-action" type="button" onClick={()=>downloadEvidenceJson(evidenceExport(props.album,props.checked),'E35_Eugenio_Espejo_Expediente.json')}>Exportar expediente JSON</button>
   </div>
-  <div className="safety-photo-controls"><label>Filtrar fotografías <select value={props.filter} onChange={event=>props.onFilter(event.target.value)}>{categoryNames.map(c=><option key={c} value={c}>{c==='Todas'?'Todas las categorías':c}</option>)}</select></label><span role="status">{filtered.length} de {photos.length} evidencias</span></div>
+  <div className="safety-photo-controls"><label>Filtrar fotografías <select value={props.filter} onChange={event=>props.onFilter(event.target.value)}>{categoryNames.map(c=><option key={c} value={c}>{c==='Todas'?'Todas las categorías':c}</option>)}</select></label><span role="status">{filtered.length} de <strong>{photos.length}</strong> evidencias</span></div>
   <div className="safety-photos-grid">{filtered.map(photo=><article data-evidence-id={photo.id} className="safety-photo-card" key={photo.id}>
    <button type="button" aria-label={'Abrir '+photo.id+' · '+photo.title} onClick={()=>props.onOpen(photo.id)}>
     <PhotoPreview photo={photo}/>
