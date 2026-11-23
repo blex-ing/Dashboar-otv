@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+Integración de la demo E35 del usuario en el Dashboard OTV: diseño documental visual, galería F01–F10 con modal y filtros, carga privada de fotos y JSON, matriz R01–R07, checklist y progreso, seis fuentes documentales y cronología conservada. Imágenes originales de Google Maps solo por importación local; IndexedDB para fotos opt-in, sin cookies ni cambios electorales. Legal actualizado y CI/Visual QA completos sin alterar el baseline.
+
 ## 0.7.0
 
 Nueva sección de seguridad vial para el acceso E35 a Eugenio Espejo desde Dashboard Otavalo: croquis conceptual, diez fichas fotográficas históricas, siete puntos por investigar, cronología de siniestros con fuentes y checklist local sin persistencia. El choque mortal de 30/10/2026 queda descrito como colisión de vehículos, sin atribuir atropellos ni localización exacta. Sin cambios en votación, D1 o dependencias; pruebas de accesibilidad y CI.
