@@ -26,6 +26,18 @@ function readImageEntry(value:unknown):Record<string,unknown>|null {
 }
 const originalIds=new Set(initialEvidence.map(photo=>photo.id));
 interface ParsedImage {id:string;src:string;photo?:EvidencePhoto}
+function localEvidencePhoto(image:Record<string,unknown>,id:string,src:string):EvidencePhoto|null{
+ const title=short(image.name??image.title,120);
+ const observed=short(image.observation??image.observed,1000);
+ if(!title||!observed)return null;
+ const category=short(image.category,24);
+ return {
+  id,src,title,observed,category:allowedCategory.has(category)?category:'Entorno',
+  date:short(image.period??image.date,90)||'Fecha no indicada',
+  verify:short(image.verify,1000),
+  source:'Imagen aportada localmente · sin verificación editorial',origin:'local'
+ };
+}
 function validImportedImage(item:unknown):ParsedImage|null {
  const image=readImageEntry(item);
  if(!image)return null;
@@ -33,17 +45,8 @@ function validImportedImage(item:unknown):ParsedImage|null {
  if(!id||!src)return null;
  if(originalIds.has(id))return {id,src};
  if(!/^N[a-zA-Z0-9_-]{1,39}$/.test(id))return null;
- const title=short(image.name??image.title,120);
- const observed=short(image.observation??image.observed,1000);
- if(!title||!observed)return null;
- const category=short(image.category,24);
- const photo:EvidencePhoto={
-  id,src,title,observed,category:allowedCategory.has(category)?category:'Entorno',
-  date:short(image.period??image.date,90)||'Fecha no indicada',
-  verify:short(image.verify,1000),
-  source:'Imagen aportada localmente · sin verificación editorial',origin:'local'
- };
- return {id,src,photo};
+ const photo=localEvidencePhoto(image,id,src);
+ return photo?{id,src,photo}:null;
 }
 function parseChecklist(value:unknown):Record<string,boolean>{
  if(!Array.isArray(value))return {};
